@@ -24,6 +24,35 @@ services:
       my-net:
         ipv4_address: 172.18.0.3
 
+  db:
+    image: mysql:8.0.28
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: dsd
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+    ports:
+        - "9906:3306"
+    networks:
+      my-net:
+        ipv4_address: 172.18.0.4
+    volumes:
+      - ./db:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:5.1.3
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: db
+    depends_on:
+        - db
+    networks:
+      my-net:
+        ipv4_address: 172.18.0.5
+
 networks: 
   my-net:
     ipam:
