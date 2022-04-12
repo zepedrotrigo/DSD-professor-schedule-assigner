@@ -1,6 +1,7 @@
 .cell {
     height: 7%;
     width: 40%;
+    min-width: 40%;
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.285);
     border-radius: 5px;
@@ -10,11 +11,13 @@
 .cell.sm {
     height: 7%;
     width: 18%;
+    min-width: 18%;
 }
 
 .cell.bg {
     height: 7%;
     width: 40%;
+    min-width: 40%;
 }
 
 .cell.p {
@@ -39,4 +42,27 @@
 
 .cell.warning {
     background-color: red;
+}
+
+.hours, .text, .percentage {
+    width: 100%;
+}
+
+.hours, .percentage {
+    font-size: 11px;
+}
+
+.hours{
+    height: 30%;
+}
+
+.percentage {
+    height: 30%;
+}
+
+.text {
+    height: 40%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 15px;
 }
