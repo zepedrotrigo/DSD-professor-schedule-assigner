@@ -9,4 +9,24 @@ services:
     #  - './app/src:/app/src'
     ports:
       - 3000:3000
+    networks:
+      my-net:
+        ipv4_address: 172.18.0.2
     stdin_open: true
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      my-net:
+        ipv4_address: 172.18.0.3
+
+networks: 
+  my-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
