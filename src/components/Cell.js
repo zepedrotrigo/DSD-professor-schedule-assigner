@@ -10,7 +10,7 @@ function Cell(props) {
 }
 
 Cell.defaultProps = {    
-    extClass: "cell sm p"
+    extClass: "cell"
   }
 
 export default Cell;

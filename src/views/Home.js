@@ -14,14 +14,14 @@ function Home() {
             <div className='panel-wrapper'>
                 <SidePanel></SidePanel>
                 <MainPanel>
-                    <Cell></Cell>
+                    <Cell extClass="cell p"></Cell>
                     <Cell extClass="cell t"></Cell>
                     <Cell extClass="cell tp"></Cell>
                     <Cell extClass="cell lab"></Cell>
                     <Cell extClass="cell outside-activity"></Cell>
                 </MainPanel>
                 <MainPanel>
-                    <Cell></Cell>
+                    <Cell extClass="cell p"></Cell>
                     <Cell extClass="cell t"></Cell>
                     <Cell extClass="cell tp"></Cell>
                     <Cell extClass="cell lab"></Cell>
