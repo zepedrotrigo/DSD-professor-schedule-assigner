@@ -4,6 +4,10 @@ import Navbar from '../components/Navbar';
 import SidePanel from '../components/SidePanel';
 import MainPanel from '../components/MainPanel';
 import Cell from '../components/Cell';
+import TeacherContent from '../components/TeacherContent';
+import TeacherHeader from '../components/TeacherHeader';
+import CourseContent from '../components/CourseContent';
+import CourseHeader from '../components/CourseHeader';
 
 function Home() {
     fetch('http://172.18.0.3:8000')
@@ -14,7 +18,8 @@ function Home() {
             <UniversalBar></UniversalBar>
             <Navbar></Navbar>
             <div className='panel-wrapper'>
-                <SidePanel></SidePanel>
+                <SidePanel>
+                </SidePanel>
                 <MainPanel>
                     <Cell />
                     <Cell extClass="cell p"></Cell>
@@ -37,7 +42,8 @@ function Home() {
                     <Cell extClass="cell lab"></Cell>
                     <Cell extClass="cell outside-activity"></Cell>
                 </MainPanel>
-                <SidePanel></SidePanel>
+                <SidePanel>
+                </SidePanel>
             </div>
         </div>
     )
