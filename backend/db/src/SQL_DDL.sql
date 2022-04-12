@@ -1,5 +1,5 @@
 CREATE TABLE dsd.professor(
-    id INT,
+    id INT AUTO_INCREMENT,
     nmec INT UNIQUE,
     email VARCHAR(50) UNIQUE,
     phone VARCHAR(20) UNIQUE,
@@ -20,19 +20,8 @@ CREATE TABLE dsd.dsder(
     FOREIGN KEY (id) REFERENCES dsd.professor(id)
 );
 
-CREATE TABLE dsd.director(
-    id INT,
-    department_num INT,
-    uc_num INT,
-    
-    PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES dsd.professor(id),
-    FOREIGN KEY (department_num) REFERENCES dsd.department(id),
-    FOREIGN KEY (uc_num) REFERENCES dsd.course(id)
-);
-
 CREATE TABLE dsd.wishlist(
-    id INT,
+    id INT AUTO_INCREMENT,
     year INT NOT NULL,
     professor INT,
     preference VARCHAR(20) NOT NULL DEFAULT 'neutral',
@@ -49,9 +38,10 @@ CREATE TABLE dsd.department(
     [name] VARCHAR(100),
     [address] VARCHAR(100),
     phone INT,
-    course VARCHAR(50),
+    director INT,
+
     PRIMARY KEY (id),
-    FOREIGN KEY (course) REFERENCES dsd.course(id)
+    FOREIGN KEY (director) REFERENCES dsd.professor(id)
 );
 
 CREATE TABLE dsd.course(
@@ -60,7 +50,10 @@ CREATE TABLE dsd.course(
     [name] VARCHAR (100),
     department INT,
     uc INT,
+    director INT,
+
     PRIMARY KEY (id),
+    FOREIGN KEY (director) REFERENCES dsd.professor(id),
     FOREIGN KEY (department) REFERENCES dsd.department(id),
     FOREIGN KEY (uc) REFERENCES dsd.uc(id) 
 );
@@ -73,6 +66,7 @@ CREATE TABLE dsd.uc(
     classes INT,
     course INT,
     director INT
+
     PRIMARY KEY (id),
     FOREIGN KEY (classes) REFERENCES dsd.classes(id),
     FOREIGN KEY (course) REFERENCES dsd.course(id),
@@ -80,13 +74,14 @@ CREATE TABLE dsd.uc(
 );
 
 CREATE TABLE dsd.classes(
-    id INT,
+    id INT AUTO_INCREMENT,
     year INT NOT NULL,
     uc_num INT,
     component VARCHAR(3) NOT NULL,
-    [hours] INT,
+    [hours] FLOAT,
     prof_id INT DEFAULT -1,
-    [availability] BIT,
+    [availability] INT,
+
     PRIMARY KEY (id),
     FOREIGN KEY (uc_num) REFERENCES dsd.uc(id),
     FOREIGN KEY (prof_id) REFERENCES dsd.professor(id)
