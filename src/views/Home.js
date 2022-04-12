@@ -3,6 +3,7 @@ import UniversalBar from '../components/UniversalBar'
 import Navbar from '../components/Navbar';
 import SidePanel from '../components/SidePanel';
 import MainPanel from '../components/MainPanel';
+import Cell from '../components/Cell';
 
 function Home() {
 
@@ -13,25 +14,18 @@ function Home() {
             <div className='panel-wrapper'>
                 <SidePanel></SidePanel>
                 <MainPanel>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
+                    <Cell></Cell>
+                    <Cell extClass="cell t"></Cell>
+                    <Cell extClass="cell tp"></Cell>
+                    <Cell extClass="cell lab"></Cell>
+                    <Cell extClass="cell outside-activity"></Cell>
                 </MainPanel>
                 <MainPanel>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
-                    <p>ola</p>
+                    <Cell></Cell>
+                    <Cell extClass="cell t"></Cell>
+                    <Cell extClass="cell tp"></Cell>
+                    <Cell extClass="cell lab"></Cell>
+                    <Cell extClass="cell outside-activity"></Cell>
                 </MainPanel>
                 <SidePanel></SidePanel>
             </div>
