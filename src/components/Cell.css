@@ -1,0 +1,40 @@
+.cell {
+    height: 7%;
+    width: 50%;
+    background-color: #e08080;
+    border: 1px solid black;
+}
+
+.cell.sm {
+    height: 7%;
+    width: 25%;
+}
+
+.cell.bg {
+    height: 7%;
+    width: 50%;
+}
+
+.cell.p {
+    background-color: #8bd06d;
+}
+
+.cell.t {
+    background-color: #ff987c;
+}
+
+.cell.tp {
+    background-color: #e9a6e3;
+}
+
+.cell.lab {
+    background-color: #eed12e;
+}
+
+.cell.outside-activity {
+    background-color: #5f7eda;
+}
+
+.cell.warning {
+    background-color: red;
+}
