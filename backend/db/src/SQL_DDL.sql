@@ -49,13 +49,11 @@ CREATE TABLE dsd.course(
     acronym VARCHAR(5) UNIQUE,
     [name] VARCHAR (100),
     department INT,
-    uc INT,
     director INT,
 
     PRIMARY KEY (id),
     FOREIGN KEY (director) REFERENCES dsd.professor(id),
     FOREIGN KEY (department) REFERENCES dsd.department(id),
-    FOREIGN KEY (uc) REFERENCES dsd.uc(id) 
 );
 
 CREATE TABLE dsd.uc(
@@ -63,13 +61,9 @@ CREATE TABLE dsd.uc(
     acronym VARCHAR(5),
     [name] VARCHAR(50),
     students_estimate INT,
-    classes INT,
-    course INT,
     director INT
 
     PRIMARY KEY (id),
-    FOREIGN KEY (classes) REFERENCES dsd.classes(id),
-    FOREIGN KEY (course) REFERENCES dsd.course(id),
     FOREIGN KEY (director) REFERENCES dsd.director(id)
 );
 
