@@ -6,7 +6,9 @@ import MainPanel from '../components/MainPanel';
 import Cell from '../components/Cell';
 
 function Home() {
-
+    fetch('http://127.0.0.1:8000')
+  .then(response => response.json())
+  .then(data => console.log(data));
     return (
         <div className="content">
             <UniversalBar></UniversalBar>
