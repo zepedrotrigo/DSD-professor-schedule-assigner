@@ -19,6 +19,7 @@ function Home() {
             <Navbar></Navbar>
             <div className='panel-wrapper'>
                 <SidePanel>
+                    <CourseHeader />
                 </SidePanel>
                 <MainPanel>
                     <Cell />
