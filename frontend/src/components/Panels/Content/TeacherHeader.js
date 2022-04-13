@@ -4,7 +4,7 @@ function TeacherHeader() {
     return(
         <div className='header-teacher-wrapper'>
             <div className='teacher-image'>
-                <img src='https://www.jeancoutu.com/globalassets/revamp/photo/conseils-photo/20160302-01-reseaux-sociaux-profil/photo-profil_301783868.jpg' alt="Teacher's photo"></img>
+                <img src='https://pi-group-03.netlify.app/img/tos.jpg' alt="Teacher's"></img>
             </div>
             <div className='teacher-header-name'>
                 <span className='acronym'>TOS</span>
