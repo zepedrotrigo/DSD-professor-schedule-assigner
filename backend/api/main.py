@@ -43,9 +43,18 @@ def reset_cursor():
 def read_root():
     return RedirectResponse(url='/docs')
 
-@app.get("/classes/")
-def get_classes(prof_id: Optional[int] = -1, uc: Optional[int]= -1, year: Optional[int] = -1):
-    '''Returns all classes (or sorted by prof, uc, year)'''
+@app.get("/v1/classes/")
+def get_classes(prof_id: Optional[int] = -1, uc_id: Optional[int]= -1, year: Optional[int] = -1):
+    '''Returns all classes (allows combined filters: id, uc, year)'''
+
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.get_classes(cursor, prof_id, uc, year)
+        return crud.get_classes(cursor, prof_id, uc_id, year)
+
+@app.get("/v1/professors/")
+def get_classes(prof_id: Optional[int] = -1, nmec: Optional[int] = -1, acronym: Optional[str] = "NULL", name: Optional[str] = "NULL",rank: Optional[str]= "NULL"):
+    '''Returns all professors (allows combined filters: id, nmec, acronym, name, rank)'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.get_professors(cursor, prof_id, nmec, acronym, name, rank)

@@ -1,4 +1,4 @@
-CREATE TABLE dsd.department(
+CREATE TABLE dsd.departments(
     id INT,
     acronym VARCHAR(5) UNIQUE,
     dept_name VARCHAR(100),
@@ -8,7 +8,7 @@ CREATE TABLE dsd.department(
     PRIMARY KEY (id)
 );
 
-CREATE TABLE dsd.professor(
+CREATE TABLE dsd.professors(
     id INT AUTO_INCREMENT,
     nmec INT UNIQUE,
     email VARCHAR(50) UNIQUE,
@@ -20,17 +20,17 @@ CREATE TABLE dsd.professor(
     department_num INT,
     
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (department_num) REFERENCES dsd.department(id)
+    CONSTRAINT FOREIGN KEY (department_num) REFERENCES dsd.departments(id)
 );
 
-CREATE TABLE dsd.dsder(
+CREATE TABLE dsd.dsders(
     id INT,
     
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (id) REFERENCES dsd.professor(id)
+    CONSTRAINT FOREIGN KEY (id) REFERENCES dsd.professors(id)
 );
 
-CREATE TABLE dsd.course(
+CREATE TABLE dsd.courses(
     id INT,
     acronym VARCHAR(5) UNIQUE,
     course_name VARCHAR (100),
@@ -38,11 +38,11 @@ CREATE TABLE dsd.course(
     director INT,
 
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (director) REFERENCES dsd.professor(id),
-    CONSTRAINT FOREIGN KEY (department) REFERENCES dsd.department(id)
+    CONSTRAINT FOREIGN KEY (director) REFERENCES dsd.professors(id),
+    CONSTRAINT FOREIGN KEY (department) REFERENCES dsd.departments(id)
 );
 
-CREATE TABLE dsd.uc(
+CREATE TABLE dsd.ucs(
     id INT,
     acronym VARCHAR(5),
     uc_name VARCHAR(50),
@@ -50,7 +50,7 @@ CREATE TABLE dsd.uc(
     director INT,
 
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (director) REFERENCES dsd.professor(id)
+    CONSTRAINT FOREIGN KEY (director) REFERENCES dsd.professors(id)
 );
 
 CREATE TABLE dsd.classes(
@@ -63,11 +63,11 @@ CREATE TABLE dsd.classes(
     availability_percent INT DEFAULT NULL,
 
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (uc_num) REFERENCES dsd.uc(id),
-    CONSTRAINT FOREIGN KEY (prof_id) REFERENCES dsd.professor(id)
+    CONSTRAINT FOREIGN KEY (uc_num) REFERENCES dsd.ucs(id),
+    CONSTRAINT FOREIGN KEY (prof_id) REFERENCES dsd.professors(id)
 );
 
-CREATE TABLE dsd.wishlist(
+CREATE TABLE dsd.wishlists(
     id INT AUTO_INCREMENT,
     year_int INT NOT NULL,
     professor INT,
@@ -75,6 +75,6 @@ CREATE TABLE dsd.wishlist(
     class_id INT,
     
     PRIMARY KEY (id),
-    CONSTRAINT FOREIGN KEY (professor) REFERENCES dsd.professor(id),
+    CONSTRAINT FOREIGN KEY (professor) REFERENCES dsd.professors(id),
     CONSTRAINT FOREIGN KEY (class_id) REFERENCES dsd.classes(id)
 );
