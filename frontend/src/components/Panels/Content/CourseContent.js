@@ -33,9 +33,24 @@ function CourseContent() {
                 </ul>
                 <span>P:</span>
                 <ul className='course-classes-p'>
-                    <li>BSS (2H)</li>
-                    <li>BSS (2H)</li>
-                    <li>JPS (2H)</li>
+                    <li>
+                        <div className='teacher-chosen'>
+                            <span>BSS (2H)</span>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div className='teacher-chosen'>
+                            <span>BSS (2H)</span>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div className='teacher-chosen'>
+                            <span>JPS (2H)</span>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </li>
                     <li>
                         <div className='teacher-input'>
                             <input type='text'/>
@@ -47,7 +62,7 @@ function CourseContent() {
                         <div className='teacher-input'>
                             <input type='text'/>
                             <span>(2H)</span>
-                            <i class="fas fa-times-circle"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                     </li>
                 </ul>

@@ -54,14 +54,21 @@
     display: inline-block;
     margin-right: 0.5rem;
 }
+
+.teacher-chosen span {
+    margin: 0;
+}
+
 .teacher-input span {
     margin-left: 0.2rem;
 }
-.teacher-input i {
+
+.teacher-input i, .teacher-chosen i {
     margin-left: 0.3rem;
 }
 
-.teacher-input i:hover {
+.teacher-input i:hover,
+.teacher-chosen i:hover {
     cursor: pointer;
 }
 
@@ -69,6 +76,6 @@
     color: green;
 }
 
-.teacher-input .fa-times-circle {
+.teacher-chosen .fa-times-circle {
     color: red;
 }

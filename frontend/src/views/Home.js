@@ -57,7 +57,7 @@ function Home() {
                         <MainCell acr={map.acronym}/>
                     ))}
                     <div className='align-cell'>
-                        <MainCell acr={data.content.body[0].acronym}/>
+                        <MainCell class="main-cell done" acr={data.content.body[0].acronym}/>
                         <Cell extClass="cell sm p"></Cell>
                         <Cell extClass="cell sm tp"/>
                         <Cell extClass="cell sm p"></Cell>
@@ -65,8 +65,8 @@ function Home() {
                     </div>
                 </MainPanel>
                 <MainPanel>
-                    <MainCell />
-                    <MainCell />
+                    <MainCell class="main-cell overload"/>
+                    <MainCell class="main-cell done"/>
                     <MainCell />
                     <MainCell />
                     <MainCell />

@@ -18,3 +18,11 @@
     column-gap: 0.3rem; 
     align-items: center;
 }
+
+.main-cell.done {
+    background-color: rgb(67, 150, 67);
+}
+
+.main-cell.overload {
+    background-color: rgb(217, 69, 69);
+}

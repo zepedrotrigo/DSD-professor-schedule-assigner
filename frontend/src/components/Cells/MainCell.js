@@ -3,7 +3,7 @@ import './MainCell.css';
 function MainCell(props) {
 
     return (
-            <div className='main-cell'>
+            <div className={props.class}>
                 <div className='main-cell-wrapper'>
                     <div className='course-acronym'>
                         <span>{props.acr}</span>
@@ -23,6 +23,10 @@ function MainCell(props) {
                 </div>
             </div>
     )
+}
+
+MainCell.defaultProps = {    
+    class: "main-cell"
 }
 
 export default MainCell;
