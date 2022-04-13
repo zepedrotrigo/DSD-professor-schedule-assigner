@@ -1,11 +1,7 @@
-.course-info ul {
+.course-info ul, .regent-info ul {
     list-style-type: none;
     margin: 1rem 0 0 0.5rem;
     padding: 0;
-}
-
-.course-info ul li {
-    margin-bottom: 0.5rem;
 }
 
 .course-type-list ul {
@@ -15,4 +11,46 @@
 .course-type-list ul li{
     display: inline-block;
     margin-right: 0.6rem;
+}
+
+.course-classes-info {
+    margin-top: 1rem;
+}
+
+.course-classes-info span {
+    margin-left: 0.5rem;
+}
+
+.course-classes-t,
+.course-classes-p {
+    list-style-type: none;
+    margin: 0 0 1rem 0.5rem;
+    padding: 0;
+}
+
+.course-info ul li {
+    margin-bottom: 0.5rem;
+}
+
+.course-classes-p li input {
+    width: 15%;
+}
+
+.course-wishlist span {
+    margin-left: 0.5rem;
+}
+
+.course-wishlist ul, .course-history ul {
+    list-style-type: none;
+    margin: 0.2rem 0 0 0.5rem;
+    padding: 0;
+}
+
+.course-history {
+    margin-top: 1rem;
+}
+
+.course-wishlist ul li, .course-history ul li {
+    display: inline-block;
+    margin-left: 0.5rem;
 }
