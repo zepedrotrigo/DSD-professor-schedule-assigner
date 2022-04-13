@@ -22,13 +22,8 @@ connection = None
 try:
     connection = mysql.connector.connect(host="172.18.0.4", user="user", passwd="password", database="dsd")
 except mysql.connector.Error as e:
-    if e.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Incorrect credentials!")
-    elif e.errno == mysql.connector.errorcode.ER_BAD_DV_ERROR:
-        print("Database does not exist!")
-    else:
-        print(e)
-        traceback.print_exc()
+    print(e)
+    traceback.print_exc()
 
     exit()
 
@@ -41,7 +36,8 @@ def reset_cursor():
 
 @app.get("/")
 def read_root():
-    return RedirectResponse(url='/docs')
+    return {"Hello": "World"}
+    #return RedirectResponse(url='/docs')
 
 @app.get("/v1/classes/")
 def get_classes(id: Optional[int] = -1, year: Optional[int]= -1, uc_id: Optional[int] = -1, component: Optional[str] = "NULL", hours: Optional[float] = -1.0, prof_id: Optional[int] = -1):
