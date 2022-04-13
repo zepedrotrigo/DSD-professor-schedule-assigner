@@ -1,6 +1,6 @@
 CREATE TABLE dsd.departments(
     id INT,
-    acronym VARCHAR(5) UNIQUE,
+    acronym VARCHAR(10) UNIQUE,
     dept_name VARCHAR(100),
     dept_address VARCHAR(100), 
     phone VARCHAR(20),
@@ -13,7 +13,7 @@ CREATE TABLE dsd.professors(
     nmec INT UNIQUE,
     email VARCHAR(50) UNIQUE,
     phone VARCHAR(20) UNIQUE,
-    acronym VARCHAR(5) NOT NULL UNIQUE,
+    acronym VARCHAR(10) NOT NULL UNIQUE,
     prof_name VARCHAR(100) NOT NULL,
     prof_rank VARCHAR(30),
     situation VARCHAR(30),
@@ -32,7 +32,7 @@ CREATE TABLE dsd.dsders(
 
 CREATE TABLE dsd.courses(
     id INT,
-    acronym VARCHAR(5) UNIQUE,
+    acronym VARCHAR(10) UNIQUE,
     course_name VARCHAR (100),
     department INT,
     director INT,
@@ -44,8 +44,8 @@ CREATE TABLE dsd.courses(
 
 CREATE TABLE dsd.ucs(
     id INT,
-    acronym VARCHAR(5),
-    uc_name VARCHAR(50),
+    acronym VARCHAR(10),
+    uc_name VARCHAR(100),
     students_estimate INT,
     director INT,
 
@@ -72,9 +72,9 @@ CREATE TABLE dsd.wishlists(
     year_int INT NOT NULL,
     professor INT,
     preference VARCHAR(20) NOT NULL DEFAULT 'neutral',
-    class_id INT,
+    uc_id INT,
     
     PRIMARY KEY (id),
     CONSTRAINT FOREIGN KEY (professor) REFERENCES dsd.professors(id),
-    CONSTRAINT FOREIGN KEY (class_id) REFERENCES dsd.classes(id)
+    CONSTRAINT FOREIGN KEY (uc_id) REFERENCES dsd.ucs(id)
 );

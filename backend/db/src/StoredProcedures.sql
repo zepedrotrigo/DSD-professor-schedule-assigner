@@ -29,7 +29,7 @@ DELIMITER $$
 
 CREATE PROCEDURE FilterDepartments(
     id INT,
-    acronym VARCHAR(5),
+    acronym VARCHAR(10),
     dept_name VARCHAR(100),
     dept_address VARCHAR(100), 
     phone VARCHAR(20)
@@ -56,7 +56,7 @@ CREATE PROCEDURE FilterProfessors(
     nmec INT,
     email VARCHAR(50),
     phone VARCHAR(20),
-    acronym VARCHAR(5),
+    acronym VARCHAR(10),
     prof_name VARCHAR(100),
     prof_rank VARCHAR(30),
     situation VARCHAR(30),
@@ -101,7 +101,7 @@ DELIMITER $$
 
 CREATE PROCEDURE FilterCourses(
     course_id INT,
-    acronym VARCHAR(5),
+    acronym VARCHAR(10),
     course_name VARCHAR(100),
     department_id INT,
     director_id INT
@@ -125,8 +125,8 @@ DELIMITER $$
 
 CREATE PROCEDURE FilterUcs(
     uc_id INT,
-    acronym VARCHAR(5),
-    uc_name VARCHAR(50),
+    acronym VARCHAR(10),
+    uc_name VARCHAR(100),
     director INT
 )
 BEGIN
@@ -148,14 +148,14 @@ CREATE PROCEDURE FilterWishlists(
     wishlist_id INT,
     year_int INT,
     prof_id INT,
-    class_id INT
+    uc_id INT
 )
 BEGIN
 	SELECT *  FROM wishlists
     WHERE   (wishlist_id=-1 OR wishlists.id = wishlist_id)
         AND (year_int=-1 OR wishlists.year_int = year_int)
         AND (prof_id=-1 OR wishlists.professor = prof_id)
-        AND (class_id=-1 OR wishlists.class_id = class_id);
+        AND (uc_id=-1 OR wishlists.uc_id = uc_id);
 
 END $$
 

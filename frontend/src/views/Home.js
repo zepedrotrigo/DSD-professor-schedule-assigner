@@ -12,7 +12,7 @@ import CourseHeader from '../components/Panels/Content/CourseHeader';
 import MainCell from '../components/Cells/MainCell';
 
 function Home() {
-    fetch('http://172.18.0.3:8000')
+    fetch('http://172.18.0.3:8000/v1/courses/')
   .then(response => response.json())
   .then(data => console.log(data));
 
@@ -57,20 +57,9 @@ function Home() {
                         <MainCell acr={map.acronym}/>
                     ))}
                     <div className='align-cell'>
-                        <MainCell class="main-cell done" acr={data.content.body[0].acronym}/>
-                        <Cell extClass="cell sm p"></Cell>
-                        <Cell extClass="cell sm tp"/>
-                        <Cell extClass="cell sm t"></Cell>
-                        <Cell extClass="cell sm outside-activity"></Cell>
-                        <Cell extClass="cell sm lab"></Cell>
                     </div>
                 </MainPanel>
                 <MainPanel>
-                    <MainCell class="main-cell overload"/>
-                    <MainCell class="main-cell done"/>
-                    <MainCell />
-                    <MainCell />
-                    <MainCell />
                 </MainPanel>
                 <SidePanel>
                     <TeacherHeader />
