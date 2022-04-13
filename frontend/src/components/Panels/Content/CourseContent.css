@@ -28,6 +28,10 @@
     padding: 0;
 }
 
+.course-classes-p li {
+    margin-top: 0.2rem;
+}
+
 .course-info ul li {
     margin-bottom: 0.5rem;
 }
@@ -65,6 +69,7 @@
 
 .teacher-input i, .teacher-chosen i {
     margin-left: 0.3rem;
+    font-size: 17px;
 }
 
 .teacher-input i:hover,
@@ -76,6 +81,16 @@
     color: green;
 }
 
+.teacher-input .fa-check-circle:hover {
+    color: darkgreen;
+    transition: all 0.06s ease-in-out;
+}
+
 .teacher-chosen .fa-times-circle {
     color: red;
+}
+
+.teacher-chosen .fa-times-circle:hover {
+    color: rgb(183, 3, 3);
+    transition: all 0.06s ease-in-out;
 }

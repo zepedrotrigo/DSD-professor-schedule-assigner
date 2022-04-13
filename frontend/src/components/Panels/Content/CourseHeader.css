@@ -16,8 +16,16 @@
     color: black;
 }
 
+.maximize-icon button {
+    border: 0;
+    background-color: none;
+}
+
 .maximize-icon img:hover {
     cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    transition: all 0.05s ease-in-out;
 }
 
 .image {

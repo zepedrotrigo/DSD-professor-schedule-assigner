@@ -6,7 +6,7 @@ function CourseHeader({children}) {
     return (
         <>
             <div className="maximize-icon">
-                <img src={icon} alt='maximize icon'/>
+                <a href="http://localhost:3000/sidepanel" target="_blank"><img src={icon} alt='maximize icon'/></a>
             </div>
             <div className='header-wrapper'>
                 <div className='image'>

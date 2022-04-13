@@ -5,7 +5,7 @@ function TeacherHeader() {
     return(
         <>
             <div className="maximize-icon">
-                <img src={icon} alt='maximize icon'/>
+                <a href="http://localhost:3000/sidepanel" target="popup"><img src={icon} alt='maximize icon'/></a>
             </div>
             <div className='header-teacher-wrapper'>
                 <div className='teacher-image'>

@@ -60,8 +60,9 @@ function Home() {
                         <MainCell class="main-cell done" acr={data.content.body[0].acronym}/>
                         <Cell extClass="cell sm p"></Cell>
                         <Cell extClass="cell sm tp"/>
-                        <Cell extClass="cell sm p"></Cell>
-                        <Cell extClass="cell sm p"></Cell>
+                        <Cell extClass="cell sm t"></Cell>
+                        <Cell extClass="cell sm outside-activity"></Cell>
+                        <Cell extClass="cell sm lab"></Cell>
                     </div>
                 </MainPanel>
                 <MainPanel>
