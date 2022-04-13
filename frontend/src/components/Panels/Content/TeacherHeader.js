@@ -1,16 +1,22 @@
 import './TeacherHeader.css';
+import icon from '../img/maximize.png';
 
 function TeacherHeader() {
     return(
-        <div className='header-teacher-wrapper'>
-            <div className='teacher-image'>
-                <img src='https://pi-group-03.netlify.app/img/tos.jpg' alt="Teacher's"></img>
+        <>
+            <div className="maximize-icon">
+                <img src={icon} alt='maximize icon'/>
             </div>
-            <div className='teacher-header-name'>
-                <span className='acronym'>TOS</span>
-                <span className='name'>Tomás António Mendes Oliveira e Silva</span>
+            <div className='header-teacher-wrapper'>
+                <div className='teacher-image'>
+                    <img src='https://pi-group-03.netlify.app/img/tos.jpg' alt="Teacher's"></img>
+                </div>
+                <div className='teacher-header-name'>
+                    <span className='acronym'>TOS</span>
+                    <span className='name'>Tomás António Mendes Oliveira e Silva</span>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
