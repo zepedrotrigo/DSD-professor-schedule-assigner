@@ -36,8 +36,20 @@ function CourseContent() {
                     <li>BSS (2H)</li>
                     <li>BSS (2H)</li>
                     <li>JPS (2H)</li>
-                    <li><input type='text'/> (2H)</li>
-                    <li><input type='text'/> (2H)</li>
+                    <li>
+                        <div className='teacher-input'>
+                            <input type='text'/>
+                            <span>(2H)</span>
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </li>
+                    <li>
+                        <div className='teacher-input'>
+                            <input type='text'/>
+                            <span>(2H)</span>
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                    </li>
                 </ul>
             </div>
 

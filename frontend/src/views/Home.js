@@ -63,7 +63,7 @@ function Home() {
                         <Cell extClass="cell sm p"></Cell>
                         <Cell extClass="cell sm p"></Cell>
                     </div>
-                    </MainPanel>
+                </MainPanel>
                 <MainPanel>
                     <MainCell />
                     <MainCell />
