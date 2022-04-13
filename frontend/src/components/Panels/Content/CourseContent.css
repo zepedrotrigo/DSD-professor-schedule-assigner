@@ -17,7 +17,7 @@
     margin-top: 1rem;
 }
 
-.course-classes-info span {
+.course-classes-info span, .course-history span {
     margin-left: 0.5rem;
 }
 
@@ -52,5 +52,5 @@
 
 .course-wishlist ul li, .course-history ul li {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }

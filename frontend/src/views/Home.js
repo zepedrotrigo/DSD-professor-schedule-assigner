@@ -1,13 +1,13 @@
 import '../App.css';
 import UniversalBar from '../components/UniversalBar'
 import Navbar from '../components/Navbar';
-import SidePanel from '../components/SidePanel';
-import MainPanel from '../components/MainPanel';
 import Cell from '../components/Cell';
-import TeacherContent from '../components/TeacherContent';
-import TeacherHeader from '../components/TeacherHeader';
-import CourseContent from '../components/CourseContent';
-import CourseHeader from '../components/CourseHeader';
+import SidePanel from '../components/Panels/SidePanel/SidePanel';
+import MainPanel from '../components/Panels/MainPanel/MainPanel';
+import TeacherContent from '../components/Panels/Content/TeacherContent';
+import TeacherHeader from '../components/Panels/Content/TeacherHeader';
+import CourseContent from '../components/Panels/Content/CourseContent';
+import CourseHeader from '../components/Panels/Content/CourseHeader';
 
 function Home() {
     fetch('http://172.18.0.3:8000')
