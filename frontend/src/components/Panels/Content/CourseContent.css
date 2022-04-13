@@ -54,3 +54,21 @@
     display: inline-block;
     margin-right: 0.5rem;
 }
+.teacher-input span {
+    margin-left: 0.2rem;
+}
+.teacher-input i {
+    margin-left: 0.3rem;
+}
+
+.teacher-input i:hover {
+    cursor: pointer;
+}
+
+.teacher-input .fa-check-circle{
+    color: green;
+}
+
+.teacher-input .fa-times-circle {
+    color: red;
+}
