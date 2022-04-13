@@ -20,6 +20,7 @@ function Home() {
             <div className='panel-wrapper'>
                 <SidePanel>
                     <CourseHeader />
+                    <CourseContent />
                 </SidePanel>
                 <MainPanel>
                     <Cell />
@@ -44,6 +45,8 @@ function Home() {
                     <Cell extClass="cell outside-activity"></Cell>
                 </MainPanel>
                 <SidePanel>
+                    <TeacherHeader />
+                    <TeacherContent />
                 </SidePanel>
             </div>
         </div>

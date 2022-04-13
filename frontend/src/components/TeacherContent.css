@@ -1,0 +1,43 @@
+.teacher-info ul, 
+.teacher-history ul{
+    list-style-type: none;
+    margin: 0;
+    margin-left: 0.5rem;
+    padding: 0;
+}
+
+.teacher-info ul li {
+    margin-bottom: 0.5rem;
+}
+
+.teacher-history ul{
+    margin-top: 1.5rem;
+}
+
+.teacher-wishlist{
+    margin-top: 1.5rem;
+}
+
+.teacher-wishlist ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.teacher-wishlist-like ul li,
+.teacher-wishlist-unlike ul li{
+    margin: 0 0.6rem;
+    display: inline-block;
+}
+
+.teacher-wishlist ul li:nth-child(1), 
+.teacher-wishlist ul li:nth-child(3) {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 0.5rem;
+    padding: 0;
+}
+
+.teacher-wishlist-like, .teacher-wishlist-unlike{
+    margin-bottom: 2rem;
+}
