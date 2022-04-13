@@ -6,4 +6,4 @@ def get_classes(cursor, prof_id, uc, year):
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
-    return json.dumps({"classes": [dict(zip(keys, vals)) for vals in result]})
+    return {"classes": [dict(zip(keys, vals)) for vals in result]}
