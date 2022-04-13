@@ -9,11 +9,11 @@ CREATE PROCEDURE FilterClasses(
 )
 BEGIN
 	SELECT *  FROM classes
-    WHERE   (prof_id IS NULL OR classes.prof_id = prof_id)
-        AND (uc_id IS NULL OR classes.uc_num = uc_id)
-        AND (year_int IS NULL OR classes.year_int = year_int);
+    WHERE   (prof_id=-1 OR classes.prof_id = prof_id)
+        AND (uc_id=-1 OR classes.uc_num = uc_id)
+        AND (year_int=-1 OR classes.year_int = year_int);
 END $$
 
 DELIMITER ;
 
-CALL FilterClasses(NULL,NULL,NULL);
+-- CALL FilterClasses(-1,-1,-1);
