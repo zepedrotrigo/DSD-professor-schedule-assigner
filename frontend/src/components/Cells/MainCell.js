@@ -5,21 +5,13 @@ function MainCell(props) {
     return (
             <div className={props.class}>
                 <div className='main-cell-wrapper'>
-                    <div className='course-acronym'>
-                        <span>{props.acr}</span>
-                    </div>
+                        <span>{props.f1}</span>
                     <span className='delimiter'>|</span>
-                    <div className='course-name'>
-                        <span>Fund. Prog.</span>
-                    </div>
+                        <span>{props.f2}</span>
                     <span className='delimiter'>|</span>
-                    <div className='course-regent'>
-                        <span>JMR</span>
-                    </div>
+                    <span>{props.f3}</span>
                     <span className='delimiter'>|</span>
-                    <div className='course-students'>
-                        <span>180</span>
-                    </div>
+                    <span>{props.f4}</span>
                 </div>
             </div>
     )
