@@ -21,7 +21,7 @@ app.add_middleware(CORSMiddleware,
 def connect_to_db():
     return mysql.connector.connect(host="172.18.0.4", user="user", passwd="password", database="dsd")
 
-connection, connected = False
+connection = connected = False
 while not connected:
     try:
         connection = connect_to_db()
@@ -41,8 +41,7 @@ def reset_cursor():
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-    #return RedirectResponse(url='/docs')
+    return RedirectResponse(url='/docs')
 
 @app.get("/v1/classes/")
 def get_classes(id: Optional[int] = -1, year: Optional[int]= -1, uc_id: Optional[int] = -1, component: Optional[str] = "NULL", hours: Optional[float] = -1.0, prof_id: Optional[int] = -1):
