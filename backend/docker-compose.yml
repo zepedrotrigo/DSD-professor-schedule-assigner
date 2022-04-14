@@ -28,7 +28,8 @@ services:
       my-net:
         ipv4_address: 172.18.0.4
     volumes:
-      - ./db/sql-db:/var/lib/mysql
+      - ./db/src:/docker-entrypoint-initdb.d # import .sql files
+      - ./db/sql-db:/var/lib/mysql # save db state
 
   phpmyadmin:
     image: phpmyadmin:5.1.3
