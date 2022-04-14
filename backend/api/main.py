@@ -1,4 +1,4 @@
-import mysql.connector, traceback
+import mysql.connector, traceback, time
 import crud
 from typing import Optional
 from fastapi import FastAPI
@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse
 app = FastAPI()
 
 ### add CORS headers ###
-origins = ["http://172.18.0.2:3000"] # "*" -> all origins
+origins = ["http://172.18.0.2:3000", "http://localhost:3000"] # "*" -> all origins
 
 app.add_middleware(CORSMiddleware,
     allow_origins=origins,
@@ -18,14 +18,19 @@ app.add_middleware(CORSMiddleware,
 )
 
 ### DB connection ###
-connection = None
-try:
-    connection = mysql.connector.connect(host="172.18.0.4", user="user", passwd="password", database="dsd")
-except mysql.connector.Error as e:
-    print(e)
-    traceback.print_exc()
+def connect_to_db():
+    return mysql.connector.connect(host="172.18.0.4", user="user", passwd="password", database="dsd")
 
-    exit()
+connection, connected = False
+while not connected:
+    try:
+        connection = connect_to_db()
+    except mysql.connector.Error as e:
+        print(e)
+        traceback.print_exc()
+        time.sleep(30) # wait 30sec to try again
+    else:
+        connected = True
 
 def reset_cursor():
     connection.close()
@@ -94,3 +99,11 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
+
+@app.get("/v1/assigned_classes/")
+def get_assigned_classes():
+    '''Returns all assigned classes'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.get_assigned_classes(cursor)

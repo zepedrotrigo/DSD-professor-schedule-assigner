@@ -60,3 +60,12 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
     keys = [i[0] for i in cursor.description]
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
+
+def get_assigned_classes(cursor):
+    '''Returns all assigned classes'''
+
+    cursor.execute("SELECT * FROM assigned_classes")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    return {"assigned_classes": [dict(zip(keys, vals)) for vals in result]}
