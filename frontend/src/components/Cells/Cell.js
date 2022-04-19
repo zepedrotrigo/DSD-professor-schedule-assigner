@@ -5,13 +5,13 @@ function Cell(props) {
     return (
         <div className={props.extClass}>
             <div className='hours'>
-                <span>2</span>
+                <span>{props.hours}</span>
             </div>
             <div className='text'>
-                <span>PJF</span>
+                <span>{props.text}</span>
             </div>
             <div className='percentage'>
-                <span>100</span>
+                <span>{props.percentage === 100 ? "" : props.percentage}</span>
             </div>
         </div>
     )

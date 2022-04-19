@@ -29,6 +29,37 @@ class Home extends React.Component {
             })
     }
 
+    loadUCsCells() {
+        let last_uc = "";
+        let cellRows = []; // Contains all UCs wrapped in: <div className='align-cell'>{classes}</div>
+        let classes = []; // Constains one UC, gets cleared after pushing to cellRows
+
+        Array.from(this.state.json.assigned_classes.entries()).map((entry) => {
+            const [k, v] = entry
+
+            if (last_uc !== v.uc_acronym) {
+                cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
+                classes = [];
+                classes.push(<MainCell f1={v.uc_acronym} f2={v.uc_name} f3={v.director_acronym} f4={v.students_estimate} />)
+            
+                if (last_uc === "" && v.prof_acronym !== null)
+                    classes.push(<Cell extClass="cell sm p" text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+
+                last_uc = v.uc_acronym;
+            }
+            else {
+                if (v.prof_acronym !== null)
+                    classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+            }
+        })
+
+        return (
+            <div>
+                {cellRows}
+            </div>
+        )
+    }
+
     render() {
         return (
             <div className="content">
@@ -40,16 +71,12 @@ class Home extends React.Component {
                         <CourseContent />
                     </SidePanel>
                     <MainPanel>
-                        {this.state.apiResponded == true ?
-                            this.state.json.assigned_classes.map((i) => (
-                                <MainCell f1={i.uc_acronym} f2={i.uc_name} f3={i.director_acronym} f4={i.students_estimate} />
-                            ))
-                            : <h3>Fetching...</h3>}
+                        {this.state.apiResponded === true ? this.loadUCsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <MainPanel>
-                        {this.state.apiResponded == true ?
+                        {this.state.apiResponded === true ?
                             this.state.json.assigned_classes.map((i) => (
-                                <MainCell f1={i.prof_acronym} f2={i.prof_name}/>
+                                <MainCell f1={i.prof_acronym} f2={i.prof_name} />
                             ))
                             : <h3>Fetching...</h3>}
                     </MainPanel>
