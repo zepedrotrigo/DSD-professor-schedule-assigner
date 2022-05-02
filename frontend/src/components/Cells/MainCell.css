@@ -1,5 +1,5 @@
 .main-cell {
-    height: 7%;
+    height: 3rem;
     width: 50%;
     min-width: 50%;
     background-color: #ffffff;
@@ -7,6 +7,15 @@
     border-radius: 5px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
+
+.uc-name {
+    font-size: 14px;
+    text-transform: lowercase;
+}
+
+.uc-name::first-letter {
+    text-transform: capitalize;
+} 
 
 .main-cell-wrapper {
     padding-left: 0.5rem;

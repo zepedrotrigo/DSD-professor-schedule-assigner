@@ -1,5 +1,7 @@
 .cell {
-    height: 7%;
+    height: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
     width: 40%;
     min-width: 40%;
     background-color: #ffffff;
@@ -9,13 +11,17 @@
 }
 
 .cell.sm {
-    height: 7%;
+    height: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
     width: 18%;
     min-width: 18%;
 }
 
 .cell.bg {
-    height: 7%;
+    height: 3rem;
+    min-height: 3rem;
+    max-height: 3rem;
     width: 40%;
     min-width: 40%;
 }

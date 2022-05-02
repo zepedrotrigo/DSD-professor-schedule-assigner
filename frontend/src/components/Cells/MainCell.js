@@ -7,7 +7,7 @@ function MainCell(props) {
                 <div className='main-cell-wrapper'>
                         <span>{props.f1}</span>
                     <span className='delimiter'>|</span>
-                        <span>{props.f2}</span>
+                        <span className='uc-name'>{props.f2}</span>
                     <span className='delimiter'>|</span>
                     <span>{props.f3}</span>
                     <span className='delimiter'>|</span>
