@@ -17,7 +17,8 @@ class Home extends React.Component {
         super(props)
         this.state = {
             ucsList: null,
-            profsList: null
+            profsList: null,
+            profsHours: null
         }
     }
 
@@ -27,13 +28,13 @@ class Home extends React.Component {
             return str1
 
         var v = "";
-        for (let n in split_names){
-            if (split_names[n].length < 3){
+        for (let n in split_names) {
+            if (split_names[n].length < 3) {
                 v = v + split_names[n]
                 v = v + " "
             }
-            else{
-                v = v + split_names[n].substring(0,4)
+            else {
+                v = v + split_names[n].substring(0, 4)
                 v = v + " "
             }
         }
@@ -50,7 +51,7 @@ class Home extends React.Component {
                 this.setState({ ucsList: data })
             })
 
-        this.sleep(50).then(r => {
+        this.sleep(100).then(r => {
             fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="profs"')
                 .then((response) => response.json())
                 .then((data) => {
@@ -71,12 +72,12 @@ class Home extends React.Component {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
                 classes.push(<MainCell f1={v.uc_acronym} f2={this.abbrev_name(v.uc_name)} f3={v.director_acronym} f4={v.students_estimate} />)
-                classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} inputClass={"input "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
 
                 last_uc = v.uc_acronym;
             }
             else {
-                classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} inputClass={"input "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
             }
         })
 
@@ -98,13 +99,12 @@ class Home extends React.Component {
                 if (last_prof !== v.prof_acronym) {
                     cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                     classes = [];
-                    classes.push(<MainCell f1={v.prof_acronym} f2={v.prof_name} />)
-                    classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
-
+                    classes.push(<MainCell f1={v.prof_acronym} f2={v.prof_name} f3={v.total_hours+"H"}/>)
+                    classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
                     last_prof = v.prof_acronym;
                 }
                 else {
-                    classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                    classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
                 }
             }
         })

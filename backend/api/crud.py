@@ -62,9 +62,18 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
 
 def get_dsd_main_info(cursor, filter_by):
-    '''Returns all assigned classes'''
+    '''Returns data used in UCs and profs respective main panels'''
 
     cursor.execute(f"CALL getDsdMainInfo({filter_by});")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    return {"data": [dict(zip(keys, vals)) for vals in result]}
+
+def get_prof_total_hours(cursor):
+    '''Returns total hours assigned for each professor'''
+
+    cursor.execute("SELECT * FROM prof_total_hours;")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 

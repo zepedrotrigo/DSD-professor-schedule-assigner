@@ -106,3 +106,11 @@ def get_dsd_main_info(filter_by: Optional[str] = "NULL"):
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.get_dsd_main_info(cursor, filter_by)
+
+@app.get("/v1/prof_total_hours/")
+def get_prof_total_hours():
+    '''Returns total hours assigned for each professor'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.get_prof_total_hours(cursor)
