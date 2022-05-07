@@ -161,3 +161,25 @@ END $$
 
 DELIMITER ;
 -- CALL FilterWishlists(-1,-1,-1,-1);
+
+DELIMITER $$
+
+CREATE PROCEDURE getDsdMainInfo(
+    filterBy VARCHAR(100)
+)
+BEGIN
+        IF filterBy = "ucs" THEN
+            SELECT *  FROM dsd_main_info
+            ORDER BY uc_name ASC, prof_acronym ASC;
+        ELSEIF filterBy = "profs" THEN
+            SELECT *  FROM dsd_main_info
+            ORDER BY prof_acronym ASC;
+        ELSE
+            SELECT *  FROM dsd_main_info;
+        END IF;
+    
+
+END $$
+
+DELIMITER ;
+-- CALL getDsdMainInfo("");

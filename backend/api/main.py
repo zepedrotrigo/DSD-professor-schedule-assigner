@@ -99,10 +99,10 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
     with connection.cursor() as cursor:
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
 
-@app.get("/v1/assigned_classes/")
-def get_assigned_classes():
-    '''Returns all assigned classes'''
+@app.get("/v1/dsd_main_info/")
+def get_dsd_main_info(filter_by: Optional[str] = "NULL"):
+    '''Returns data used in UCs and profs respective main panels'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.get_assigned_classes(cursor)
+        return crud.get_dsd_main_info(cursor, filter_by)

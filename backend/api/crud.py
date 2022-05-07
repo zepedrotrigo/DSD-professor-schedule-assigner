@@ -61,11 +61,11 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
 
-def get_assigned_classes(cursor):
+def get_dsd_main_info(cursor, filter_by):
     '''Returns all assigned classes'''
 
-    cursor.execute("SELECT * FROM assigned_classes")
+    cursor.execute(f"CALL getDsdMainInfo({filter_by});")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
-    return {"assigned_classes": [dict(zip(keys, vals)) for vals in result]}
+    return {"data": [dict(zip(keys, vals)) for vals in result]}
