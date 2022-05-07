@@ -2,6 +2,10 @@
     height: 3rem;
     min-height: 3rem;
     max-height: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 40%;
     min-width: 40%;
     background-color: #ffffff;
@@ -26,11 +30,29 @@
     min-width: 40%;
 }
 
+.input {
+    text-align: center;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
 .cell.p {
     background-color: #8bd06d;
 }
 
+.input.p {
+    background-color: #8bd06d;
+}
+
 .cell.t {
+    background-color: #e9a6e3;
+}
+
+.input.t {
     background-color: #e9a6e3;
 }
 

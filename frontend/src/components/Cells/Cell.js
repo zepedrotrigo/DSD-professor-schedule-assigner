@@ -1,5 +1,8 @@
 import './Cell.css';
 
+function handleChange(event){
+    this.setState({value: event.target.value});
+}
 function Cell(props) {
 
     return (
@@ -7,8 +10,10 @@ function Cell(props) {
             <div className='hours'>
                 <span>{props.hours}</span>
             </div>
-            <div className='text'>
-                <span>{props.text}</span>
+            <div className='input-cell-form'>
+                <form>
+                    <input maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
+                </form> 
             </div>
             <div className='percentage'>
                 <span>{props.percentage === 100 ? "" : props.percentage}</span>
@@ -18,7 +23,8 @@ function Cell(props) {
 }
 
 Cell.defaultProps = {    
-    extClass: "cell"
+    extClass: "cell",
+    inputClass: "input"
   }
 
 export default Cell;
