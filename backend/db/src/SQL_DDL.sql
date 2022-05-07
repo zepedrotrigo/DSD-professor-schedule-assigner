@@ -1,3 +1,6 @@
+CREATE DATABASE mydatabase CHARACTER SET utf8 COLLATE utf8_general_ci;
+SET NAMES 'utf8' COLLATE 'utf8_general_ci';
+
 CREATE TABLE dsd.departments(
     id INT,
     acronym VARCHAR(10) UNIQUE,

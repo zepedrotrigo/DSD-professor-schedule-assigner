@@ -41,15 +41,12 @@ class Home extends React.Component {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
                 classes.push(<MainCell f1={v.uc_acronym} f2={v.uc_name} f3={v.director_acronym} f4={v.students_estimate} />)
-            
-                if (last_uc === "" && v.prof_acronym !== null)
-                    classes.push(<Cell extClass="cell sm p" text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
 
                 last_uc = v.uc_acronym;
             }
             else {
-                if (v.prof_acronym !== null)
-                    classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell extClass={"cell sm "+v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
             }
         })
 

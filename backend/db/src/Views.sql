@@ -10,4 +10,5 @@ SELECT uc_acronym, uc_name, professors.acronym AS director_acronym, students_est
 component, class_hours, availability_percent, 
 prof_acronym, temp_assigned_classes.prof_name
 FROM professors JOIN temp_assigned_classes
-WHERE temp_assigned_classes.director=professors.id;
+WHERE temp_assigned_classes.director=professors.id
+ORDER BY uc_name ASC, prof_acronym ASC;
