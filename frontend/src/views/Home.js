@@ -22,24 +22,35 @@ class Home extends React.Component {
         }
     }
 
-    abbrev_name(str1) {
-        var split_names = str1.trim().split(" ");
-        if (split_names.length < 3)
-            return str1
+    shortenUcName(name, desiredLength) {
+        let abbreviation = "";
+        let words = name.trim().split(" ");
 
-        var v = "";
-        for (let n in split_names) {
-            if (split_names[n].length < 3) {
-                v = v + split_names[n]
-                v = v + " "
-            }
-            else {
-                v = v + split_names[n].substring(0, 4)
-                v = v + " "
+        for (let i = 0; i < words.length; i++) {
+            if (words[i].length < 4) {
+                words.splice(i, 1);
             }
         }
-        return v
-    };
+
+        let shortWordBy = Math.round(desiredLength / words.length);
+
+        words.forEach((word) => {
+            abbreviation += word.substring(0, shortWordBy) + " ";
+        });
+
+        return abbreviation;
+    }
+
+    shortenTeacherName(name) {
+        var split_names = name.trim().split(" ");
+        var firstName = split_names[0]
+        var lastName = split_names[split_names.length - 1]
+        console.log("X: " + split_names)
+        return firstName + " " + lastName
+
+        return ""
+    }
+
     sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
@@ -71,7 +82,7 @@ class Home extends React.Component {
             if (last_uc !== v.uc_acronym) {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
-                classes.push(<MainCell f1={v.uc_acronym} f2={this.abbrev_name(v.uc_name)} f3={v.director_acronym} f4={v.students_estimate} />)
+                classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} />)
                 classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
 
                 last_uc = v.uc_acronym;
@@ -99,7 +110,7 @@ class Home extends React.Component {
                 if (last_prof !== v.prof_acronym) {
                     cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                     classes = [];
-                    classes.push(<MainCell f1={v.prof_acronym} f2={v.prof_name} f3={v.total_hours+"H"}/>)
+                    classes.push(<MainCell f1={v.prof_acronym} f2={v.prof_name} f3={v.total_hours + "H"} />)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
                     last_prof = v.prof_acronym;
                 }
