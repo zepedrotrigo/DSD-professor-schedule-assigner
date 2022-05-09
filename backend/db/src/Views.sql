@@ -10,6 +10,7 @@ SELECT prof_acronym, SUM(class_hours*availability_percent*0.01) as total_hours
 FROM temp_dsd_main_info
 GROUP BY prof_acronym
 
+CREATE VIEW dsd_main_info AS
 SELECT uc_acronym, uc_name, professors.acronym AS director_acronym, students_estimate,
 component, class_hours, availability_percent, 
 temp_dsd_main_info.prof_acronym, temp_dsd_main_info.prof_name, total_hours
