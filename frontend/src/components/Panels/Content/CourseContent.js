@@ -26,48 +26,6 @@ function CourseContent() {
                 </ul>
             </div>
 
-            <div className='course-classes-info'>
-                <span>T:</span>
-                <ul className='course-classes-t'>
-                    <li>BSS (2H)</li>
-                </ul>
-                <span>P:</span>
-                <ul className='course-classes-p'>
-                    <li>
-                        <div className='teacher-chosen'>
-                            <span>BSS (2H)</span>
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='teacher-chosen'>
-                            <span>BSS (2H)</span>
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='teacher-chosen'>
-                            <span>JPS (2H)</span>
-                            <i class="fas fa-times-circle"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='teacher-input'>
-                            <input type='text'/>
-                            <span>(2H)</span>
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </li>
-                    <li>
-                        <div className='teacher-input'>
-                            <input type='text'/>
-                            <span>(2H)</span>
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
             <div className='course-wishlist'>
                 <span>Wishlist:</span>
                 <ul>

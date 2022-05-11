@@ -13,21 +13,6 @@
     margin-right: 0.6rem;
 }
 
-.course-classes-info {
-    margin-top: 1rem;
-}
-
-.course-classes-info span, .course-history span {
-    margin-left: 0.5rem;
-}
-
-.course-classes-t,
-.course-classes-p {
-    list-style-type: none;
-    margin: 0 0 1rem 0.5rem;
-    padding: 0;
-}
-
 .course-classes-p li {
     margin-top: 0.2rem;
 }
@@ -57,40 +42,4 @@
 .course-wishlist ul li, .course-history ul li {
     display: inline-block;
     margin-right: 0.5rem;
-}
-
-.teacher-chosen span {
-    margin: 0;
-}
-
-.teacher-input span {
-    margin-left: 0.2rem;
-}
-
-.teacher-input i, .teacher-chosen i {
-    margin-left: 0.3rem;
-    font-size: 17px;
-}
-
-.teacher-input i:hover,
-.teacher-chosen i:hover {
-    cursor: pointer;
-}
-
-.teacher-input .fa-check-circle{
-    color: green;
-}
-
-.teacher-input .fa-check-circle:hover {
-    color: darkgreen;
-    transition: all 0.06s ease-in-out;
-}
-
-.teacher-chosen .fa-times-circle {
-    color: red;
-}
-
-.teacher-chosen .fa-times-circle:hover {
-    color: rgb(183, 3, 3);
-    transition: all 0.06s ease-in-out;
 }
