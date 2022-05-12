@@ -29,6 +29,14 @@
     margin-left: 0.5rem;
 }
 
+.course-wishlist {
+    margin-top: 1rem;
+}
+
+.course-history span {
+    margin-left: 0.5rem;
+} 
+
 .course-wishlist ul, .course-history ul {
     list-style-type: none;
     margin: 0.2rem 0 0 0.5rem;
