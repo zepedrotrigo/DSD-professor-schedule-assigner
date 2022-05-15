@@ -1,5 +1,32 @@
 .navbar {
   height: 10%;
+  max-height: 10%;
   width: 100%;
   background-color: rgb(14, 180, 189);
+}
+
+.navbar-items {
+  padding-right: 3rem;
+  height: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar-items li {
+  padding: 0 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-items li:hover {
+
+  cursor: pointer;
+  color: white;
+  background-color: rgb(21, 153, 160);
+  transition: all 0.2s ease-in-out;
 }
