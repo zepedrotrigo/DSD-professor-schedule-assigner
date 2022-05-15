@@ -114,3 +114,11 @@ def get_prof_total_hours():
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.get_prof_total_hours(cursor)
+
+@app.put("/v1/classes/")
+def assign_prof_to_class(class_id: int, prof_id: int):
+    '''Assigns a teacher to a class'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.assign_prof_to_class(connection, cursor, class_id, prof_id)

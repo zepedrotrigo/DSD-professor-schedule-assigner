@@ -78,3 +78,10 @@ def get_prof_total_hours(cursor):
     keys = [i[0] for i in cursor.description]
 
     return {"data": [dict(zip(keys, vals)) for vals in result]}
+
+def assign_prof_to_class(connection, cursor, class_id, prof_id):
+    '''Assigns a teacher to a class'''
+    cursor.execute(f"UPDATE dsd.classes SET prof_id = {prof_id} WHERE id = {class_id}")
+    connection.commit()
+
+    return {"response": f"{cursor.rowcount} record(s) affected", "prof_id": prof_id, "id": class_id}
