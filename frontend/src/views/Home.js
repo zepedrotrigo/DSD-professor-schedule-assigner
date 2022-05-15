@@ -195,6 +195,20 @@ class Home extends React.Component {
         }
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+        fetch('http://172.18.0.3:8000/v1/classes/', {
+            method: 'PUT',
+            body: JSON.stringify({
+                class_id: this.state.id,
+                prof_id: this.state.item,
+            })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+    }
+
     render() {
         return (
             <div className="content">
@@ -202,7 +216,7 @@ class Home extends React.Component {
                 <Navbar></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <span></span>}
+                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <span>Click on an UC to show more info...</span>}
                     </SidePanel>
                     <MainPanel>
                         {this.state.ucsList !== null ? this.loadUCsCells() : <h3>Fetching...</h3>}
@@ -211,7 +225,7 @@ class Home extends React.Component {
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <span></span>}
+                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <span>Click on a teacher to show more info...</span>}
                     </SidePanel>
                 </div>
             </div>
