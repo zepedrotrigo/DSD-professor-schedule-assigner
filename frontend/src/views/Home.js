@@ -137,12 +137,12 @@ class Home extends React.Component {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
                 classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} onChildClick={this.handleChildClick} />)
-                classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
 
                 last_uc = v.uc_acronym;
             }
             else {
-                classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
             }
         })
 
@@ -195,7 +195,9 @@ class Home extends React.Component {
         }
     }
 
-    handleSubmit(event) {
+    handleSubmit(class_id, prof_acronym) {
+        console.log(class_id, prof_acronym)
+        /*
         event.preventDefault();
         fetch('http://172.18.0.3:8000/v1/classes/', {
             method: 'PUT',
@@ -207,6 +209,7 @@ class Home extends React.Component {
             .then(res => res.json())
             .then(data => console.log(data))
             .catch(err => console.log(err));
+            */
     }
 
     render() {

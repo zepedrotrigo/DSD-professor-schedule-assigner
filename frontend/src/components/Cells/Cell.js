@@ -1,9 +1,17 @@
 import './Cell.css';
 
-function handleChange(event){
-    this.setState({value: event.target.value});
+function handleChange(event) {
+    this.setState({ value: event.target.value });
 }
+
 function Cell(props) {
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        console.log(props.id, this.state.value)
+    }
+
+    const handle = () => console.log('Enter pressed');
 
     return (
         <div className={props.extClass}>
@@ -11,9 +19,9 @@ function Cell(props) {
                 <span>{props.hours}</span>
             </div>
             <div className='input-cell-form'>
-                <form>
-                    <input maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
-                </form> 
+                <form onSubmit={handleSubmit}>
+                    <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
+                </form>
             </div>
             <div className='percentage'>
                 <span>{props.percentage === 100 ? "" : props.percentage}</span>
@@ -22,9 +30,9 @@ function Cell(props) {
     )
 }
 
-Cell.defaultProps = {    
+Cell.defaultProps = {
     extClass: "cell",
     inputClass: "input"
-  }
+}
 
 export default Cell;
