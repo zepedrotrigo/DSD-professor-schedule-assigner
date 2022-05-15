@@ -1,7 +1,7 @@
 import './TeacherHeader.css';
 import icon from '../img/maximize.png';
 
-function TeacherHeader() {
+function TeacherHeader(props) {
     return(
         <>
             <div className="maximize-icon">
@@ -12,8 +12,8 @@ function TeacherHeader() {
                     <img src='https://pi-group-03.netlify.app/img/tos.jpg' alt="Teacher's"></img>
                 </div>
                 <div className='teacher-header-name'>
-                    <span className='acronym'>TOS</span>
-                    <span className='name'>Tomás António Mendes Oliveira e Silva</span>
+                    <span className='acronym'>{props.acronym}</span>
+                    <span className='name'>{props.name}</span>
                 </div>
             </div>
         </>

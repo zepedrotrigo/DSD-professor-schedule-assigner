@@ -20,7 +20,8 @@ class Home extends React.Component {
             ucsList: null,
             profsList: null,
             profsHours: null,
-            profCellClicked: null
+            profCellClicked: null,
+            teacherInfo: null
         }
     }
 
@@ -64,22 +65,38 @@ class Home extends React.Component {
                         this.setState({ profsList: data })
                     })
             })
+
+        this.sleep(200).then(r => {
+            this.setState({profCellClicked: "MOS"})
+            this.fetchTeacher("MOS");
+        })
     }
 
     fetchTeacher(acronym) {
-        let result = [];
-
-        fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
-            .then((response) => response.json())
-            .then((data) => {
-                Array.from(this.state.profInfo.professors.entries()).map((entry) => {
-                    const [k, v] = entry
-                    result.push(<TeacherHeader acronym={v.acronym} name={v.name} />)
-                    result.push(<TeacherContent email={v.email} phone={v.phone} />)
+        this.sleep(1000).then(r => {
+            fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
+                .then((response) => response.json())
+                .then((data) => {
+                    this.setState({ teacherInfo: data })
                 })
-            })
+        })
+    }
 
-        
+    displayTeacherInSidePanel() {
+        let result = [];
+        console.log("hello mario:", this.state.teacherInfo);
+
+        Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
+            const [k, v] = entry
+            if(this.state.profCellClicked == v.acronym){
+                result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />)
+                result.push(<TeacherContent email={v.email} phone={v.phone} />)
+            }
+        })
+        console.log("hello result list:", result);
+
+        //this.setState({ profCellClicked: null, teacherInfo: null });
+
         return (
             <div>
                 {result}
@@ -119,6 +136,15 @@ class Home extends React.Component {
         )
     }
 
+    handleChildClick = (acr) => {
+        if (acr != this.state.profCellClicked)
+            this.setState({ profCellClicked: acr });
+
+        this.fetchTeacher(this.state.profCellClicked)
+        console.log(this.state.profCellClicked)
+        console.log(this.state.teacherInfo)
+    }
+
     loadProfsCells() {
         let last_prof = "";
         let cellRows = []; // Contains all Profs wrapped in: <div className='align-cell'>{classes}</div>
@@ -130,7 +156,7 @@ class Home extends React.Component {
                 if (last_prof !== v.prof_acronym) {
                     cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                     classes = [];
-                    classes.push(<TeacherCell f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} />)
+                    classes.push(<TeacherCell f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
                     last_prof = v.prof_acronym;
                 }
@@ -164,7 +190,7 @@ class Home extends React.Component {
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        {this.state.profCellClicked !== null ? this.fetchTeacher(this.state.profCellClicked) : <span></span>}
+                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <span></span>}
                     </SidePanel>
                 </div>
             </div>

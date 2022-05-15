@@ -1,3 +1,8 @@
 .teacher-name {
     text-transform: capitalize;
 }
+
+.main-cell-wrapper:hover{
+    cursor: pointer;
+    background-color: #eee;
+}

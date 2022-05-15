@@ -1,12 +1,12 @@
 import './TeacherContent.css';
 
-function TeacherContent() {
+function TeacherContent(props) {
     return(
         <>
             <div className='teacher-info'>
                 <ul>
-                    <li className='teacher-email'>tos@ua.pt</li>
-                    <li className='teacher-phone'>965557451</li>
+                    <li className='teacher-email'>{props.email}</li>
+                    <li className='teacher-phone'>{props.phone}</li>
                     <li className='teacher-rank'>Prof. Associado</li>
                     <li className='teacher-situation'>Ativo</li>
                     <li className='teacher-sab'>Sab. 2026</li>
