@@ -18,7 +18,7 @@ FROM temp1
 GROUP BY prof_acronym;
 
 CREATE VIEW dsd_main_info AS
-SELECT class_id, uc_acronym, uc_name, prof_total_hours.prof_acronym AS director_acronym, students_estimate,
+SELECT class_id, uc_acronym, uc_name, director_acronym, students_estimate,
 component, class_hours, availability_percent, 
 temp2.prof_id, temp2.prof_acronym, temp2.prof_name, prof_total_hours.total_hours
 FROM temp2
