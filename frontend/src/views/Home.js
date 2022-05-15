@@ -19,7 +19,8 @@ class Home extends React.Component {
         this.state = {
             ucsList: null,
             profsList: null,
-            profsHours: null
+            profsHours: null,
+            profCellClicked: null
         }
     }
 
@@ -51,20 +52,43 @@ class Home extends React.Component {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
-    componentDidMount() {
+    mainPanelsFetch() {
         fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="ucs"')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucsList: data })
+
+                fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="profs"')
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.setState({ profsList: data })
+                    })
+            })
+    }
+
+    fetchTeacher(acronym) {
+        let result = [];
+
+        fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
+            .then((response) => response.json())
+            .then((data) => {
+                Array.from(this.state.profInfo.professors.entries()).map((entry) => {
+                    const [k, v] = entry
+                    result.push(<TeacherHeader acronym={v.acronym} name={v.name} />)
+                    result.push(<TeacherContent email={v.email} phone={v.phone} />)
+                })
             })
 
-        this.sleep(100).then(r => {
-            fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="profs"')
-                .then((response) => response.json())
-                .then((data) => {
-                    this.setState({ profsList: data })
-                })
-        })
+        
+        return (
+            <div>
+                {result}
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        this.mainPanelsFetch();
     }
 
     loadUCsCells() {
@@ -140,8 +164,7 @@ class Home extends React.Component {
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        <TeacherHeader />
-                        <TeacherContent />
+                        {this.state.profCellClicked !== null ? this.fetchTeacher(this.state.profCellClicked) : <span></span>}
                     </SidePanel>
                 </div>
             </div>
