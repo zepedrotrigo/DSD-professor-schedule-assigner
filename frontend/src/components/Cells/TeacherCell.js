@@ -3,10 +3,8 @@ import './TeacherCell.css';
 
 function TeacherCell(props) {
 
-    const acr = props.f1
-
     function handleClick(e){
-        props.onChildClick(acr);
+        props.onChildClick(props.f1, "teacher");
     }
 
     return (

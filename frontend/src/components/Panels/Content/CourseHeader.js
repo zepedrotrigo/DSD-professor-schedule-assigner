@@ -1,7 +1,7 @@
 import "./CourseHeader.css";
 import icon from '../img/maximize.png';
 
-function CourseHeader({children}) {
+function CourseHeader(props) {
 
     return (
         <>
@@ -10,10 +10,10 @@ function CourseHeader({children}) {
             </div>
             <div className='header-wrapper'>
                 <div className='image'>
-                    <span>IHC</span>
+                    <span>{ props.acronym }</span>
                 </div>
                 <div className='header-name'>
-                    <span className='name'>Interação Humano Computador</span>
+                    <span className='name'>{ props.name }</span>
                 </div>
             </div>
         </>

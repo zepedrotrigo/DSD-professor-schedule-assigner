@@ -1,13 +1,13 @@
 import "./CourseContent.css";
 
-function CourseContent() {
+function CourseContent(props) {
 
     return (
         <>
             <div className='course-info'>
                 <ul>
-                    <li className='course-hours'>P (2H) TP (10H)</li>
-                    <li className='course-students'>Prev. Alunos: 85 (17)</li>
+                    <li className='course-hours'>{props.hours}</li>
+                    <li className='course-students'>{"Prev. alunos: " + props.studentsEstimate}</li>
                     <li className='course-type'>
                         <div className='course-type-list'>
                             <ul>
@@ -21,7 +21,7 @@ function CourseContent() {
 
             <div className='regent-info'>
                 <ul>
-                    <li>Reg: BSS</li>
+                    <li>Director: {"Reg: " + props.director}</li>
                     <li>Sab. Reg: 2024</li>
                 </ul>
             </div>

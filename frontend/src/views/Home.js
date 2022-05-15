@@ -21,8 +21,18 @@ class Home extends React.Component {
             profsList: null,
             profsHours: null,
             profCellClicked: null,
-            teacherInfo: null
+            ucCellClicked: null,
+            teacherInfo: null,
+            ucInfo: null
         }
+    }
+
+    sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+    componentDidMount() {
+        this.mainPanelsFetch();
     }
 
     shortenUcName(name, desiredLength) {
@@ -49,10 +59,6 @@ class Home extends React.Component {
         return names[0] + " " + names[names.length - 1];
     }
 
-    sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
-
     mainPanelsFetch() {
         fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="ucs"')
             .then((response) => response.json())
@@ -65,37 +71,34 @@ class Home extends React.Component {
                         this.setState({ profsList: data })
                     })
             })
-
-        this.sleep(200).then(r => {
-            this.setState({profCellClicked: "MOS"})
-            this.fetchTeacher("MOS");
-        })
     }
 
     fetchTeacher(acronym) {
-        this.sleep(1000).then(r => {
-            fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
-                .then((response) => response.json())
-                .then((data) => {
-                    this.setState({ teacherInfo: data })
-                })
-        })
+        fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ teacherInfo: data })
+            })
+    }
+
+    fetchUc(acronym) {
+        fetch(`http://172.18.0.3:8000/v1/ucs?acronym="${acronym}"`)
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ ucInfo: data })
+            })
     }
 
     displayTeacherInSidePanel() {
         let result = [];
-        console.log("hello mario:", this.state.teacherInfo);
 
         Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
             const [k, v] = entry
-            if(this.state.profCellClicked == v.acronym){
+            if (this.state.profCellClicked == v.acronym) {
                 result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />)
                 result.push(<TeacherContent email={v.email} phone={v.phone} />)
             }
         })
-        console.log("hello result list:", result);
-
-        //this.setState({ profCellClicked: null, teacherInfo: null });
 
         return (
             <div>
@@ -104,8 +107,22 @@ class Home extends React.Component {
         )
     }
 
-    componentDidMount() {
-        this.mainPanelsFetch();
+    displayUcInSidePanel() {
+        let result = [];
+
+        Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
+            const [k, v] = entry
+            if (this.state.ucCellClicked == v.acronym) {
+                result.push(<CourseHeader acronym={v.acronym} name={v.uc_name} />)
+                result.push(<CourseContent studentsEstimate={v.students_estimate} director={v.director} />)
+            }
+        })
+
+        return (
+            <div>
+                {result}
+            </div>
+        )
     }
 
     loadUCsCells() {
@@ -119,7 +136,7 @@ class Home extends React.Component {
             if (last_uc !== v.uc_acronym) {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
-                classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} />)
+                classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} onChildClick={this.handleChildClick} />)
                 classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
 
                 last_uc = v.uc_acronym;
@@ -134,15 +151,6 @@ class Home extends React.Component {
                 {cellRows}
             </div>
         )
-    }
-
-    handleChildClick = (acr) => {
-        if (acr != this.state.profCellClicked)
-            this.setState({ profCellClicked: acr });
-
-        this.fetchTeacher(this.state.profCellClicked)
-        console.log(this.state.profCellClicked)
-        console.log(this.state.teacherInfo)
     }
 
     loadProfsCells() {
@@ -173,6 +181,20 @@ class Home extends React.Component {
         )
     }
 
+    handleChildClick = (acronym, type) => {
+        if (type == "teacher") {
+            if (acronym != this.state.profCellClicked)
+                this.setState({ profCellClicked: acronym });
+
+            this.fetchTeacher(this.state.profCellClicked)
+        } else {
+            if (acronym != this.state.ucCellClicked)
+                this.setState({ ucCellClicked: acronym });
+
+            this.fetchUc(this.state.ucCellClicked)
+        }
+    }
+
     render() {
         return (
             <div className="content">
@@ -180,8 +202,7 @@ class Home extends React.Component {
                 <Navbar></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        <CourseHeader />
-                        <CourseContent />
+                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <span></span>}
                     </SidePanel>
                     <MainPanel>
                         {this.state.ucsList !== null ? this.loadUCsCells() : <h3>Fetching...</h3>}
