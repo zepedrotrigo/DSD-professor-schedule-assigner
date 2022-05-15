@@ -13,7 +13,7 @@ FROM professors, temp1
 WHERE temp1.director=professors.id;
 
 CREATE VIEW prof_total_hours AS
-SELECT prof_acronym, SUM(class_hours*availability_percent*0.01) as total_hours
+SELECT prof_acronym, ROUND(SUM(class_hours*availability_percent*0.01),1) as total_hours
 FROM temp1
 GROUP BY prof_acronym;
 
