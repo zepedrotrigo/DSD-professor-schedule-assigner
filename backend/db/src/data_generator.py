@@ -103,7 +103,7 @@ for u in range(len(ucs)):
         if rng > 0.50: #    prof_id INT availability_percent INT
             print(f"INSERT INTO dsd.classes(prof_id, availability_percent,year_int, uc_num, component, class_hours) VALUES({random.randint(1,len(profs))},{random.choice([25,50,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','T'])}', 2);")
         else:
-            print(f"INSERT INTO dsd.classes(year_int, uc_num, component, class_hours) VALUES({random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','T'])}', 2);")
+            print(f"INSERT INTO dsd.classes(availability_percent, year_int, uc_num, component, class_hours) VALUES({random.choice([25,50,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','T'])}', 2);")
 
 
 ### wishlists ###
