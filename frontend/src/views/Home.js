@@ -186,12 +186,12 @@ class Home extends React.Component {
             if (acronym != this.state.profCellClicked)
                 this.setState({ profCellClicked: acronym });
 
-            this.fetchTeacher(this.state.profCellClicked)
+            this.fetchTeacher(acronym)
         } else {
             if (acronym != this.state.ucCellClicked)
                 this.setState({ ucCellClicked: acronym });
 
-            this.fetchUc(this.state.ucCellClicked)
+            this.fetchUc(acronym)
         }
     }
 
