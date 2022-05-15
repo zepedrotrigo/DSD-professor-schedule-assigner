@@ -84,4 +84,4 @@ def assign_prof_to_class(connection, cursor, class_id, prof_id):
     cursor.execute(f"UPDATE dsd.classes SET prof_id = {prof_id} WHERE id = {class_id}")
     connection.commit()
 
-    return {"response": f"{cursor.rowcount} record(s) affected", "prof_id": prof_id, "id": class_id}
+    return {"response": f"{cursor.rowcount} record(s) affected"}
