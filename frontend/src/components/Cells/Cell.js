@@ -1,14 +1,21 @@
 import './Cell.css';
-
-function handleChange(event) {
-    this.setState({ value: event.target.value });
-}
+import React, { useState } from 'react';
 
 function Cell(props) {
 
+    const [value, setValue] = useState(null);
+
+
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(props.id, this.state.value)
+        props.onChildSubmit(props.id, value);
+    }
+
+    function handleChange(event) {
+        var str = event.target.value;
+        var res = str.toUpperCase();
+        event.target.value = res;
+        setValue(res);
     }
 
     const handle = () => console.log('Enter pressed');

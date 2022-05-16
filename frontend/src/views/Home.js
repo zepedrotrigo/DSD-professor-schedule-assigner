@@ -137,12 +137,12 @@ class Home extends React.Component {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
                 classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} onChildClick={this.handleChildClick} />)
-                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit}></Cell>)
 
                 last_uc = v.uc_acronym;
             }
             else {
-                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit}></Cell>)
             }
         })
 
@@ -157,13 +157,17 @@ class Home extends React.Component {
         let last_prof = "";
         let cellRows = []; // Contains all Profs wrapped in: <div className='align-cell'>{classes}</div>
         let classes = []; // Contains one Prof, gets cleared after pushing to cellRows
+        let profsIds = new Map;
 
         Array.from(this.state.profsList.data.entries()).map((entry) => {
             const [k, v] = entry
             if (v.prof_acronym !== null) {
+                if (!(profsIds.has(v.prof_acronym))){
+                    profsIds.set(v.prof_acronym, v.prof_id);
+                }
                 if (last_prof !== v.prof_acronym) {
                     cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
-                    classes = [];
+                    classes = [];   
                     classes.push(<TeacherCell f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
                     last_prof = v.prof_acronym;
@@ -173,6 +177,8 @@ class Home extends React.Component {
                 }
             }
         })
+
+        window.profsIds = profsIds;
 
         return (
             <div>
@@ -196,20 +202,24 @@ class Home extends React.Component {
     }
 
     handleSubmit(class_id, prof_acronym) {
-        console.log(class_id, prof_acronym)
-        /*
-        event.preventDefault();
-        fetch('http://172.18.0.3:8000/v1/classes/', {
-            method: 'PUT',
-            body: JSON.stringify({
-                class_id: this.state.id,
-                prof_id: this.state.item,
-            })
-        })
-            .then(res => res.json())
+        var id, item = null;
+        if(window.profsIds.has(prof_acronym)){
+            id = window.profsIds.get(prof_acronym);
+            item = class_id;
+            const info = {class_id: item, prof_id: id};
+            fetch('http://172.18.0.3:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(info),
+             })
+            .then(response => response.json())
             .then(data => console.log(data))
             .catch(err => console.log(err));
-            */
+        }
+        else{
+            console.log("WRONG ACRONYM");
+        }
+            
     }
 
     render() {
