@@ -22,17 +22,11 @@ function Cell(props) {
 
     return (
         <div className={props.extClass}>
-            <div className='hours'>
-                <span>{props.hours}</span>
-            </div>
-            <div className='input-cell-form'>
-                <form onSubmit={handleSubmit}>
-                    <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
-                </form>
-            </div>
-            <div className='percentage'>
-                <span>{props.percentage === 100 ? "" : props.percentage}</span>
-            </div>
+        <span className='hours'>{props.hours}</span>
+        <form className='text' onSubmit={handleSubmit}>
+            <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
+        </form>
+        <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
         </div>
     )
 }

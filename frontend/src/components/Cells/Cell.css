@@ -1,13 +1,8 @@
 .cell {
-    height: 2.5rem;
-    min-height: 2.5rem;
-    max-height: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
-    min-width: 40%;
+    height: 2.3rem;
+    min-height: 2.3rem;
+    max-height: 2.3rem;
+    position: relative;
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.285);
     border-radius: 5px;
@@ -15,32 +10,30 @@
 }
 
 .cell.sm {
-    height: 2.5rem;
-    min-height: 2.5rem;
-    max-height: 2.5rem;
-    width: 15%;
-    min-width: 16%;
+    height: 2.3rem;
+    min-height: 2.3rem;
+    max-height: 2.3rem;
+    width: 10%;
+    min-width: 10%;
 }
 
 .cell.bg {
-    height: 2.5rem;
-    min-height: 2.5rem;
-    max-height: 2.5rem;
+    height: 2.3rem;
+    min-height: 2.3rem;
+    max-height: 2.3rem;
     width: 40%;
     min-width: 40%;
 }
 
 .input {
     text-align: center;
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    position: absolute;
     border: none;
     outline: none;
     box-shadow: none;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .cell.p {
@@ -75,18 +68,24 @@
     background-color: red;
 }
 
-.hours, .text, .percentage {
-    width: 100%;
-}
-
 .hours, .percentage {
     font-size: 11px;
+    position: absolute;
 }
 
-.hours{
-    height: 30%;
+.input {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hours {
+    z-index: 2;
+    top: 0;
+    left: 0;
 }
 
 .percentage {
-    height: 35%;
+    z-index: 2;
+    bottom: -2px;
+    left: 0;
 }
