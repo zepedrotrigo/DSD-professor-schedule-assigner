@@ -21,7 +21,7 @@ function TeacherCell(props) {
 }
 
 TeacherCell.defaultProps = {    
-    class: "main-cell"
+    class: "main-teacher-cell"
 }
 
 export default TeacherCell;
