@@ -14,7 +14,7 @@ function TeacherCell(props) {
                     <span className='delimiter'>|</span>
                         <span className='teacher-name'>{props.f2}</span>
                     <span className='delimiter'>|</span>
-                    <span>{props.f3}</span>
+                    <span className='teacher-hours'>{props.f3}</span>
                 </div>
             </div>
     )

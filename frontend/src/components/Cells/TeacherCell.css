@@ -17,3 +17,7 @@
     cursor: pointer;
     background-color: #eee;
 }
+
+.teacher-hours {
+    font-size: 15px;
+}
