@@ -30,3 +30,13 @@
   background-color: rgb(21, 153, 160);
   transition: all 0.2s ease-in-out;
 }
+
+.fa {
+  padding-left: 1rem;
+}
+
+.fa:hover {
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}

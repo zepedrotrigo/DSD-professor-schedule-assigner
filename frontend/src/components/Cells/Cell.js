@@ -14,6 +14,7 @@ function Cell(props) {
     function handleChange(event) {
         var str = event.target.value;
         var res = str.toUpperCase();
+        console.log(str);
         event.target.value = res;
         setValue(res);
     }
@@ -21,13 +22,20 @@ function Cell(props) {
     const handle = () => console.log('Enter pressed');
 
     return (
-        <div className={props.extClass}>
-        <span className='hours'>{props.hours}</span>
-        <form className='text' onSubmit={handleSubmit}>
-            <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
-        </form>
-        <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
-        </div>
+        <>
+            <div className={props.extClass}>
+                <span className='hours'>{props.hours}</span>
+                <form className='text' onSubmit={handleSubmit}>
+                <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
+                </form>
+                <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
+                <div className='autocomplete'>
+                    <ul>
+                        <li>x</li>
+                    </ul>
+                </div>
+            </div>
+        </>
     )
 }
 
