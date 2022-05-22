@@ -9,7 +9,7 @@ function Cell(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.onChildSubmit(props.id, value);
+        props.onChildSubmit(props.id, value)
     }
 
     function handleChange(event) {
@@ -26,7 +26,7 @@ function Cell(props) {
         <>
             <div className={props.extClass}>
                 <span className='hours'>{props.hours}</span>
-                <form className='text' onSubmit={handleSubmit}>
+                <form className='text' onSubmit={handleSubmit} autocomplete="off">
                 <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
                 </form>
                 <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
