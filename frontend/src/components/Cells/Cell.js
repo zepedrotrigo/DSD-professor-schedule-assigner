@@ -1,5 +1,6 @@
 import './Cell.css';
 import React, { useState } from 'react';
+import Autocomplete from '../Autocomplete/Autocomplete';
 
 function Cell(props) {
 
@@ -29,11 +30,7 @@ function Cell(props) {
                 <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
                 </form>
                 <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
-                <div className='autocomplete'>
-                    <ul>
-                        <li>x</li>
-                    </ul>
-                </div>
+                <Autocomplete value={value} />
             </div>
         </>
     )
