@@ -5,9 +5,10 @@ const Autocomplete = props => {
         <>
             {props.value && // only if value exists show autocomplete box
                 <div className='autocomplete'>
+                    <div className='square'></div>
                     <ul>
                         {console.log(props.value)}
-                        <li>{props.value}</li>
+                        <li className='autocomplete-item'>{props.value}</li>
                     </ul>
                 </div>
             }

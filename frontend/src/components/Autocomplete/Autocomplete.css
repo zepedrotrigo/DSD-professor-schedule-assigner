@@ -1,11 +1,11 @@
 .autocomplete {
     position: relative;
-    padding: 0.1rem 0.5rem 0.1rem 0.5rem;
-    border-radius: 5px;
     z-index: 3;
+    padding: 0.5rem 0.5rem 0.1rem 0.5rem;
+    border-radius: 5px;
     background-color: #fff;
     width: 4.5rem;
-    bottom: -100%;
+    bottom: -105%;
 }
 
 .autocomplete ul {
@@ -16,4 +16,18 @@
 
 .autocomplete ul li {
     font-size: 14px;
+}
+
+.square {
+    background-color: #fff;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    transform: rotate(45deg);
+    top: -0.2rem;
+    left: 0.7rem;
+}
+
+.autocomplete-item {
+    z-index: 10;
 }
