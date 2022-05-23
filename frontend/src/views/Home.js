@@ -262,6 +262,7 @@ class Home extends React.Component {
 
     handleReload = () => {
         this.setState({ucsList: null});
+        this.setState({profsList: null});
         this.mainPanelsFetch();
         //this.sleep(1000);
         //this.loadUCsCells();
