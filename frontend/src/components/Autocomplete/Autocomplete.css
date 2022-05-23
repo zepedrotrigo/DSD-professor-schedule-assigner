@@ -14,7 +14,8 @@
     padding: 0;
 }
 
-.autocomplete ul li button {
+.autocomplete-item-click {
+    text-align: center;
     font-size: 14px;
     padding: 0.4rem 0 0.4rem 0;
 }
@@ -30,11 +31,11 @@
     z-index: -1;
 }
 
-.autocomplete-item, .autocomplete ul li button {
+.autocomplete-item, .autocomplete-item-click {
     z-index: 10;
 }
 
-.autocomplete-item-button {
+.autocomplete-item-click {
     width: 100%;
     height: 100%;
     background: none;
@@ -42,7 +43,7 @@
     border: none;
 }
 
-.autocomplete-item-button:hover {
+.autocomplete-item-click:hover {
     cursor: pointer;
     background-color: rgb(233, 227, 227);
     border-radius: 5px;

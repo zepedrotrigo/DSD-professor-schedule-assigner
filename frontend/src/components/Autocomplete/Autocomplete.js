@@ -7,7 +7,7 @@ const Autocomplete = (props) => {
     for (let i = 0; i < props.value.length; i++) {
       data.push(
         <li className="autocomplete-item">
-          <button className="autocomplete-item-button">{props.value[i]}</button>
+          <div className="autocomplete-item-click">{props.value[i]}</div>
         </li>
       );
     }
