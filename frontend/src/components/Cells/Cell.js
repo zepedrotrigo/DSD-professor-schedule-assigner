@@ -27,16 +27,16 @@ function Cell(props) {
         var str = event.target.value;
         var res = str.toUpperCase();
         window.profsIds.forEach((value, key) => {
-            if (key.startsWith(res) && res.length!=0){
+            if (key.startsWith(res) && res.length!==0){
                 arr.push(key);
             }
         });
-        if(arr.length==0)
+        if(arr.length===0)
             arr.push("No results");
         setAutoValue(arr);
         event.target.value = res;
         setValue(res);
-        if (res.length==0)
+        if (res.length===0)
             setFocused(false);
         else
             setFocused(true);
