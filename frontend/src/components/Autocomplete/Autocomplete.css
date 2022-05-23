@@ -5,7 +5,7 @@
     border-radius: 5px;
     background-color: #fff;
     width: 4.5rem;
-    bottom: -50%;
+    bottom: -100%;
 }
 
 .autocomplete ul {
@@ -16,6 +16,9 @@
 
 .autocomplete ul li {
     font-size: 12px;
+    padding-bottom: 0.15rem;
+    padding-top: 0.15rem;
+    padding-left: 0.15rem;
 }
 
 .square {

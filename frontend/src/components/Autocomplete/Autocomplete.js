@@ -7,7 +7,8 @@ const Autocomplete = props => {
                 <div className='autocomplete'>
                     <div className='square'></div>
                     <ul>
-                        {console.log(props.value)}
+                        {console.log(window.profsIds)}
+                        <li className='autocomplete-item'>{props.value}</li>
                         <li className='autocomplete-item'>{props.value}</li>
                     </ul>
                 </div>
