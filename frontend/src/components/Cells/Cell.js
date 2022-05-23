@@ -1,10 +1,20 @@
 import './Cell.css';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Autocomplete from '../Autocomplete/Autocomplete';
 
 function Cell(props) {
 
     const [value, setValue] = useState(null);
+    const [autoValue, setAutoValue] = useState(null);
+
+    const [focused, setFocused] = useState(false);
+    const onFocus = () => {
+            setFocused(true);
+    }
+    const onBlur = () => {
+        setValue("");
+        setFocused(false);
+    }
 
 
     function handleSubmit(event) {
@@ -13,11 +23,23 @@ function Cell(props) {
     }
 
     function handleChange(event) {
+        let arr = [];
         var str = event.target.value;
         var res = str.toUpperCase();
-        console.log(str);
+        window.profsIds.forEach((value, key) => {
+            if (key.startsWith(res) && res.length!=0){
+                arr.push(key);
+            }
+        });
+        if(arr.length==0)
+            arr.push("No results");
+        setAutoValue(arr);
         event.target.value = res;
         setValue(res);
+        if (res.length==0)
+            setFocused(false);
+        else
+            setFocused(true);
     }
 
     const handle = () => console.log('Enter pressed');
@@ -27,10 +49,12 @@ function Cell(props) {
             <div className={props.extClass}>
                 <span className='hours'>{props.hours}</span>
                 <form className='text' onSubmit={handleSubmit} autocomplete="off">
-                <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange}></input>
+                <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} ></input>
                 </form>
                 <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
-                <Autocomplete value={value} />
+                {focused && 
+                <Autocomplete value={autoValue}/>
+                }
             </div>
         </>
     )
