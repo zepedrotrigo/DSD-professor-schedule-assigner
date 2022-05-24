@@ -11,6 +11,7 @@ import CourseContent from '../components/Panels/Content/CourseContent';
 import CourseHeader from '../components/Panels/Content/CourseHeader';
 import MainCell from '../components/Cells/MainCell';
 import TeacherCell from '../components/Cells/TeacherCell';
+import './Home.css';
 
 class Home extends React.Component {
 
@@ -274,7 +275,7 @@ class Home extends React.Component {
                 <Navbar onReload={this.handleReload}></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <span>Click on an UC to show more info...</span>}
+                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
                     </SidePanel>
                     <MainPanel>
                         {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
@@ -283,7 +284,7 @@ class Home extends React.Component {
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <span>Click on a teacher to show more info...</span>}
+                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <p className='empty-message'>Click on a teacher to show more info...</p>}
                     </SidePanel>
                 </div>
             </div>
