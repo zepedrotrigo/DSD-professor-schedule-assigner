@@ -62,12 +62,12 @@ class Home extends React.Component {
     }
 
     mainPanelsFetch() {
-        fetch('http://localhost:8000/v1/dsd_main_info?filter_by="ucs"')
+        fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="ucs"')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucsList: data })
 
-                fetch('http://localhost:8000/v1/dsd_main_info?filter_by="profs"')
+                fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="profs"')
                     .then((response) => response.json())
                     .then((data) => {
                         this.setState({ profsList: data })
@@ -76,7 +76,7 @@ class Home extends React.Component {
     }
 
     fetchTeacher(acronym) {
-        fetch(`http://localhost:8000/v1/professors?acronym="${acronym}"`)
+        fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ teacherInfo: data })
@@ -84,7 +84,7 @@ class Home extends React.Component {
     }
 
     fetchUc(acronym) {
-        fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
+        fetch(`http://172.18.0.3:8000/v1/ucs?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucInfo: data })
@@ -221,7 +221,7 @@ class Home extends React.Component {
             id = window.profsIds.get(prof_acronym);
             item = class_id;
             const info = {class_id: item, prof_id: id};
-            fetch('http://localhost:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
+            fetch('http://172.18.0.3:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(info),
@@ -242,7 +242,7 @@ class Home extends React.Component {
                 prof_acronym = window.profsIds.get(prof_acronym);
             }
             const info = {class_id: class_id, prof_id: prof_acronym};
-            fetch('http://localhost:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_acronym, {
+            fetch('http://172.18.0.3:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_acronym, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(info),
