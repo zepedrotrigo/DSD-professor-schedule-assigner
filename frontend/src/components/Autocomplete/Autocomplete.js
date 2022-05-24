@@ -11,11 +11,19 @@ function Autocomplete(props) {
     let data = [];
 
     for (let i = 0; i < props.value.length; i++) {
+      if (props.value[i] !== "No results") {
       data.push(
         <li className="autocomplete-item" key={i}>
           <div className="autocomplete-item-click" onClick={() => handleClick(props.value[i])} value={props.value[i]}>{props.value[i]}</div>
         </li>
       );
+      } else {
+        data.push(
+        <li className="autocomplete-item" key={i}>
+          <div className="autocomplete-item-click-empty" value={props.value[i]}>{props.value[i]}</div>
+        </li>
+        );
+      }
     }
 
     return <ul>{data}</ul>;

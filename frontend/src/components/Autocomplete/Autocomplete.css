@@ -14,7 +14,7 @@
     padding: 0;
 }
 
-.autocomplete-item-click {
+.autocomplete-item-click, .autocomplete-item-click-empty {
     text-align: center;
     font-size: 14px;
     padding: 0.4rem 0 0.4rem 0;
@@ -31,11 +31,11 @@
     z-index: -1;
 }
 
-.autocomplete-item, .autocomplete-item-click {
+.autocomplete-item, .autocomplete-item-click, .autocomplete-item-click-empty {
     z-index: 10;
 }
 
-.autocomplete-item-click {
+.autocomplete-item-click, .autocomplete-item-click-empty {
     width: 100%;
     height: 100%;
     background: none;
@@ -46,5 +46,10 @@
 .autocomplete-item-click:hover {
     cursor: pointer;
     background-color: rgb(233, 227, 227);
+    border-radius: 5px;
+}
+
+.autocomplete-item-click-empty:hover {
+    background-color: none;
     border-radius: 5px;
 }
