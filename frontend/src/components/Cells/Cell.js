@@ -11,9 +11,10 @@ function Cell(props) {
             setFocused(true);
     }
     const onBlur = () => {
-        sleep(100).then(r => {
+        sleep(150).then(r => {
             //setValue("");
             setFocused(false);
+            setAutoValue(null);
         })
     }
 
