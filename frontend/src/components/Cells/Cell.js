@@ -21,10 +21,12 @@ function Cell(props) {
     const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
+      
+    const [value, setValue] = useState(props.text);
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.onChildSubmit(props.id, value)
+        //props.onChildSubmit(props.id, value);
     }
 
     function handleChange(event) {
@@ -45,6 +47,7 @@ function Cell(props) {
             setFocused(false);
         else
             setFocused(true);
+        props.onChildChange(res, props.id);
     }
 
     function onAutoClick(val){
@@ -59,7 +62,7 @@ function Cell(props) {
             <div className={props.extClass}>
                 <span className='hours'>{props.hours}</span>
                 <form className='text' onSubmit={handleSubmit} autocomplete="off">
-                <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={props.text} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} ></input>
+                <input id={props.id} maxlength="6" className={props.inputClass} type="text" value={value} onChange={handleChange} onFocus={onFocus} onBlur={onBlur} ></input>
                 </form>
                 <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
                 {focused && 

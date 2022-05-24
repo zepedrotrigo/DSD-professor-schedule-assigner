@@ -23,9 +23,11 @@ class Home extends React.Component {
             profCellClicked: null,
             ucCellClicked: null,
             teacherInfo: null,
-            ucInfo: null
+            ucInfo: null,
+            UCPanelState:null
         }
     }
+    
 
     sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -60,12 +62,12 @@ class Home extends React.Component {
     }
 
     mainPanelsFetch() {
-        fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="ucs"')
+        fetch('http://localhost:8000/v1/dsd_main_info?filter_by="ucs"')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucsList: data })
 
-                fetch('http://172.18.0.3:8000/v1/dsd_main_info?filter_by="profs"')
+                fetch('http://localhost:8000/v1/dsd_main_info?filter_by="profs"')
                     .then((response) => response.json())
                     .then((data) => {
                         this.setState({ profsList: data })
@@ -74,7 +76,7 @@ class Home extends React.Component {
     }
 
     fetchTeacher(acronym) {
-        fetch(`http://172.18.0.3:8000/v1/professors?acronym="${acronym}"`)
+        fetch(`http://localhost:8000/v1/professors?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ teacherInfo: data })
@@ -82,7 +84,7 @@ class Home extends React.Component {
     }
 
     fetchUc(acronym) {
-        fetch(`http://172.18.0.3:8000/v1/ucs?acronym="${acronym}"`)
+        fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucInfo: data })
@@ -125,26 +127,36 @@ class Home extends React.Component {
         )
     }
 
-    loadUCsCells() {
+    loadUCsCells = () => {
         let last_uc = "";
         let cellRows = []; // Contains all UCs wrapped in: <div className='align-cell'>{classes}</div>
         let classes = []; // Contains one UC, gets cleared after pushing to cellRows
+        let profsPerUc = new Map;
 
         Array.from(this.state.ucsList.data.entries()).map((entry) => {
             const [k, v] = entry
+
+            if (!(profsPerUc.has(v.class_id))){
+                if (v.prof_acronym!=null)
+                    profsPerUc.set(v.class_id, v.prof_acronym);
+            }
 
             if (last_uc !== v.uc_acronym) {
                 cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
                 classes = [];
                 classes.push(<MainCell f1={v.uc_acronym} f2={this.shortenUcName(v.uc_name, 15)} f3={v.director_acronym} f4={v.students_estimate} onChildClick={this.handleChildClick} />)
-                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit} onChildChange={this.handleChildChange}></Cell>)
 
                 last_uc = v.uc_acronym;
             }
             else {
-                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit}></Cell>)
+                classes.push(<Cell id={v.class_id} extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.prof_acronym} hours={v.class_hours} percentage={v.availability_percent} onChildSubmit={this.handleSubmit} onChildChange={this.handleChildChange}></Cell>)
             }
         })
+
+        window.profsPerUc = profsPerUc;
+
+        //this.setState({ UCPanelState: cellRows });
 
         return (
             <div>
@@ -180,6 +192,8 @@ class Home extends React.Component {
 
         window.profsIds = profsIds;
 
+
+
         return (
             <div>
                 {cellRows}
@@ -207,7 +221,7 @@ class Home extends React.Component {
             id = window.profsIds.get(prof_acronym);
             item = class_id;
             const info = {class_id: item, prof_id: id};
-            fetch('http://172.18.0.3:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
+            fetch('http://localhost:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(info),
@@ -222,17 +236,49 @@ class Home extends React.Component {
             
     }
 
+    handleChildChange(prof_acronym, class_id){
+        if (window.profsIds.has(prof_acronym)){
+            if (window.profsIds.has(prof_acronym)){
+                prof_acronym = window.profsIds.get(prof_acronym);
+            }
+            const info = {class_id: class_id, prof_id: prof_acronym};
+            fetch('http://localhost:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_acronym, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(info),
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+            if (window.profsPerUc.has(class_id)){
+                window.profsPerUc.delete(class_id);
+                window.profsPerUc.set(class_id, window.profsIds.get(prof_acronym));
+            }
+            else
+                window.profsPerUc.set(class_id, window.profsIds.get(prof_acronym));
+            console.log(prof_acronym, class_id);
+        }
+    }
+
+    handleReload = () => {
+        this.setState({ucsList: null});
+        this.setState({profsList: null});
+        this.mainPanelsFetch();
+        //this.sleep(1000);
+        //this.loadUCsCells();
+    }
+
     render() {
         return (
             <div className="content">
                 <UniversalBar></UniversalBar>
-                <Navbar></Navbar>
+                <Navbar onReload={this.handleReload}></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
                         {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <span>Click on an UC to show more info...</span>}
                     </SidePanel>
                     <MainPanel>
-                        {this.state.ucsList !== null ? this.loadUCsCells() : <h3>Fetching...</h3>}
+                        {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
                     </MainPanel>
                     <MainPanel>
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
