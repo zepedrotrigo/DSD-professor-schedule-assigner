@@ -12,10 +12,15 @@ function Cell(props) {
             setFocused(true);
     }
     const onBlur = () => {
-        setValue("");
-        setFocused(false);
+        sleep(100).then(r => {
+            setValue("");
+            setFocused(false);
+        })
     }
 
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -42,6 +47,11 @@ function Cell(props) {
             setFocused(true);
     }
 
+    function onAutoClick(val){
+        console.log(val);
+        setValue(val);
+    }
+
     const handle = () => console.log('Enter pressed');
 
     return (
@@ -53,7 +63,7 @@ function Cell(props) {
                 </form>
                 <span className='percentage'>{props.percentage === 100 ? "" : props.percentage}</span>
                 {focused && 
-                <Autocomplete value={autoValue}/>
+                <Autocomplete value={autoValue} onAutoClick={onAutoClick}/>
                 }
             </div>
         </>

@@ -1,13 +1,19 @@
 import "./Autocomplete.css";
 
-const Autocomplete = (props) => {
+function Autocomplete(props) {
+
+  function handleClick(val){
+    //console.log(e);
+    props.onAutoClick(val);
+  }
+
   function load() {
     let data = [];
 
     for (let i = 0; i < props.value.length; i++) {
       data.push(
-        <li className="autocomplete-item">
-          <div className="autocomplete-item-click">{props.value[i]}</div>
+        <li className="autocomplete-item" key={i}>
+          <div className="autocomplete-item-click" onClick={() => handleClick(props.value[i])} value={props.value[i]}>{props.value[i]}</div>
         </li>
       );
     }
@@ -25,6 +31,6 @@ const Autocomplete = (props) => {
       )}
     </>
   );
-};
+}
 
 export default Autocomplete;
