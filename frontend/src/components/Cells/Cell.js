@@ -4,16 +4,15 @@ import Autocomplete from '../Autocomplete/Autocomplete';
 
 function Cell(props) {
 
-    const [value, setValue] = useState(null);
     const [autoValue, setAutoValue] = useState(null);
-
+    const [value, setValue] = useState(props.text);
     const [focused, setFocused] = useState(false);
     const onFocus = () => {
             setFocused(true);
     }
     const onBlur = () => {
         sleep(100).then(r => {
-            setValue("");
+            //setValue("");
             setFocused(false);
         })
     }
@@ -21,8 +20,6 @@ function Cell(props) {
     const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
-      
-    const [value, setValue] = useState(props.text);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -33,7 +30,7 @@ function Cell(props) {
         let arr = [];
         var str = event.target.value;
         var res = str.toUpperCase();
-        window.profsIds.forEach((value, key) => {
+        window.profsIds.forEach((val, key) => {
             if (key.startsWith(res) && res.length!==0){
                 arr.push(key);
             }
@@ -51,11 +48,9 @@ function Cell(props) {
     }
 
     function onAutoClick(val){
-        console.log(val);
         setValue(val);
+        props.onChildChange(val, props.id);
     }
-
-    const handle = () => console.log('Enter pressed');
 
     return (
         <>

@@ -256,7 +256,6 @@ class Home extends React.Component {
             }
             else
                 window.profsPerUc.set(class_id, window.profsIds.get(prof_acronym));
-            console.log(prof_acronym, class_id);
         }
     }
 
