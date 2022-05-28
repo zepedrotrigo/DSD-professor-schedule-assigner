@@ -2,6 +2,15 @@ import "./CourseContent.css";
 
 function CourseContent(props) {
 
+    function loadWishlist(){
+        let result=[];
+        for(let i=0; i<props.wishlist.length; i++){
+            result.push(<li>{props.wishlist[i]}</li>);
+        }
+
+        return (<>{result}</>)
+    }
+
     return (
         <>
             <div className='course-info'>
@@ -29,15 +38,7 @@ function CourseContent(props) {
             <div className='course-wishlist'>
                 <span>Wishlist:</span>
                 <ul>
-                    <li>ACD</li>
-                    <li>ICO</li>
-                    <li>TOS</li>
-                    <li>HTZ</li>
-                    <li>ORP</li>
-                    <li>DNC</li>
-                    <li>CCB</li>
-                    <li>AJC</li>
-                    <li>ASO</li>
+                    {loadWishlist()}
                 </ul>
             </div>
 

@@ -25,7 +25,8 @@ class Home extends React.Component {
             ucCellClicked: null,
             teacherInfo: null,
             ucInfo: null,
-            UCPanelState:null
+            UCPanelState:null,
+            currentWishlist: null
         }
     }
     
@@ -88,7 +89,22 @@ class Home extends React.Component {
         fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
-                this.setState({ ucInfo: data })
+                this.setState({ ucInfo: data });
+
+                let id= null;
+                Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
+                    const [k, v] = entry
+                    id = v.id;
+                })
+
+                console.log(id);
+
+                fetch(`http://localhost:8000/v1/wishlists/?class_id=${id}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.setState({ currentWishlist: data })
+                    })
+                
             })
     }
 
@@ -112,12 +128,25 @@ class Home extends React.Component {
 
     displayUcInSidePanel() {
         let result = [];
+        let wishlist = [];
+
+        console.log(this.state.ucInfo.ucs);
 
         Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
             const [k, v] = entry
             if (this.state.ucCellClicked == v.acronym) {
-                result.push(<CourseHeader acronym={v.acronym} name={v.uc_name} />)
-                result.push(<CourseContent studentsEstimate={v.students_estimate} director={v.director} />)
+                result.push(<CourseHeader acronym={v.acronym} name={v.uc_name} />);
+                Array.from(this.state.currentWishlist.wishlists.entries()).map((entry) => {
+                    const [k, v] = entry 
+                    if (v.preference == "likes"){
+                        window.profsIds.forEach((val, key) => {
+                            if (val == v.professor){
+                                wishlist.push(key);
+                            }
+                        });
+                    }
+                })
+                result.push(<CourseContent studentsEstimate={v.students_estimate} director={v.director} wishlist={wishlist}/>);
             }
         })
 
@@ -275,7 +304,7 @@ class Home extends React.Component {
                 <Navbar onReload={this.handleReload}></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
+                        {(this.state.ucInfo !== null && this.state.currentWishlist !== null) ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
                     </SidePanel>
                     <MainPanel>
                         {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
