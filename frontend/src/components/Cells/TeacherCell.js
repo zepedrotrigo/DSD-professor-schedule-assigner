@@ -7,8 +7,11 @@ function TeacherCell(props) {
         props.onChildClick(props.f1, "teacher");
     }
 
+    //props.f3.replace('H', '')
+
     return (
-            <div className={props.class}>
+            <div className={`main-teacher-cell ${parseInt(props.f3.replace('H', '')) >= 12 ? "warning" : ""}`}>
+                {console.log(parseInt(props.f3.replace('H', '')))}
                 <div className='main-cell-wrapper' onClick={handleClick}>
                         <span id='span_acr'>{props.f1}</span>
                     <span className='delimiter'>|</span>
