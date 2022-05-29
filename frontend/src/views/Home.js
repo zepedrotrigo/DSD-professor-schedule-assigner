@@ -171,12 +171,14 @@ class Home extends React.Component {
         let cellRows = []; // Contains all Profs wrapped in: <div className='align-cell'>{classes}</div>
         let classes = []; // Contains one Prof, gets cleared after pushing to cellRows
         let profsIds = new Map;
+        let profsIdsAndNames = new Map;
 
         Array.from(this.state.profsList.data.entries()).map((entry) => {
             const [k, v] = entry
             if (v.prof_acronym !== null) {
                 if (!(profsIds.has(v.prof_acronym))){
                     profsIds.set(v.prof_acronym, v.prof_id);
+                    profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
                 }
                 if (last_prof !== v.prof_acronym) {
                     cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
@@ -192,8 +194,7 @@ class Home extends React.Component {
         })
 
         window.profsIds = profsIds;
-
-
+        window.profsIdsAndNames = profsIdsAndNames;
 
         return (
             <div>

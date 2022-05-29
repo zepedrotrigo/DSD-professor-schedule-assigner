@@ -1,16 +1,26 @@
 import Card from "../components/Card/Card";
 import "./ChangeAcronym.css";
+import { useLocation } from "react-router-dom";
 
-function ChangeAcronym() {
+function ChangeAcronym(props) {
 
+    const {state} = useLocation();
+    const { profs } = state;
+
+    console.log(profs);
+
+    function loadProfs(){
+        let result=[];
+        profs.forEach((val, key) => {
+            result.push(<Card name={val[1]} acronym={key}/>);
+        });
+
+        return (<>{result}</>)
+    }
 
     return (
         <div className="change-acronym">  
-            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
-            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
-            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
-            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
-            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
+            {loadProfs()}
         </div>
     )
 }
