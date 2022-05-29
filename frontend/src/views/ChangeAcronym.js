@@ -3,12 +3,15 @@ import "./ChangeAcronym.css";
 
 function ChangeAcronym() {
 
+
     return (
-        <>
+        <div className="change-acronym">  
             <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
             <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
             <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
-        </>
+            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
+            <Card name="Tomás Oliveira e Silva" acronym="TOS" onClick={null} />
+        </div>
     )
 }
 
