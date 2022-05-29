@@ -1,6 +1,6 @@
 .modal {
     background-color: #fff;
-    position: relative;
+    position: fixed;
     width: 30%;
     padding: 1rem;
     margin: 1rem 35%;

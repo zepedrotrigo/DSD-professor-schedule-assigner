@@ -3,11 +3,9 @@ import React, { useState } from 'react';
 
 function Modal(props) {
 
-    const [showModal, setShowModal] = useState(false);
-
-    const setShowModalHandler = () => {
-        setShowModal(!showModal);
-    };
+    function hideModal(){
+        props.changeModal();
+    }
 
     return (
         <>  
@@ -18,15 +16,15 @@ function Modal(props) {
                 </div>
                 <div className="modal-content">
                     <span className="modal-content-name">Nome:</span>
-                    <p className="modal-content-teacher-name">Tomás Oliveira e Silva</p>
+                    <p className="modal-content-teacher-name">{props.name}</p>
                     <span className="modal-content-actual-acronym">Sigla Atual:</span>
-                    <p className="modal-content-teacher-actual-acronym">TOS</p>
+                    <p className="modal-content-teacher-actual-acronym">{props.acronym}</p>
                     <label htmlFor="new-acronym" className="modal-content-new-acronym">Nova sigla:</label>
                     <input type="text" name="new-acronym" className="new-acronym-input"></input>
                 </div>
                 <div className="modal-buttons">
-                    <button className="cancel-button">Cancelar</button>
-                    <button className="edit-button">Alterar</button>
+                    <button className="cancel-button" onClick={hideModal}>Cancelar</button>
+                    <button className="edit-button" onClick={hideModal}>Alterar</button>
                 </div>
             </div>
         </>
