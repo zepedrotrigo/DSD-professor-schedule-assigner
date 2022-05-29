@@ -1,9 +1,8 @@
-.card-wrapper {
-    margin-left: 1%;
-    margin-right: 1%;
-    height: 4rem;
+.change-acronym-card-wrapper {
+    height: 6rem;
+    min-height: 6rem;
+    margin: 0.5rem 1rem;
     width: 30%;
-    margin-top: 1rem;
     border-radius: 5px;
     border: solid 1px #ccc;
     display: inline-block;
@@ -26,12 +25,16 @@
     align-items: center;
 }
 
-.card-content span {
-    font-size: 18px;
+.teacher-fullname {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 16px;
+    height: 50%;
 }
 
-.fullname {
-    margin-bottom: 0.5rem;
+.teacher-acronym {
+    position: absolute;
+    bottom: 0.5rem;
 }
 
 .card-buttons {

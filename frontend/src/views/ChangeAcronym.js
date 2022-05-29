@@ -1,3 +1,4 @@
+import '../App.css';
 import Card from "../components/Card/Card";
 import "./ChangeAcronym.css";
 import { useLocation } from "react-router-dom";
