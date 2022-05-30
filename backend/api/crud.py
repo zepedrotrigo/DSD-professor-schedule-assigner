@@ -97,3 +97,11 @@ def assign_prof_to_class(connection, cursor, class_id, prof_id):
     connection.commit()
 
     return {"response": f"{cursor.rowcount} record(s) affected"}
+
+def update_prof_acronym(connection, cursor, prof_id, acronym):
+    '''Updates teacher acronym'''
+
+    cursor.execute(f"UPDATE dsd.professors SET acronym = {acronym} WHERE prof_id = {prof_id}")
+    connection.commit()
+
+    return {"response": f"{cursor.rowcount} record(s) affected"}

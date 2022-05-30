@@ -285,7 +285,6 @@ class Home extends React.Component {
                 prof_id1 = window.profsIds.get(prof_acronym);
 
             const info = { class_id: class_id, prof_id: prof_id1 };
-            console.log(info);
             fetch('http://localhost:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_id1, {
                 method: 'PUT',
             })
