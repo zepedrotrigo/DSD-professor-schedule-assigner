@@ -336,7 +336,7 @@ class Home extends React.Component {
                 <Navbar onReload={this.handleReload}></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        {(this.state.ucInfo !== null && this.state.UCWishlist !== null) ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
+                        {(this.state.ucInfo !== null && this.state.UCWishlist !== null) ? this.displayUcInSidePanel() : <p className='empty-message'>Clica numa Unidade Curricular para mais informação...</p>}
                     </SidePanel>
                     <MainPanel>
                         {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
@@ -345,7 +345,7 @@ class Home extends React.Component {
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        {(this.state.teacherInfo !== null && this.state.profWishlist !== null) ? this.displayTeacherInSidePanel() : <p className='empty-message'>Click on a teacher to show more info...</p>}
+                        {(this.state.teacherInfo !== null && this.state.profWishlist !== null) ? this.displayTeacherInSidePanel() : <p className='empty-message'>Clica num docente para mais informação...</p>}
                     </SidePanel>
                 </div>
             </div>

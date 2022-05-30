@@ -1,5 +1,6 @@
 import "./Navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ReactComponent as YourSvg } from './ua-logo.svg';
 
 function Navbar(props) {
 
@@ -29,6 +30,10 @@ function Navbar(props) {
 
     return (
         <div className="navbar">
+            <div className="ua-logo">
+                <YourSvg className="ua-logo-img" />
+                <span className="logo-legend">dsd</span>
+            </div>
             <ul className="navbar-items">
                 {loadNavComponents()}
                 <li>Validar</li>
