@@ -6,7 +6,7 @@ FROM (classes LEFT OUTER JOIN professors ON professors.id = classes.prof_id)
 JOIN ucs ON ucs.id = classes.uc_num;
 
 CREATE VIEW temp2 AS
-SELECT class_id, uc_acronym, uc_name, professors.acronym AS director_acronym, students_estimate,
+SELECT class_id, uc_acronym, uc_name, temp1.id AS uc_id, professors.acronym AS director_acronym, students_estimate,
 component, class_hours, availability_percent, 
 temp1.prof_id, temp1.prof_acronym, temp1.prof_name
 FROM professors, temp1
@@ -18,7 +18,7 @@ FROM temp1
 GROUP BY prof_acronym;
 
 CREATE VIEW dsd_main_info AS
-SELECT class_id, uc_acronym, uc_name, director_acronym, students_estimate,
+SELECT class_id, uc_acronym, uc_name, uc_id, director_acronym, students_estimate,
 component, class_hours, availability_percent, 
 temp2.prof_id, temp2.prof_acronym, temp2.prof_name, prof_total_hours.total_hours
 FROM temp2

@@ -1,6 +1,25 @@
 import './TeacherContent.css';
 
 function TeacherContent(props) {
+
+    function loadLikes(){
+        let result=[];
+        for(let i=0; i<props.wishLikes.length; i++){
+            result.push(<li>{props.wishLikes[i]}</li>);
+        }
+
+        return (<>{result}</>)
+    }
+
+    function loadDislikes(){
+        let result=[];
+        for(let i=0; i<props.wishDislikes.length; i++){
+            result.push(<li>{props.wishDislikes[i]}</li>);
+        }
+
+        return (<>{result}</>)
+    }
+
     return(
         <>
             <div className='teacher-info'>
@@ -26,16 +45,7 @@ function TeacherContent(props) {
                     <li>
                         <div className='teacher-wishlist-like'>
                             <ul>
-                                <li>AED</li>
-                                <li>AC1</li>
-                                <li>AC2</li>
-                                <li>FP</li>
-                                <li>SO</li>
-                                <li>PDS</li>
-                                <li>IA</li>
-                                <li>IO</li>
-                                <li>TQS</li>
-                                <li>MD</li>
+                                {loadLikes()}
                             </ul>
                         </div>
                     </li>
@@ -43,16 +53,7 @@ function TeacherContent(props) {
                     <li>
                         <div className='teacher-wishlist-unlike'>
                         <ul>
-                            <li>BD</li>
-                            <li>CBD</li>
-                            <li>LSD</li>
-                            <li>PI</li>
-                            <li>LSD</li>
-                            <li>PROE</li>
-                            <li>MEC</li>
-                            <li>NOD</li>
-                            <li>PLS</li>
-                            <li>PIF</li>
+                            {loadDislikes()}
                         </ul>
                         </div>
                     </li>
