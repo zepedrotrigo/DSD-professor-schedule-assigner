@@ -65,12 +65,12 @@ class Home extends React.Component {
     }
 
     mainPanelsFetch() {
-        fetch('http://localhost:8000/v1/dsd_main_info?filter_by="ucs"')
+        fetch('http://localhost:8000/v1/classes_main_panel_info')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucsList: data })
 
-                fetch('http://localhost:8000/v1/dsd_main_info?filter_by="profs"')
+                fetch('http://localhost:8000/v1/professors_main_panel_info')
                     .then((response) => response.json())
                     .then((data) => {
                         this.setState({ profsList: data })
@@ -108,7 +108,7 @@ class Home extends React.Component {
                 let id= null;
                 Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
                     const [k, v] = entry
-                    id = v.id;
+                    id = v.uc_id;
                 })
 
                 fetch(`http://localhost:8000/v1/wishlists/?class_id=${id}`)
@@ -126,13 +126,14 @@ class Home extends React.Component {
         let wishDislikes = [];
 
         Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
-            const [k, v] = entry
+            const [k, v] = entry;
+
             if (this.state.profCellClicked == v.acronym) {
                 result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />)
                 Array.from(this.state.profWishlist.wishlists.entries()).map((entry) => {
                     const [k, v] = entry 
                     window.ucsIds.forEach((val, key) => {
-                        if (val == v.uc_id){
+                        if (val == v.uc_id) {
                             if (v.preference == "likes")
                                 wishLikes.push(key);
                             else if(v.preference == "dislikes")
@@ -233,21 +234,22 @@ class Home extends React.Component {
 
         Array.from(this.state.profsList.data.entries()).map((entry) => {
             const [k, v] = entry
-            if (v.prof_acronym !== null) {
-                if (!(profsIds.has(v.prof_acronym))){
-                    profsIds.set(v.prof_acronym, v.prof_id);
-                    profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
-                }
-                if (last_prof !== v.prof_acronym) {
-                    cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
-                    classes = [];   
-                    classes.push(<TeacherCell className="main-teacher-cell" f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
+            
+            if (!(profsIds.has(v.prof_acronym))){
+                profsIds.set(v.prof_acronym, v.prof_id);
+                profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
+            }
+            if (last_prof !== v.prof_acronym) {
+                cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
+                classes = [];   
+                classes.push(<TeacherCell className="main-teacher-cell" f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
+                if (v.class_id !== null)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
-                    last_prof = v.prof_acronym;
-                }
-                else {
+                last_prof = v.prof_acronym;
+            }
+            else {
+                if (v.class_id !== null)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
-                }
             }
         })
 
