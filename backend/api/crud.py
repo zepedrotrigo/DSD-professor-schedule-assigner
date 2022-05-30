@@ -90,6 +90,9 @@ def get_prof_total_hours(cursor):
 
 def assign_prof_to_class(connection, cursor, class_id, prof_id):
     '''Assigns a teacher to a class'''
+    if prof_id == -1:
+        prof_id = "NULL"
+
     cursor.execute(f"UPDATE dsd.classes SET prof_id = {prof_id} WHERE class_id = {class_id}")
     connection.commit()
 
