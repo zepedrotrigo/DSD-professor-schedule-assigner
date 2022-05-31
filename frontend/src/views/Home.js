@@ -281,17 +281,9 @@ class Home extends React.Component {
                         {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
                     </SidePanel>
                     <MainPanel>
-                    <SearchAndFilters>
-                        <Filters />
-                        <SearchBar />
-                    </SearchAndFilters>
                         {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
                     </MainPanel>
                     <MainPanel>
-                        <SearchAndFilters>
-                            <Filters />
-                            <SearchBar />
-                        </SearchAndFilters>
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>

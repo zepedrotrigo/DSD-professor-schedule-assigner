@@ -11,3 +11,14 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.minor-width-content {
+    width: 40%;
+    margin: 0 30%;
+    justify-content: space-around;
+}
+
+.minor-width-wrapper {
+    max-height: none;
+    padding: 2rem 0;
+}

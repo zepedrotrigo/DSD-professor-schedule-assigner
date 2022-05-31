@@ -1,5 +1,8 @@
 import "./MainPanel.css";
 import React, { useState, useEffect} from "react";
+import Filters from "../../Filters/Filters";
+import SearchAndFilters from "../../SearchAndFilters/SearchAndFilters";
+import SearchBar from "../../SearchBar/SearchBar";
 
 function MainPanel(props) {
 
@@ -20,6 +23,10 @@ function MainPanel(props) {
 
     return (
         <div className="main-panel">
+            <SearchAndFilters>
+                            <Filters />
+                            <SearchBar />
+            </SearchAndFilters>
             {data}
         </div>
     )
