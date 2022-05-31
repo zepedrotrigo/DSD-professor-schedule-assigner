@@ -9,15 +9,15 @@ import UniversalBar from '../components/UniversalBar';
 
 function ChangeAcronym(props) {
 
+    const [results, setResults] = useState(null);
     const [show, setShow] = useState(false);
     const [name, setName] = useState(null);
     const [acronym, setAcronym] = useState(null);
     const [id, setId] = useState(null);
-    const {state} = useLocation();
-    const { profs } = state;
+    const [profs, setProfs] = useState(null);
 
-    function sortObjectByKeys(o) {
-        return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
     }
 
     function changeModalVisibility(name, acronym, id){
@@ -31,18 +31,32 @@ function ChangeAcronym(props) {
         let vars = profs.get(oldAcronym);
         profs.delete(oldAcronym);
         profs.set(acronym, vars);
-        var sorted = sortObjectByKeys(profs);
         setAcronym(acronym);
         setShow(!show);
+        sleep(150).then(r => {
+            setResults(null);
+        })
     }
 
     function loadProfs(){
         let result=[];
-        profs.forEach((val, key) => {
-            result.push(<Card name={val[1]} acronym={key} onClick={ () => changeModalVisibility(val[1], key, val[0])}/>);
-        });
-
-        return (<>{result}</>)
+        let profMap = new Map;
+        fetch(`http://localhost:8000/v1/professors`)
+            .then((response) => response.json())
+            .then((data) => {
+                Array.from(data.professors.entries()).map((entry) => {
+                    const [k,v] = entry;
+                    if (!(profMap.has(v.prof_name))){
+                        profMap.set(v.prof_name, [v.acronym, v.prof_id]);
+                    }
+                })
+                const sortedAsc = new Map([...profMap].sort());
+                sortedAsc.forEach((val, key) => {
+                    result.push(<Card name={key} acronym={val[0]} onClick={ () => changeModalVisibility(key, val[0], val[1])}/>);
+                });
+                setProfs(sortedAsc);
+                setResults(result);
+            })
     }
 
     return (
@@ -51,7 +65,7 @@ function ChangeAcronym(props) {
             <Navbar></Navbar>
             <div className="change-acronym">  
                 {show && <Modal name={name} acronym={acronym} id={id} acronymChanged={acronymChanged} changeModal={changeModalVisibility}/>}
-                {loadProfs()}
+                {results === null ? loadProfs() : results}
             </div>
         </div>
     )

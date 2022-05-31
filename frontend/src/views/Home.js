@@ -234,7 +234,7 @@ class Home extends React.Component {
 
         Array.from(this.state.profsList.data.entries()).map((entry) => {
             const [k, v] = entry
-
+            
             if (!(profsIds.has(v.prof_acronym))) {
                 profsIds.set(v.prof_acronym, v.prof_id);
                 profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
