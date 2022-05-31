@@ -1,6 +1,16 @@
 .search-bar {
-    border-radius: 16px;
+    border-radius: 12px;
     height: 2rem;
     width: 60%;
     padding: 0.5rem;
+    color: 000;
+    border: solid 1px #ccc;
+}
+
+.search-bar::placeholder {
+    color: #000;
+}
+
+.search-bar:focus {
+    outline: none;
 }

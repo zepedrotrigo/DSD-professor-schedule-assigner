@@ -9,8 +9,6 @@ import UniversalBar from '../components/UniversalBar';
 import "./ChangeAcronym.css";
 import { useLocation } from "react-router-dom";
 import Modal from '../components/Modal/Modal';
-import Navbar from '../components/Navbar';
-import UniversalBar from '../components/UniversalBar';
 
 function ChangeAcronym(props) {
 

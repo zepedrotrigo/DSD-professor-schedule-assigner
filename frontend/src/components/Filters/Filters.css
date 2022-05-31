@@ -1,5 +1,12 @@
 .filters {
+    padding: 0 0.5rem;
+    border-radius: 12px;
     height: 2rem;
-    width: 10rem;
+    width: 12rem;
     background-color: #fff;
+    border: solid 1px #ccc;
+}
+
+.filters:focus {
+    outline: none;
 }
