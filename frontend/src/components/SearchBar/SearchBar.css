@@ -14,3 +14,7 @@
 .search-bar:focus {
     outline: none;
 }
+
+.big {
+    width: 100%;
+}
