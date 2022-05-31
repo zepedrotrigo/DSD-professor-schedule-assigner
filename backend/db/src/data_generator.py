@@ -44,10 +44,10 @@ def get_students():
 
 ### departments ###
 print(f"-- departments\n\
-INSERT INTO dsd.departments(id, acronym, dept_name, dept_address, phone) VALUES(4, 'DETI', 'Departamento de Eletrónica, Telecomunicações e Informática', 'Campus Universitário de Santiago\
+INSERT INTO dsd.departments(dept_id, acronym, dept_name, dept_address, phone) VALUES(4, 'DETI', 'Departamento de Eletrónica, Telecomunicações e Informática', 'Campus Universitário de Santiago\
 3810-193 Aveiro, Portugal', '+351234370355');\
-INSERT INTO dsd.departments(id, acronym, dept_name, dept_address, phone) VALUES(11, 'DMAT', 'Departamento de Matemática', 'Campus Universitário de Santiago, 3810-193 Aveiro, Portugal', '+351234372545');\
-INSERT INTO dsd.departments(id, acronym, dept_name, dept_address, phone) VALUES(23, 'CP', 'Complexo Pedagógico', 'Campus Universitário de Santiago, 3810-193 Aveiro, Portugal', '+351234370200');\
+INSERT INTO dsd.departments(dept_id, acronym, dept_name, dept_address, phone) VALUES(11, 'DMAT', 'Departamento de Matemática', 'Campus Universitário de Santiago, 3810-193 Aveiro, Portugal', '+351234372545');\
+INSERT INTO dsd.departments(dept_id, acronym, dept_name, dept_address, phone) VALUES(23, 'CP', 'Complexo Pedagógico', 'Campus Universitário de Santiago, 3810-193 Aveiro, Portugal', '+351234370200');\
 \n\n")
 
 ### profs ###
@@ -59,36 +59,36 @@ for i in profs:
 ### dsders ###
 print("\n\n\
 -- dsders\n\n\
-INSERT INTO dsd.dsders(id) VALUES(1);\
+INSERT INTO dsd.dsders(dsder_id) VALUES(1);\
 ")
 
 ### courses ###
 
 print(f"\n\n\
 -- courses\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8240, 'MIECT', 'Mestrado Integrado em Engenharia de Computadores e Telemática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8295, 'LEI', 'Licenciatura em Engenharia Informática', 04, 1);\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8309, 'MIEET', 'Mestrado Integrado em Engenharia Eletrónica e Telecomunicações', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8316, 'LECI', 'Licenciatura em Engenharia de Computadores e Informática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8321, 'LEEC', 'Licenciatura em Engenharia Eletrotécnica e Computadores', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(8327, 'LEA', 'Licenciatura em Engenharia Aeroespacial', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9263, 'MEI', 'Mestrado em Engenharia Informática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9281, 'MC', 'Mestrado em Cibersegurança', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9283, 'MRSI', 'Mestrado em Robótica e Sistemas Inteligentes', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9291, 'MECT', 'Mestrado em Engenharia de Computadores e Telemática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9294, 'MEC', 'Mestrado em Engenharia Computacional', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9295, 'MEEC', 'Mestrado em Engenharia Eletrotécnica e Comunicações', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9306, 'MCD', 'Mestrado em Ciência de Dados', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9924, 'PDI', 'Programa Doutoral em Informática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9934, 'PDEI', 'Programa Doutoral em Engenharia Informática', 04, {random.randint(1,len(profs))});\n\
-INSERT INTO dsd.courses(id, acronym, course_name, department, director) VALUES(9935, 'PDEE', 'Programa Doutoral em Engenharia Eletrotécnica', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8240, 'MIECT', 'Mestrado Integrado em Engenharia de Computadores e Telemática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8295, 'LEI', 'Licenciatura em Engenharia Informática', 04, 1);\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8309, 'MIEET', 'Mestrado Integrado em Engenharia Eletrónica e Telecomunicações', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8316, 'LECI', 'Licenciatura em Engenharia de Computadores e Informática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8321, 'LEEC', 'Licenciatura em Engenharia Eletrotécnica e Computadores', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(8327, 'LEA', 'Licenciatura em Engenharia Aeroespacial', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9263, 'MEI', 'Mestrado em Engenharia Informática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9281, 'MC', 'Mestrado em Cibersegurança', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9283, 'MRSI', 'Mestrado em Robótica e Sistemas Inteligentes', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9291, 'MECT', 'Mestrado em Engenharia de Computadores e Telemática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9294, 'MEC', 'Mestrado em Engenharia Computacional', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9295, 'MEEC', 'Mestrado em Engenharia Eletrotécnica e Comunicações', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9306, 'MCD', 'Mestrado em Ciência de Dados', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9924, 'PDI', 'Programa Doutoral em Informática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9934, 'PDEI', 'Programa Doutoral em Engenharia Informática', 04, {random.randint(1,len(profs))});\n\
+INSERT INTO dsd.courses(course_id, acronym, course_name, department, director) VALUES(9935, 'PDEE', 'Programa Doutoral em Engenharia Eletrotécnica', 04, {random.randint(1,len(profs))});\n\
 ")
 
 ### ucs ###
 print("\n\n-- ucs\n\n")
 
 for counter,i in enumerate(ucs):
-    print(f"INSERT INTO dsd.ucs(id, acronym, uc_name, students_estimate, director) \
+    print(f"INSERT INTO dsd.ucs(uc_id, acronym, uc_name, students_estimate, director) \
          VALUES ({80000+counter+1}, '{i}', '{ucs[i]}', {get_students()}, {random.randint(1,len(profs))} );")
 
 
@@ -98,12 +98,12 @@ print("\n\n-- classes\n\n")
 counter = 0
 for u in range(len(ucs)):
     counter+=1
-    for i in range(4):
+    for i in range(random.randrange(3,8)):
         rng = random.random()
         if rng > 0.50: #    prof_id INT availability_percent INT
-            print(f"INSERT INTO dsd.classes(prof_id, availability_percent,year_int, uc_num, component, class_hours) VALUES({random.randint(1,len(profs))},{random.choice([25,50,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','T'])}', 2);")
+            print(f"INSERT INTO dsd.classes(prof_id, availability_percent,year_int, uc_num, component, class_hours) VALUES({random.randint(1,len(profs))},{random.choice([25,50,100,100,100,100,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','P','P','T'])}', 2);")
         else:
-            print(f"INSERT INTO dsd.classes(availability_percent, year_int, uc_num, component, class_hours) VALUES({random.choice([25,50,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','T'])}', 2);")
+            print(f"INSERT INTO dsd.classes(availability_percent, year_int, uc_num, component, class_hours) VALUES({random.choice([25,50,100,100,100,100,100])},{random.randint(2016,2022)}, {80000+counter}, '{random.choice(['P','P','P','T'])}', 2);")
 
 
 ### wishlists ###

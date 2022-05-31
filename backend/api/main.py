@@ -99,13 +99,21 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
     with connection.cursor() as cursor:
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
 
-@app.get("/v1/dsd_main_info/")
-def get_dsd_main_info(filter_by: Optional[str] = "NULL"):
-    '''Returns data used in UCs and profs respective main panels'''
+@app.get("/v1/classes_main_panel_info/")
+def classes_main_panel_info():
+    '''Returns data used in UCs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.get_dsd_main_info(cursor, filter_by)
+        return crud.classes_main_panel_info(cursor)
+
+@app.get("/v1/professors_main_panel_info/")
+def professors_main_panel_info():
+    '''Returns data used in Profs main panel'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.professors_main_panel_info(cursor)
 
 @app.get("/v1/prof_total_hours/")
 def get_prof_total_hours():
@@ -117,8 +125,16 @@ def get_prof_total_hours():
 
 @app.put("/v1/classes/")
 def assign_prof_to_class(class_id: int, prof_id: int):
-    '''Assigns a teacher to a class'''
+    '''Assigns/Removes a teacher to a class'''
 
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.assign_prof_to_class(connection, cursor, class_id, prof_id)
+
+@app.put("/v1/professors/")
+def update_prof_acronym(prof_id: int, acronym: str):
+    '''Updates teacher acronym'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.update_prof_acronym(connection, cursor, prof_id, acronym)

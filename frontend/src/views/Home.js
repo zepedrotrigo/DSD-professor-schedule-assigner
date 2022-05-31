@@ -28,10 +28,12 @@ class Home extends React.Component {
             ucCellClicked: null,
             teacherInfo: null,
             ucInfo: null,
-            UCPanelState:null
+            UCPanelState: null,
+            UCWishlist: null,
+            profWishlist: null
         }
     }
-    
+
 
     sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -66,12 +68,12 @@ class Home extends React.Component {
     }
 
     mainPanelsFetch() {
-        fetch('http://localhost:8000/v1/dsd_main_info?filter_by="ucs"')
+        fetch('http://localhost:8000/v1/classes_main_panel_info')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ ucsList: data })
 
-                fetch('http://localhost:8000/v1/dsd_main_info?filter_by="profs"')
+                fetch('http://localhost:8000/v1/professors_main_panel_info')
                     .then((response) => response.json())
                     .then((data) => {
                         this.setState({ profsList: data })
@@ -84,6 +86,19 @@ class Home extends React.Component {
             .then((response) => response.json())
             .then((data) => {
                 this.setState({ teacherInfo: data })
+
+                let id = null;
+                window.profsIds.forEach((val, key) => {
+                    if (key == acronym) {
+                        id = val;
+                    }
+                });
+
+                fetch(`http://localhost:8000/v1/wishlists/?prof_id=${id}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.setState({ profWishlist: data })
+                    })
             })
     }
 
@@ -91,18 +106,45 @@ class Home extends React.Component {
         fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
             .then((response) => response.json())
             .then((data) => {
-                this.setState({ ucInfo: data })
+                this.setState({ ucInfo: data });
+
+                let id = null;
+                Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
+                    const [k, v] = entry
+                    id = v.uc_id;
+                })
+
+                fetch(`http://localhost:8000/v1/wishlists/?class_id=${id}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        this.setState({ UCWishlist: data })
+                    })
+
             })
     }
 
     displayTeacherInSidePanel() {
         let result = [];
+        let wishLikes = [];
+        let wishDislikes = [];
 
         Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
-            const [k, v] = entry
+            const [k, v] = entry;
+
             if (this.state.profCellClicked == v.acronym) {
                 result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />)
-                result.push(<TeacherContent email={v.email} phone={v.phone} />)
+                Array.from(this.state.profWishlist.wishlists.entries()).map((entry) => {
+                    const [k, v] = entry
+                    window.ucsIds.forEach((val, key) => {
+                        if (val == v.uc_id) {
+                            if (v.preference == "likes")
+                                wishLikes.push(key);
+                            else if (v.preference == "dislikes")
+                                wishDislikes.push(key);
+                        }
+                    });
+                })
+                result.push(<TeacherContent email={v.email} phone={v.phone} wishLikes={wishLikes} wishDislikes={wishDislikes} />)
             }
         })
 
@@ -115,12 +157,23 @@ class Home extends React.Component {
 
     displayUcInSidePanel() {
         let result = [];
+        let wishlist = [];
 
         Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
             const [k, v] = entry
             if (this.state.ucCellClicked == v.acronym) {
-                result.push(<CourseHeader acronym={v.acronym} name={v.uc_name} />)
-                result.push(<CourseContent studentsEstimate={v.students_estimate} director={v.director} />)
+                result.push(<CourseHeader acronym={v.acronym} name={v.uc_name} />);
+                Array.from(this.state.UCWishlist.wishlists.entries()).map((entry) => {
+                    const [k, v] = entry
+                    if (v.preference == "likes") {
+                        window.profsIds.forEach((val, key) => {
+                            if (val == v.professor) {
+                                wishlist.push(key);
+                            }
+                        });
+                    }
+                })
+                result.push(<CourseContent studentsEstimate={v.students_estimate} director={v.director} wishlist={wishlist} />);
             }
         })
 
@@ -135,14 +188,19 @@ class Home extends React.Component {
         let last_uc = "";
         let cellRows = []; // Contains all UCs wrapped in: <div className='align-cell'>{classes}</div>
         let classes = []; // Contains one UC, gets cleared after pushing to cellRows
+        let ucsIds = new Map;
         let profsPerUc = new Map;
 
         Array.from(this.state.ucsList.data.entries()).map((entry) => {
             const [k, v] = entry
 
-            if (!(profsPerUc.has(v.class_id))){
-                if (v.prof_acronym!=null)
+            if (!(profsPerUc.has(v.class_id))) {
+                if (v.prof_acronym != null)
                     profsPerUc.set(v.class_id, v.prof_acronym);
+            }
+
+            if (!(ucsIds.has(v.uc_acronym))) {
+                ucsIds.set(v.uc_acronym, v.uc_id);
             }
 
             if (last_uc !== v.uc_acronym) {
@@ -158,6 +216,7 @@ class Home extends React.Component {
             }
         })
 
+        window.ucsIds = ucsIds;
         window.profsPerUc = profsPerUc;
 
         //this.setState({ UCPanelState: cellRows });
@@ -174,29 +233,31 @@ class Home extends React.Component {
         let cellRows = []; // Contains all Profs wrapped in: <div className='align-cell'>{classes}</div>
         let classes = []; // Contains one Prof, gets cleared after pushing to cellRows
         let profsIds = new Map;
+        let profsIdsAndNames = new Map;
 
         Array.from(this.state.profsList.data.entries()).map((entry) => {
             const [k, v] = entry
-            if (v.prof_acronym !== null) {
-                if (!(profsIds.has(v.prof_acronym))){
-                    profsIds.set(v.prof_acronym, v.prof_id);
-                }
-                if (last_prof !== v.prof_acronym) {
-                    cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
-                    classes = [];   
-                    classes.push(<TeacherCell className="main-teacher-cell" f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
+
+            if (!(profsIds.has(v.prof_acronym))) {
+                profsIds.set(v.prof_acronym, v.prof_id);
+                profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
+            }
+            if (last_prof !== v.prof_acronym) {
+                cellRows.push(<div className='align-cell'>{classes}</div>) // if new uc, put all classes inside div and clear classes array
+                classes = [];
+                classes.push(<TeacherCell className="main-teacher-cell" f1={v.prof_acronym} f2={this.shortenTeacherName(v.prof_name)} f3={v.total_hours + "H"} onChildClick={this.handleChildClick} />)
+                if (v.class_id !== null)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
-                    last_prof = v.prof_acronym;
-                }
-                else {
+                last_prof = v.prof_acronym;
+            }
+            else {
+                if (v.class_id !== null)
                     classes.push(<Cell extClass={"cell sm " + v.component.toLowerCase()} inputClass={"input " + v.component.toLowerCase()} text={v.uc_acronym} hours={v.class_hours} percentage={v.availability_percent}></Cell>)
-                }
             }
         })
 
         window.profsIds = profsIds;
-
-
+        window.profsIdsAndNames = profsIdsAndNames;
 
         return (
             <div>
@@ -219,42 +280,21 @@ class Home extends React.Component {
         }
     }
 
-    handleSubmit(class_id, prof_acronym) {
-        var id, item = null;
-        if(window.profsIds.has(prof_acronym)){
-            id = window.profsIds.get(prof_acronym);
-            item = class_id;
-            const info = {class_id: item, prof_id: id};
-            fetch('http://localhost:8000/v1/classes/?class_id=' + item + '&prof_id=' + id, {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(info),
-             })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-        }
-        else{
-            console.log("WRONG ACRONYM");
-        }
-            
-    }
+    handleChildChange(prof_acronym, class_id) {
+        if ((window.profsIds.has(prof_acronym)) || (prof_acronym === "")) {
+            let prof_id1 = -1;
 
-    handleChildChange(prof_acronym, class_id){
-        if (window.profsIds.has(prof_acronym)){
-            if (window.profsIds.has(prof_acronym)){
-                prof_acronym = window.profsIds.get(prof_acronym);
-            }
-            const info = {class_id: class_id, prof_id: prof_acronym};
-            fetch('http://localhost:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_acronym, {
+            if (prof_acronym !== "")
+                prof_id1 = window.profsIds.get(prof_acronym);
+
+            const info = { class_id: class_id, prof_id: prof_id1 };
+            fetch('http://localhost:8000/v1/classes/?class_id=' + class_id + '&prof_id=' + prof_id1, {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(info),
             })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-            if (window.profsPerUc.has(class_id)){
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+            if (window.profsPerUc.has(class_id)) {
                 window.profsPerUc.delete(class_id);
                 window.profsPerUc.set(class_id, window.profsIds.get(prof_acronym));
             }
@@ -264,8 +304,8 @@ class Home extends React.Component {
     }
 
     handleReload = () => {
-        this.setState({ucsList: null});
-        this.setState({profsList: null});
+        this.setState({ ucsList: null });
+        this.setState({ profsList: null });
         this.mainPanelsFetch();
         //this.sleep(1000);
         //this.loadUCsCells();
@@ -278,16 +318,16 @@ class Home extends React.Component {
                 <Navbar onReload={this.handleReload}></Navbar>
                 <div className='panel-wrapper'>
                     <SidePanel>
-                        {this.state.ucInfo !== null ? this.displayUcInSidePanel() : <p className='empty-message'>Click on an UC to show more info...</p>}
+                        {(this.state.ucInfo !== null && this.state.UCWishlist !== null) ? this.displayUcInSidePanel() : <p className='empty-message'>Clica numa Unidade Curricular para mais informação...</p>}
                     </SidePanel>
                     <MainPanel>
-                        {this.state.ucsList !== null ? this.loadUCsCells()  : <h3>Fetching...</h3>}
+                        {this.state.ucsList !== null ? this.loadUCsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <MainPanel>
                         {this.state.profsList !== null ? this.loadProfsCells() : <h3>Fetching...</h3>}
                     </MainPanel>
                     <SidePanel>
-                        {this.state.teacherInfo !== null ? this.displayTeacherInSidePanel() : <p className='empty-message'>Click on a teacher to show more info...</p>}
+                        {(this.state.teacherInfo !== null && this.state.profWishlist !== null) ? this.displayTeacherInSidePanel() : <p className='empty-message'>Clica num docente para mais informação...</p>}
                     </SidePanel>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useState } from 'react';
 import Home from './views/Home';
 import ChangeAcronym from './views/ChangeAcronym';
 import SidePanel from './components/Panels/SidePanel/SidePanel';
@@ -15,7 +16,7 @@ function App() {
 			<div className='body'>
 				<Routes>
 					<Route path="/" element={<Home />}/>
-					<Route path="/change-acronym" element={<ChangeAcronym />}/>
+					<Route path="/change-acronym" element={<ChangeAcronym data={window.ids}/>}/>
 					<Route path="/sidepanel" element={<SidePanel><TeacherHeader /><TeacherContent /></SidePanel>}/>
 				</Routes>
 			</div>

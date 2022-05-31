@@ -61,10 +61,19 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
 
-def get_dsd_main_info(cursor, filter_by):
-    '''Returns data used in UCs and profs respective main panels'''
+def classes_main_panel_info(cursor):
+    '''Returns data used in UCs main panel'''
 
-    cursor.execute(f"CALL getDsdMainInfo({filter_by});")
+    cursor.execute(f"SELECT *  FROM classes_main_panel_info ORDER BY uc_name ASC, prof_acronym ASC;")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    return {"data": [dict(zip(keys, vals)) for vals in result]}
+
+def professors_main_panel_info(cursor):
+    '''Returns data used in Profs main panel'''
+
+    cursor.execute(f"SELECT *  FROM professors_main_panel_info ORDER BY prof_acronym ASC;")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
@@ -81,7 +90,18 @@ def get_prof_total_hours(cursor):
 
 def assign_prof_to_class(connection, cursor, class_id, prof_id):
     '''Assigns a teacher to a class'''
-    cursor.execute(f"UPDATE dsd.classes SET prof_id = {prof_id} WHERE id = {class_id}")
+    if prof_id == -1:
+        prof_id = "NULL"
+
+    cursor.execute(f"UPDATE dsd.classes SET prof_id = {prof_id} WHERE class_id = {class_id}")
+    connection.commit()
+
+    return {"response": f"{cursor.rowcount} record(s) affected"}
+
+def update_prof_acronym(connection, cursor, prof_id, acronym):
+    '''Updates teacher acronym'''
+
+    cursor.execute(f"UPDATE dsd.professors SET acronym = {acronym} WHERE prof_id = {prof_id}")
     connection.commit()
 
     return {"response": f"{cursor.rowcount} record(s) affected"}

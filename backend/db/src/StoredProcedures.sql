@@ -12,7 +12,7 @@ CREATE PROCEDURE FilterClasses(
 )
 BEGIN
 	SELECT *  FROM classes
-    WHERE   (class_id=-1 OR classes.id = class_id)
+    WHERE   (class_id=-1 OR classes.class_id = class_id)
         AND (year_int=-1 OR classes.year_int = year_int)
         AND (uc_id=-1 OR classes.uc_num = uc_id)
         AND (component IS NULL OR classes.component = component)
@@ -37,7 +37,7 @@ CREATE PROCEDURE FilterDepartments(
 )
 BEGIN
 	SELECT *  FROM departments
-    WHERE   (id=-1 OR departments.id = id)
+    WHERE   (id=-1 OR departments.dept_id = id)
         AND (acronym IS NULL OR departments.acronym LIKE CONCAT('%',acronym,'%'))
         AND (dept_name IS NULL OR departments.dept_name LIKE CONCAT('%',dept_name,'%'))
         AND (dept_address IS NULL OR departments.dept_address LIKE CONCAT('%',dept_address,'%'))
@@ -64,7 +64,7 @@ CREATE PROCEDURE FilterProfessors(
 )
 BEGIN
 	SELECT *  FROM professors
-    WHERE   (prof_id=-1 OR professors.id = prof_id)
+    WHERE   (prof_id=-1 OR professors.prof_id = prof_id)
         AND (nmec=-1 OR professors.nmec = nmec)
         AND (email IS NULL OR professors.email LIKE CONCAT('%',email,'%'))
         AND (phone IS NULL OR professors.phone LIKE CONCAT('%',phone,'%'))
@@ -89,7 +89,7 @@ CREATE PROCEDURE FilterDsders(
 )
 BEGIN
 	SELECT *  FROM dsders
-    WHERE   (dsder_id=-1 OR dsders.id = dsder_id);
+    WHERE   (dsder_id=-1 OR dsders.dsder_id = dsder_id);
 
 END $$
 
@@ -109,7 +109,7 @@ CREATE PROCEDURE FilterCourses(
 )
 BEGIN
 	SELECT *  FROM courses
-    WHERE   (course_id=-1 OR courses.id = course_id)
+    WHERE   (course_id=-1 OR courses.course_id = course_id)
         AND (acronym IS NULL OR courses.acronym LIKE CONCAT('%',acronym,'%'))
         AND (course_name IS NULL OR courses.course_name LIKE CONCAT('%',course_name,'%'))
         AND (department_id=-1 OR courses.department = department_id)
@@ -131,7 +131,7 @@ CREATE PROCEDURE FilterUcs(
 )
 BEGIN
 	SELECT *  FROM ucs
-    WHERE   (uc_id=-1 OR ucs.id = uc_id)
+    WHERE   (uc_id=-1 OR ucs.uc_id = uc_id)
         AND (acronym IS NULL OR ucs.acronym LIKE CONCAT('%',acronym,'%'))
         AND (uc_name IS NULL OR ucs.uc_name LIKE CONCAT('%',uc_name,'%'))
         AND (director=-1 OR ucs.director = director);
@@ -152,7 +152,7 @@ CREATE PROCEDURE FilterWishlists(
 )
 BEGIN
 	SELECT *  FROM wishlists
-    WHERE   (wishlist_id=-1 OR wishlists.id = wishlist_id)
+    WHERE   (wishlist_id=-1 OR wishlists.wishlist_id = wishlist_id)
         AND (year_int=-1 OR wishlists.year_int = year_int)
         AND (prof_id=-1 OR wishlists.professor = prof_id)
         AND (uc_id=-1 OR wishlists.uc_id = uc_id);
@@ -161,25 +161,3 @@ END $$
 
 DELIMITER ;
 -- CALL FilterWishlists(-1,-1,-1,-1);
-
-DELIMITER $$
-
-CREATE PROCEDURE getDsdMainInfo(
-    filterBy VARCHAR(100)
-)
-BEGIN
-        IF filterBy = "ucs" THEN
-            SELECT *  FROM dsd_main_info
-            ORDER BY uc_name ASC, prof_acronym ASC;
-        ELSEIF filterBy = "profs" THEN
-            SELECT *  FROM dsd_main_info
-            ORDER BY prof_acronym ASC;
-        ELSE
-            SELECT *  FROM dsd_main_info;
-        END IF;
-    
-
-END $$
-
-DELIMITER ;
--- CALL getDsdMainInfo("");
