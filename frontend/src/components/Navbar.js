@@ -12,10 +12,10 @@ function Navbar(props) {
         let result=[];
 
         if(location.pathname=="/change-acronym"){
-            result.push(<li>Alterar siglas</li>);
+            result.push(<li className="on-page">Alterar siglas</li>);
         }
         else
-            result.push(<li onClick={changeAcronym}>Alterar siglas</li>);
+            result.push(<li className="nav-item" onClick={changeAcronym}>Alterar siglas</li>);
 
         return(<>{result}</>)
     }
@@ -36,8 +36,8 @@ function Navbar(props) {
             </div>
             <ul className="navbar-items">
                 {loadNavComponents()}
-                <li>Validar</li>
-                <li>Exportar</li>
+                <li className="nav-item">Validar</li>
+                <li className="nav-item">Exportar</li>
                 <i style={{fontSize: '18px'}} className="fa" onClick={handleClick}>&#xf021;</i>
             </ul>
         </div>

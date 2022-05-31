@@ -39,10 +39,9 @@
   align-items: center;
 }
 
-.navbar-items li {
+.nav-item, .on-page{
   text-transform: uppercase;
   color: white;
-  border-bottom: solid 3px rgb(14, 180, 189);
   padding: 0.5rem 0;
   margin-right: 3rem;
   font-weight: 400;
@@ -53,10 +52,18 @@
   justify-content: center;
 }
 
-.navbar-items li:hover {
+.nav-item {
+  border-bottom: solid 3px rgb(14, 180, 189);
+}
+
+.nav-item:hover, .on-page:hover {
   cursor: pointer;
   border-bottom: solid 3px #fff;
   transition: all 0.2s ease-in-out;
+}
+
+.on-page{
+  border-bottom: solid 3px #92d400;
 }
 
 .fa {
@@ -66,6 +73,15 @@
 
 .fa:hover {
   cursor: pointer;
-  color: #000;
+  color: #92d400;
   transition: all 0.2s ease-in-out;
+}
+
+@keyframes appear {
+  from {
+      width: 0;
+  }
+  to {
+      width: 65%;
+  }
 }
