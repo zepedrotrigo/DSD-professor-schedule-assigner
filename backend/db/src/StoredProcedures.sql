@@ -161,3 +161,18 @@ END $$
 
 DELIMITER ;
 -- CALL FilterWishlists(-1,-1,-1,-1);
+
+-- DROP PROCEDURE ValidateDsd;
+DELIMITER $$
+
+CREATE PROCEDURE ValidateDsd(max_hours FLOAT)
+BEGIN
+    SELECT * FROM prof_total_hours
+    WHERE total_hours IS NULL OR total_hours >= max_hours
+    UNION
+    SELECT uc_acronym, component FROM classes_main_panel_info
+    WHERE prof_id IS NULL;
+END $$
+
+DELIMITER ;
+-- CALL ValidateDsd(9);

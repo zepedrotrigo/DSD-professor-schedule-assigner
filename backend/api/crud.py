@@ -105,3 +105,12 @@ def update_prof_acronym(connection, cursor, prof_id, acronym):
     connection.commit()
 
     return {"response": f"{cursor.rowcount} record(s) affected"}
+
+def validate_dsd(cursor, max_hours):
+    '''Retrieves dsd warnings'''
+
+    cursor.execute(f"CALL ValidateDsd({max_hours});")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    return {"warnings": [dict(zip(keys, vals)) for vals in result]}

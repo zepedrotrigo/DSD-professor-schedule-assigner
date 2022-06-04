@@ -138,3 +138,11 @@ def update_prof_acronym(prof_id: int, acronym: str):
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.update_prof_acronym(connection, cursor, prof_id, acronym)
+
+@app.get("/v1/validate_dsd/")
+def validate_dsd(max_hours: int):
+    '''Retrieves dsd warnings'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.validate_dsd(cursor, max_hours)
