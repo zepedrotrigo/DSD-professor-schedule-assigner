@@ -1,3 +1,19 @@
+import json, csv, datetime
+
+def write_dict_to_file(dic, filetype):
+    fpath = f"./export/dsd_{datetime.datetime.now().strftime('%d_%m_%Y_%hh_%mm_%ss')}.{filetype}"
+    
+    if filetype == "json":
+        with open(fpath, "w") as outfile:
+            json.dump(dic, outfile)
+    else:
+        with open(fpath, 'w') as outfile:
+            writer = csv.DictWriter(outfile, dic["data"][0].keys())
+            writer.writeheader()
+            writer.writerows(dic["data"])
+    
+    return fpath
+
 def get_classes(cursor, id, year, uc_id, component, hours, prof_id):
     '''Returns all classes (allows combined filters: id, year, uc_id, component, hours, prof_id)'''
     
@@ -114,3 +130,13 @@ def validate_dsd(cursor, max_hours):
     keys = [i[0] for i in cursor.description]
 
     return {"warnings": [dict(zip(keys, vals)) for vals in result]}
+
+def export_dsd(cursor, file_type):
+    '''Exports dsd as json/csv/xls'''
+
+    cursor.execute(f"CALL ExportDsd();")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    json = {"data": [dict(zip(keys, vals)) for vals in result]}
+    return write_dict_to_file(json, file_type)

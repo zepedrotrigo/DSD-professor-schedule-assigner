@@ -176,3 +176,20 @@ END $$
 
 DELIMITER ;
 -- CALL ValidateDsd(9);
+
+-- DROP PROCEDURE ExportDsd;
+DELIMITER $$
+
+CREATE PROCEDURE ExportDsd()
+BEGIN
+    SELECT classes_main_panel_info.*, prof_total_hours.total_hours AS prof_total_hours
+    FROM classes_main_panel_info LEFT JOIN prof_total_hours ON classes_main_panel_info.prof_acronym = prof_total_hours.prof_acronym
+    UNION
+    SELECT NULL AS class_id, NULL AS uc_id, NULL AS uc_acronym, NULL AS uc_name, NULL AS director_acronym, NULL AS students_estimate,
+    NULL AS component, NULL AS class_hours, NULL AS availability_percent,  prof_id, prof_acronym, prof_name, total_hours AS prof_total_hours 
+    FROM professors_main_panel_info
+    WHERE professors_main_panel_info.total_hours IS NULL;
+END $$
+
+DELIMITER ;
+-- CALL ExportDsd();

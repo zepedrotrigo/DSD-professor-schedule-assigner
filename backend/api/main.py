@@ -3,7 +3,7 @@ import crud
 from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, FileResponse
 
 app = FastAPI()
 
@@ -146,3 +146,13 @@ def validate_dsd(max_hours: int):
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.validate_dsd(cursor, max_hours)
+
+@app.get("/v1/export_dsd/")
+def export_dsd(file_type: str):
+    '''Exports dsd as json/csv/xls'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        filepath = crud.export_dsd(cursor, file_type)
+
+    return FileResponse(path=filepath, filename=filepath)
