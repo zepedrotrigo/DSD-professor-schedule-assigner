@@ -1,0 +1,6 @@
+.export-content {
+    width: 80%;
+    margin: 0 10%;
+    display: flex;
+    justify-content: space-around;
+}
