@@ -23,6 +23,10 @@
   font-weight: 400;
 }
 
+.social-links span:last-child {
+  border-right: none;
+}
+
 .universal-bar-items {
   display: flex;
   justify-content: space-between;
@@ -42,7 +46,20 @@
   margin-right: 10;
 }
 
+.login:hover {
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: all 0.15s ease;
+}
+
 .login a {
+  font-family: 'Roboto';
+  font-weight: 500;
+  text-decoration: none;
   font-size: 12px;
   color: #92d400;
+}
+
+.icon-user {
+  margin-left: 0.4rem;
 }

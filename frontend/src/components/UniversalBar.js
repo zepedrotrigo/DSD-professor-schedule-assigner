@@ -1,4 +1,10 @@
 import "./UniversalBar.css";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faTwitter,
+    faInstagram,
+  } from "@fortawesome/free-brands-svg-icons";
 
 function UniversalBar() {
 
@@ -7,6 +13,8 @@ function UniversalBar() {
             <div className="social-links">
                 <span>News</span>
                 <span>Events</span>
+                <span><FontAwesomeIcon  icon={faTwitter} /> </span>
+                <span><FontAwesomeIcon  icon={faInstagram} /> </span>
             </div>
             <div className="universal-bar-items">
                 <a href="">Prospective Students</a>
@@ -17,7 +25,7 @@ function UniversalBar() {
                 <a href="">Society</a>
             </div>
             <div className="login">
-                <a href="">login</a>
+                <a href="">login <FontAwesomeIcon className="icon-user" icon={faUser}/></a>
             </div>
         </div>
     )
