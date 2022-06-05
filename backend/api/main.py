@@ -100,20 +100,20 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
 
 @app.get("/v1/classes_main_panel_info/")
-def classes_main_panel_info():
+def classes_main_panel_info(params: Optional[str] = "'assigned_classes asc'"):
     '''Returns data used in UCs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.classes_main_panel_info(cursor)
+        return crud.classes_main_panel_info(cursor, params)
 
 @app.get("/v1/professors_main_panel_info/")
-def professors_main_panel_info():
+def professors_main_panel_info(params: Optional[str] = "'total_hours asc'"):
     '''Returns data used in Profs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.professors_main_panel_info(cursor)
+        return crud.professors_main_panel_info(cursor, params)
 
 @app.get("/v1/prof_total_hours/")
 def get_prof_total_hours():

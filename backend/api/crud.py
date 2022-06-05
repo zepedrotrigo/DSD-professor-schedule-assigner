@@ -77,19 +77,19 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
 
-def classes_main_panel_info(cursor):
+def classes_main_panel_info(cursor, params):
     '''Returns data used in UCs main panel'''
 
-    cursor.execute(f"SELECT *  FROM classes_main_panel_info ORDER BY uc_name ASC, prof_acronym ASC;")
+    cursor.execute(f"CALL SortUcs({params});")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
     return {"data": [dict(zip(keys, vals)) for vals in result]}
 
-def professors_main_panel_info(cursor):
+def professors_main_panel_info(cursor, params):
     '''Returns data used in Profs main panel'''
 
-    cursor.execute(f"SELECT *  FROM professors_main_panel_info ORDER BY prof_acronym ASC;")
+    cursor.execute(f"CALL SortProfessors({params});")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
