@@ -1,21 +1,3 @@
-.validate-modal {
-    background-color: #fff;
-    position: fixed;
-    width: 30%;
-    padding: 1rem;
-    margin: 1rem 35%;
-    border-radius: 12px;
-}
-
-.backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 3;
-    background-color: rgba(0, 0, 0, 0.6);
-}
 
 .validate-modal-content {
     overflow:scroll;

@@ -1,6 +1,6 @@
-import "./ModalValidate.css";
+import './ValidateContent.css';
 
-function ModalValidate(props) {
+const ValidateContent = (props) => {
 
     function hideModal(){
         props.changeModal();
@@ -26,22 +26,19 @@ function ModalValidate(props) {
 
     return (
         <>  
-            <div className="backdrop"></div>
-            <div className="validate-modal">
-                <div>
-                    <h2>Avisos:</h2>
-                </div>
-                <div className="validate-modal-content">
-                    <ul>
-                        {loadWarnings()}
-                    </ul>
-                </div>
-                <div className="validate-modal-buttons">
-                    <button className="back-button" onClick={hideModal}>Voltar</button>
-                </div>
+            <div>
+                <h2>Avisos:</h2>
+            </div>
+            <div className="validate-modal-content">
+                <ul>
+                    {loadWarnings()}
+                </ul>
+            </div>
+            <div className="validate-modal-buttons">
+                <button className="back-button" onClick={hideModal}>Voltar</button>
             </div>
         </>
-    )
+    );
 }
 
-export default ModalValidate;
+export default ValidateContent;

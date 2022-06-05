@@ -1,8 +1,9 @@
 import "./Navbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ReactComponent as YourSvg } from './ua-logo.svg';
-import ModalValidate from "./Modal/ModalValidate";
+import Modal from "./Modal/Modal";
 import { useState } from "react";
+import ValidateContent from "./Modal/components/ValidateContent";
 
 function Navbar(props) {
 
@@ -61,7 +62,9 @@ function Navbar(props) {
 
     return (
         <>
-            {showModal && <ModalValidate changeModal={changeModal} warnings={warnings}/>}
+            {showModal && <Modal>
+                 <ValidateContent changeModal={changeModal} warnings={warnings} />
+                </Modal>}
             <div className="navbar">
                 <div className="ua-logo" onClick={goHome}>
                     <YourSvg className="ua-logo-img" />
