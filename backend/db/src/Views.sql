@@ -22,7 +22,7 @@ SELECT *
 FROM ( professors_temp1 LEFT OUTER JOIN ucs ON professors_temp1.uc_num = ucs.uc_id);
 
 CREATE VIEW prof_total_hours AS
-SELECT prof_acronym, ROUND(SUM(class_hours*availability_percent*0.01),1) as total_hours
+SELECT prof_acronym, IFNULL(ROUND(SUM(class_hours*availability_percent*0.01),1),0) as total_hours
 FROM professors_temp2
 GROUP BY prof_acronym;
 
