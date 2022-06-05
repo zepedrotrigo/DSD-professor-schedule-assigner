@@ -217,11 +217,11 @@ CREATE PROCEDURE SortUcs(params VARCHAR(50))
 BEGIN
     SELECT * FROM classes_main_panel_info
     ORDER BY
-        CASE WHEN params LIKE 'prof_acronym asc' THEN prof_acronym END ASC ,
-        CASE WHEN params LIKE 'prof_acronym desc' THEN prof_acronym END DESC,
-        CASE WHEN params LIKE 'total_hours asc' THEN total_hours END ASC,
-        CASE WHEN params LIKE 'total_hours desc' THEN total_hours END DESC;
+        CASE WHEN params LIKE 'uc_acronym asc' THEN uc_acronym END ASC ,
+        CASE WHEN params LIKE 'uc_acronym desc' THEN uc_acronym END DESC,
+        CASE WHEN params LIKE 'assigned_classes asc' THEN unassigned_classes END DESC,
+        CASE WHEN params LIKE 'assigned_classes desc' THEN unassigned_classes END ASC;
 END $$
 
 DELIMITER ;
--- CALL SortUcs("prof_acronym DESC");
+-- CALL SortUcs("uc_acronym DESC");
