@@ -193,19 +193,3 @@ END $$
 
 DELIMITER ;
 -- CALL ExportDsd();
-
--- DROP PROCEDURE SortProfessors;
-DELIMITER $$
-
-CREATE PROCEDURE SortProfessors(params VARCHAR(50))
-BEGIN
-    SELECT * FROM professors_main_panel_info
-    ORDER BY
-        CASE WHEN params LIKE 'prof_acronym asc' THEN prof_acronym END ASC ,
-        CASE WHEN params LIKE 'prof_acronym desc' THEN prof_acronym END DESC,
-        CASE WHEN params LIKE 'total_hours asc' THEN total_hours END ASC,
-        CASE WHEN params LIKE 'total_hours desc' THEN total_hours END DESC;
-END $$
-
-DELIMITER ;
--- CALL SortProfessors("prof_acronym DESC");

@@ -85,17 +85,19 @@ def classes_main_panel_info(cursor, params):
     else:
         params += ", uc_acronym, prof_acronym;"
 
-    print(f"debug: SELECT * FROM classes_main_panel_info ORDER BY {params}")
     cursor.execute(f"SELECT * FROM classes_main_panel_info ORDER BY {params}")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
     return {"data": [dict(zip(keys, vals)) for vals in result]}
 
-def professors_main_panel_info(cursor, params):
+def professors_main_panel_info(cursor, params, prof_ids):
     '''Returns data used in Profs main panel'''
+    
+    if prof_ids != "":
+        prof_ids = f"WHERE `prof_id` IN {prof_ids}"
 
-    cursor.execute(f"CALL SortProfessors({params});")
+    cursor.execute(f"SELECT * FROM professors_main_panel_info {prof_ids} ORDER BY {params}")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 

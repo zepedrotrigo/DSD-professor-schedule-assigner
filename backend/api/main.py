@@ -108,12 +108,12 @@ def classes_main_panel_info(params: Optional[str] = "unassigned_classes desc"):
         return crud.classes_main_panel_info(cursor, params)
 
 @app.get("/v1/professors_main_panel_info/")
-def professors_main_panel_info(params: Optional[str] = "'total_hours asc'"):
+def professors_main_panel_info(params: Optional[str] = "total_hours asc", prof_ids: Optional[str] = ""):
     '''Returns data used in Profs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.professors_main_panel_info(cursor, params)
+        return crud.professors_main_panel_info(cursor, params, prof_ids)
 
 @app.get("/v1/prof_total_hours/")
 def get_prof_total_hours():
