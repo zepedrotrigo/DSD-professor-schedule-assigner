@@ -79,13 +79,13 @@
 }
 
 .hours {
-    z-index: 2;
+    z-index: 1;
     top: 0;
     left: 0;
 }
 
 .percentage {
-    z-index: 2;
+    z-index: 1;
     bottom: -2px;
     left: 0;
 }

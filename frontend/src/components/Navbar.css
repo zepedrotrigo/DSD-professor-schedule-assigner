@@ -21,6 +21,10 @@
   object-fit: cover;
 }
 
+.ua-logo:hover {
+  cursor: pointer;
+}
+
 .logo-legend {
   color: white;
   font-size: 24px;
