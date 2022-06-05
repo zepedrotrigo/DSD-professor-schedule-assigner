@@ -1,0 +1,44 @@
+.cancel-button, .edit-button {
+    padding: 0.3rem 0.8rem;
+    font-size: 15px;
+}
+
+.cancel-button {
+    background-color: #fff;
+    border: solid 1px red;
+}
+
+.edit-button {
+    padding: 0.3rem 1rem;
+    background-color: #fff;
+    border: solid 1px rgb(14, 180, 189);;
+}
+
+.cancel-button:hover {
+    cursor: pointer;
+    background-color: red;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-button:hover {
+    cursor: pointer;
+    background-color: rgb(14, 180, 189);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.back-button {
+    padding: 0.3rem 0.8rem;
+    font-size: 15px;
+    margin-top: 1rem;
+    background-color: #fff;
+    border: solid 1px rgb(14, 180, 189);
+}
+
+.back-button:hover {
+    cursor: pointer;
+    background-color: rgb(14, 180, 189);
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}

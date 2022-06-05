@@ -26,24 +26,6 @@ li {
     gap: 1rem;
 }
 
-.back-button {
-    padding: 0.3rem 0.8rem;
-    font-size: 15px;
-}
-
-.back-button {
-    margin-top: 1rem;
-    background-color: #fff;
-    border: solid 1px rgb(14, 180, 189);
-}
-
 .new-acronym-input {
     height: 1.5rem;
-}
-
-.back-button:hover {
-    cursor: pointer;
-    background-color: rgb(14, 180, 189);
-    color: #fff;
-    transition: all 0.2s ease-in-out;
 }

@@ -1,3 +1,4 @@
+import Button from '../../Button/Button';
 import './ValidateContent.css';
 
 const ValidateContent = (props) => {
@@ -35,7 +36,7 @@ const ValidateContent = (props) => {
                 </ul>
             </div>
             <div className="validate-modal-buttons">
-                <button className="back-button" onClick={hideModal}>Voltar</button>
+                <Button class="back-button" onClick={hideModal}  text="Voltar"/>
             </div>
         </>
     );

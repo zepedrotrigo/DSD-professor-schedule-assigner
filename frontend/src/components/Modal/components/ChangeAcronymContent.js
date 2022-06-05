@@ -1,3 +1,4 @@
+import Button from '../../Button/Button';
 import './ChangeAcronymContent.css';
 
 const ChangeAcronymContent = (props) => {
@@ -31,8 +32,8 @@ const ChangeAcronymContent = (props) => {
                 <input id="new-acronym" type="text" name="new-acronym" className="new-acronym-input"></input>
             </div>
             <div className="modal-buttons">
-                <button className="cancel-button" onClick={hideModal}>Cancelar</button>
-                <button className="edit-button" onClick={submitAcronym}>Alterar</button>
+                <Button class="cancel-button" text="Cancelar" onClick={hideModal} />
+                <Button class="edit-button" text="Alterar" onClick={submitAcronym}/>
             </div>
         </>
     );
