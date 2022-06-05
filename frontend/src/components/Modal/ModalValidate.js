@@ -1,5 +1,4 @@
 import "./ModalValidate.css";
-import React, { useState } from 'react';
 
 function ModalValidate(props) {
 

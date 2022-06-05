@@ -2,7 +2,6 @@ import '../App.css';
 import React, { useState } from 'react';
 import Card from "../components/Card/Card";
 import "./ChangeAcronym.css";
-import { useLocation } from "react-router-dom";
 import Modal from '../components/Modal/Modal';
 import Navbar from '../components/Navbar';
 import UniversalBar from '../components/UniversalBar';
