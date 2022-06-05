@@ -80,7 +80,13 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
 def classes_main_panel_info(cursor, params):
     '''Returns data used in UCs main panel'''
 
-    cursor.execute(f"CALL SortUcs({params});")
+    if params.startswith("uc_acronym"):
+        params += ", prof_acronym;"
+    else:
+        params += ", uc_acronym, prof_acronym;"
+
+    print(f"debug: SELECT * FROM classes_main_panel_info ORDER BY {params}")
+    cursor.execute(f"SELECT * FROM classes_main_panel_info ORDER BY {params}")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 

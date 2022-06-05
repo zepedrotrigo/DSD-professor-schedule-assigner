@@ -209,19 +209,3 @@ END $$
 
 DELIMITER ;
 -- CALL SortProfessors("prof_acronym DESC");
-
--- DROP PROCEDURE SortUcs;
-DELIMITER $$
-
-CREATE PROCEDURE SortUcs(params VARCHAR(50))
-BEGIN
-    SELECT * FROM classes_main_panel_info
-    ORDER BY
-        CASE WHEN params LIKE 'uc_acronym asc' THEN uc_acronym END ASC ,
-        CASE WHEN params LIKE 'uc_acronym desc' THEN uc_acronym END DESC,
-        CASE WHEN params LIKE 'assigned_classes asc' THEN unassigned_classes END DESC,
-        CASE WHEN params LIKE 'assigned_classes desc' THEN unassigned_classes END ASC;
-END $$
-
-DELIMITER ;
--- CALL SortUcs("uc_acronym DESC");

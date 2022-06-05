@@ -100,7 +100,7 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
 
 @app.get("/v1/classes_main_panel_info/")
-def classes_main_panel_info(params: Optional[str] = "'assigned_classes asc'"):
+def classes_main_panel_info(params: Optional[str] = "unassigned_classes desc"):
     '''Returns data used in UCs main panel'''
 
     reset_cursor()
