@@ -21,7 +21,7 @@ function Modal(props) {
     return (
         <>  
             <div className="backdrop"></div>
-            <div className="modal">
+            <div className={`modal ${props.class}`}>
                 <div className="modal-header">
                     <h2>Alterar Sigla</h2>
                 </div>

@@ -25,10 +25,6 @@
     margin-bottom: 1rem;
 }
 
-.modal:hover {
-    cursor: pointer;
-}
-
 .modal-content-new-acronym {
     display: block;
 }
@@ -76,4 +72,8 @@
     background-color: rgb(14, 180, 189);
     color: #fff;
     transition: all 0.2s ease-in-out;
+}
+
+.no-overflow {
+    overflow: hidden;
 }

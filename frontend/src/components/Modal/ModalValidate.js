@@ -28,16 +28,16 @@ function ModalValidate(props) {
     return (
         <>  
             <div className="backdrop"></div>
-            <div className="modal">
+            <div className="validate-modal">
                 <div>
                     <h2>Avisos:</h2>
                 </div>
-                <div className="modal-content">
+                <div className="validate-modal-content">
                     <ul>
                         {loadWarnings()}
                     </ul>
                 </div>
-                <div className="modal-buttons">
+                <div className="validate-modal-buttons">
                     <button className="back-button" onClick={hideModal}>Voltar</button>
                 </div>
             </div>

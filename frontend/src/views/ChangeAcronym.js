@@ -64,7 +64,7 @@ function ChangeAcronym(props) {
             <UniversalBar></UniversalBar>
             <Navbar></Navbar>
             <div className="change-acronym">  
-                {show && <Modal name={name} acronym={acronym} id={id} acronymChanged={acronymChanged} changeModal={changeModalVisibility}/>}
+                {show && <Modal class="no-overflow" name={name} acronym={acronym} id={id} acronymChanged={acronymChanged} changeModal={changeModalVisibility}/>}
                 {results === null ? loadProfs() : results}
             </div>
         </div>

@@ -1,4 +1,4 @@
-.modal {
+.validate-modal {
     background-color: #fff;
     position: fixed;
     width: 30%;
@@ -17,7 +17,7 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content {
+.validate-modal-content {
     overflow:scroll;
     border-top: solid 1px #ccc;
     height: 300px;
@@ -37,7 +37,7 @@ li {
     cursor: pointer;
 }
 
-.modal-buttons {
+.validate-modal-buttons{
     display: flex;
     border-top: solid 1px #ccc;
     justify-content: flex-end;
