@@ -1,0 +1,32 @@
+
+.validate-modal-content {
+    overflow: scroll;
+    overflow-x: hidden;
+    border-top: solid 1px #ccc;
+    height: 300px;
+}
+
+li {
+    font-size: 15px;
+    display: flex;  
+}
+
+.modal-header {
+    border-bottom: solid 1px #ccc;
+    margin-bottom: 1rem;
+}
+
+.modal:hover {
+    cursor: pointer;
+}
+
+.validate-modal-buttons{
+    display: flex;
+    border-top: solid 1px #ccc;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.new-acronym-input {
+    height: 1.5rem;
+}

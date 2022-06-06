@@ -1,3 +1,19 @@
+import json, csv, datetime
+
+def write_dict_to_file(dic, filetype):
+    fpath = f"./export/dsd_{datetime.datetime.now().strftime('%d_%m_%Y_%hh_%mm_%ss')}.{filetype}"
+    
+    if filetype == "json":
+        with open(fpath, "w") as outfile:
+            json.dump(dic, outfile)
+    else:
+        with open(fpath, 'w') as outfile:
+            writer = csv.DictWriter(outfile, dic["data"][0].keys())
+            writer.writeheader()
+            writer.writerows(dic["data"])
+    
+    return fpath
+
 def get_classes(cursor, id, year, uc_id, component, hours, prof_id):
     '''Returns all classes (allows combined filters: id, year, uc_id, component, hours, prof_id)'''
     
@@ -61,19 +77,27 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
 
-def classes_main_panel_info(cursor):
+def classes_main_panel_info(cursor, params):
     '''Returns data used in UCs main panel'''
 
-    cursor.execute(f"SELECT *  FROM classes_main_panel_info ORDER BY uc_name ASC, prof_acronym ASC;")
+    if params.startswith("uc_acronym"):
+        params += ", prof_acronym;"
+    else:
+        params += ", uc_acronym, prof_acronym;"
+
+    cursor.execute(f"SELECT * FROM classes_main_panel_info ORDER BY {params}")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
     return {"data": [dict(zip(keys, vals)) for vals in result]}
 
-def professors_main_panel_info(cursor):
+def professors_main_panel_info(cursor, params, prof_ids):
     '''Returns data used in Profs main panel'''
+    
+    if prof_ids != "":
+        prof_ids = f"WHERE `prof_id` IN {prof_ids}"
 
-    cursor.execute(f"SELECT *  FROM professors_main_panel_info ORDER BY prof_acronym ASC;")
+    cursor.execute(f"SELECT * FROM professors_main_panel_info {prof_ids} ORDER BY {params}")
     result = cursor.fetchall()
     keys = [i[0] for i in cursor.description]
 
@@ -105,3 +129,22 @@ def update_prof_acronym(connection, cursor, prof_id, acronym):
     connection.commit()
 
     return {"response": f"{cursor.rowcount} record(s) affected"}
+
+def validate_dsd(cursor, max_hours):
+    '''Retrieves dsd warnings'''
+
+    cursor.execute(f"CALL ValidateDsd({max_hours});")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    return {"warnings": [dict(zip(keys, vals)) for vals in result]}
+
+def export_dsd(cursor, file_type):
+    '''Exports dsd as json/csv/xls'''
+
+    cursor.execute(f"CALL ExportDsd();")
+    result = cursor.fetchall()
+    keys = [i[0] for i in cursor.description]
+
+    json = {"data": [dict(zip(keys, vals)) for vals in result]}
+    return write_dict_to_file(json, file_type)

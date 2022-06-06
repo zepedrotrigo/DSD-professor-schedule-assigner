@@ -3,7 +3,7 @@ import crud
 from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, FileResponse
 
 app = FastAPI()
 
@@ -100,20 +100,20 @@ def get_wishlists(id: Optional[int] = -1, year: Optional[int] = -1, prof_id: Opt
         return crud.get_wishlists(cursor, id, year, prof_id, class_id)
 
 @app.get("/v1/classes_main_panel_info/")
-def classes_main_panel_info():
+def classes_main_panel_info(params: Optional[str] = "unassigned_classes desc"):
     '''Returns data used in UCs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.classes_main_panel_info(cursor)
+        return crud.classes_main_panel_info(cursor, params)
 
 @app.get("/v1/professors_main_panel_info/")
-def professors_main_panel_info():
+def professors_main_panel_info(params: Optional[str] = "total_hours asc", prof_ids: Optional[str] = ""):
     '''Returns data used in Profs main panel'''
 
     reset_cursor()
     with connection.cursor() as cursor:
-        return crud.professors_main_panel_info(cursor)
+        return crud.professors_main_panel_info(cursor, params, prof_ids)
 
 @app.get("/v1/prof_total_hours/")
 def get_prof_total_hours():
@@ -138,3 +138,21 @@ def update_prof_acronym(prof_id: int, acronym: str):
     reset_cursor()
     with connection.cursor() as cursor:
         return crud.update_prof_acronym(connection, cursor, prof_id, acronym)
+
+@app.get("/v1/validate_dsd/")
+def validate_dsd(max_hours: int):
+    '''Retrieves dsd warnings'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        return crud.validate_dsd(cursor, max_hours)
+
+@app.get("/v1/export_dsd/")
+def export_dsd(file_type: str):
+    '''Exports dsd as json/csv/xls'''
+
+    reset_cursor()
+    with connection.cursor() as cursor:
+        filepath = crud.export_dsd(cursor, file_type)
+
+    return FileResponse(path=filepath, filename=filepath)

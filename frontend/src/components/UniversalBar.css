@@ -8,8 +8,8 @@
 
 .social-links {
   height: 100%;
-  width: 7%;
-  margin: 0 10%;
+  margin: 0 5%;
+  width: 10%;    
   align-items: center;
   justify-content: space-around;
   display: flex;
@@ -23,26 +23,56 @@
   font-weight: 400;
 }
 
+.social-links span:last-child {
+  border-right: none;
+}
+
 .universal-bar-items {
+  width: 35%;
+  margin-left: 15%;
+  margin-right: 20%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 30%;
-  margin-right: 17%;
-  margin-left: 8% ;
 }
 
 .universal-bar-items a {
+  text-decoration: none;
   color: #000;
   font-size: 12px;
 }
 
+.universal-bar-items a:hover {
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: all 0.15s ease-in-out;
+}
+
 .login {
-  width: 8%;
-  margin-right: 10;
+  width: 5%;
+  margin-right: 5%;
+}
+
+.login:hover {
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: all 0.15s ease;
 }
 
 .login a {
+  font-family: 'Roboto';
+  font-weight: 500;
+  text-decoration: none;
   font-size: 12px;
   color: #92d400;
+}
+
+.icon-user {
+  margin-left: 0.4rem;
+}
+
+.social-icon:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.10s ease-in-out;
 }
