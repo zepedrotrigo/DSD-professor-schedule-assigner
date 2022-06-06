@@ -1,6 +1,7 @@
 
 .validate-modal-content {
-    overflow:scroll;
+    overflow: scroll;
+    overflow-x: hidden;
     border-top: solid 1px #ccc;
     height: 300px;
 }
