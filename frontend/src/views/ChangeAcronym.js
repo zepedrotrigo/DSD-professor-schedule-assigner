@@ -70,7 +70,7 @@ function ChangeAcronym(props) {
       <Navbar></Navbar>
       <div className="change-acronym">
         {show && (
-          <Modal>
+          <Modal changeModal={changeModalVisibility}>
             <ChangeAcronymContent
               class="no-overflow"
               name={name}

@@ -4,13 +4,15 @@ import { ReactComponent as YourSvg } from './ua-logo.svg';
 import Modal from "./Modal/Modal";
 import { useState } from "react";
 import ValidateContent from "./Modal/components/ValidateContent";
+import ExportContent from "./Modal/components/ExportContent";
 
 function Navbar(props) {
 
     const navigate = useNavigate();
     const location = useLocation();
     const ids = window.profsIdsAndNames;
-    const [showModal, setShowModal] = useState(false);
+    const [showValidateModal, setShowValidateModal] = useState(false);
+    const [showExportModal, setShowExportModal] = useState(false);
     const [warnings, setWarnings] = useState(null);
 
     function loadNavComponents(){
@@ -29,8 +31,12 @@ function Navbar(props) {
         props.onReload();
     }
 
-    function changeModal(){
-        setShowModal(!showModal);
+    function changeValidateModal(){
+        setShowValidateModal(!showValidateModal);
+    }
+
+    function changeExportModal(){
+        setShowExportModal(!showExportModal);
     }
 
     function changeAcronym(){
@@ -48,7 +54,7 @@ function Navbar(props) {
         .then((data) => {
             console.log(data);
             setWarnings(data);
-            setShowModal(!showModal);
+            setShowValidateModal(!showValidateModal);
         })
     }
 
@@ -56,14 +62,19 @@ function Navbar(props) {
         fetch(`http://localhost:8000/v1/export_dsd/?file_type=json`)
         .then((response) => response.json())
         .then((data) => {
+            setShowExportModal(!showExportModal)
             console.log(data);
         })
     }
 
     return (
         <>
-            {showModal && <Modal>
-                 <ValidateContent changeModal={changeModal} warnings={warnings} />
+            {showValidateModal && <Modal changeModal={changeValidateModal}>
+                 <ValidateContent changeModal={changeValidateModal} warnings={warnings} />
+                </Modal>}
+
+            {showExportModal && <Modal>
+                    <ExportContent />
                 </Modal>}
             <div className="navbar">
                 <div className="ua-logo" onClick={goHome}>
