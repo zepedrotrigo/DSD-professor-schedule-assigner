@@ -60,19 +60,9 @@ function Navbar(props) {
       });
   }
 
-  const exportCSV = () => {
-    window.location.href = "http://localhost:8000/v1/export_dsd/?file_type=csv";
-        setShowExportModal(!showExportModal);
-  }
-
-  const exportJSON = () => {
-    window.location.href = "http://localhost:8000/v1/export_dsd/?file_type=json";
-        setShowExportModal(!showExportModal);
-  }
-
-  const exportXLS = () => {
-    window.location.href = "http://localhost:8000/v1/export_dsd/?file_type=xls";
-        setShowExportModal(!showExportModal);
+  function exportDSD(type){
+    window.location.href = "http://localhost:8000/v1/export_dsd/?file_type=" + type;
+    setShowExportModal(!showExportModal);
   }
 
   return (
@@ -89,9 +79,7 @@ function Navbar(props) {
       {showExportModal && (
         <Modal changeModal={changeExportModal}>
           <ExportContent
-            onJSONClick={exportJSON}
-            onCSVClick={exportCSV}
-            onXLSClick={exportXLS}
+            onClick={exportDSD}
           />
         </Modal>
       )}
