@@ -13,8 +13,8 @@ function UniversalBar() {
             <div className="social-links">
                 <span>News</span>
                 <span>Events</span>
-                <span><FontAwesomeIcon  icon={faTwitter} /> </span>
-                <span><FontAwesomeIcon  icon={faInstagram} /> </span>
+                <span><FontAwesomeIcon className="social-icon"  icon={faTwitter} /> </span>
+                <span><FontAwesomeIcon className="social-icon" icon={faInstagram} /> </span>
             </div>
             <div className="universal-bar-items">
                 <a href="">Prospective Students</a>

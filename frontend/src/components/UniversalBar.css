@@ -63,3 +63,9 @@
 .icon-user {
   margin-left: 0.4rem;
 }
+
+.social-icon:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.10s ease-in-out;
+}
