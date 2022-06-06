@@ -35,3 +35,8 @@
 .main-cell.overload {
     background-color: rgb(217, 69, 69);
 }
+
+.main-cell:hover{
+    cursor: pointer;
+    background-color: #eee;
+}
