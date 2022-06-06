@@ -39,6 +39,28 @@ function ChangeAcronym(props) {
     });
   }
 
+  function searchBarOnChange(event){
+    let arr = [];
+    var str = event.target.value;
+    var res = str.toUpperCase();
+    if (res.length===0)
+      loadProfs();
+    else{
+      profs.forEach((val, key) => {
+          if ((key.toUpperCase().startsWith(res) && res.length!==0) || (val[0].startsWith(res) && res.length!==0)){
+              arr.push(<Card
+                name={key}
+                acronym={val[0]}
+                onClick={() => changeModalVisibility(key, val[0], val[1])}
+              />);
+          }
+      });
+      if(arr.length===0)
+          arr.push(<h2>No results...</h2>);
+      setResults(arr);
+    }
+  }
+
   function loadProfs() {
     let result = [];
     let profMap = new Map();
@@ -71,7 +93,7 @@ function ChangeAcronym(props) {
       <UniversalBar></UniversalBar>
       <Navbar></Navbar>
       <SearchAndFilters class="minor-width-wrapper" classContent="minor-width-content">
-                    <SearchBar class="big" />
+                    <SearchBar class="big" onChange={searchBarOnChange}/>
             </SearchAndFilters>
       <div className="change-acronym">
         {show && (
