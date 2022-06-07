@@ -27,6 +27,8 @@ class Home extends React.Component {
       UCPanelState: null,
       UCWishlist: null,
       profWishlist: null,
+      teachersState:null,
+      profsState: null
     };
   }
 
@@ -66,12 +68,16 @@ class Home extends React.Component {
     fetch("http://localhost:8000/v1/classes_main_panel_info")
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ ucsList: data });
+        this.setState({ ucsList: data }, () => {
+          this.loadUCsCells("");
+        });
 
         fetch("http://localhost:8000/v1/professors_main_panel_info")
           .then((response) => response.json())
           .then((data) => {
-            this.setState({ profsList: data });
+            this.setState({ profsList: data }, () => {
+              this.setState(this.loadProfsCells(""));
+            });
           });
       });
   }
@@ -181,10 +187,11 @@ class Home extends React.Component {
     return <div>{result}</div>;
   }
 
-  loadUCsCells = () => {
+  loadUCsCells = (searchInput) => {
     let last_uc = "";
     let cellRows = []; // Contains all UCs wrapped in: <div className='align-cell'>{classes}</div>
     let classes = []; // Contains one UC, gets cleared after pushing to cellRows
+    let ucsArray = [];
     let ucsIds = new Map();
     let profsPerUc = new Map();
 
@@ -198,10 +205,20 @@ class Home extends React.Component {
       if (!ucsIds.has(v.uc_acronym)) {
         ucsIds.set(v.uc_acronym, v.uc_id);
       }
+      
+      if (searchInput===""){
+        ucsArray.push(v);
+      }
+      else if ((v.uc_acronym.toUpperCase().startsWith(searchInput)) || (v.uc_name.toUpperCase().startsWith(searchInput))){
+        ucsArray.push(v);
+      }
+    });
 
+    for (let index in ucsArray) {
+      var v = ucsArray[index];
       if (last_uc !== v.uc_acronym) {
-        cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes = [];
+        cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes.push(
           <MainCell
             f1={v.uc_acronym}
@@ -239,20 +256,21 @@ class Home extends React.Component {
           ></Cell>
         );
       }
-    });
+    }
 
     window.ucsIds = ucsIds;
     window.profsPerUc = profsPerUc;
 
-    //this.setState({ UCPanelState: cellRows });
+    this.setState({ teachersState: cellRows });
 
-    return <div>{cellRows}</div>;
+    //return <div>{cellRows}</div>;
   };
 
-  loadProfsCells() {
+  loadProfsCells = (searchInput) => {
     let last_prof = "";
     let cellRows = []; // Contains all Profs wrapped in: <div className='align-cell'>{classes}</div>
     let classes = []; // Contains one Prof, gets cleared after pushing to cellRows
+    let profsArray = [];
     let profsIds = new Map();
     let profsIdsAndNames = new Map();
 
@@ -263,10 +281,20 @@ class Home extends React.Component {
         profsIds.set(v.prof_acronym, v.prof_id);
         profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
       }
+
+      if (searchInput===""){
+        profsArray.push(v);
+      }
+      else if ((v.prof_acronym.toUpperCase().startsWith(searchInput)) || (v.prof_name.toUpperCase().startsWith(searchInput))){
+        profsArray.push(v);
+      }
+    });
+
+    for (let index in profsArray) {
+      var v = profsArray[index];
       if (last_prof !== v.prof_acronym) {
-        cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes = [];
-        console.log(v.prof_name, v.total_hours)
+        cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes.push(
           <TeacherCell
             class={v.total_hours > 8 ? "main-teacher-cell-warning" : "main-teacher-cell"}
@@ -299,12 +327,12 @@ class Home extends React.Component {
             ></Cell>
           );
       }
-    });
+    }
 
     window.profsIds = profsIds;
     window.profsIdsAndNames = profsIdsAndNames;
 
-    return <div>{cellRows}</div>;
+    this.setState({ profsState: cellRows });
   }
 
   handleChildClick = (acronym, type) => {
@@ -370,19 +398,11 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <MainPanel>
-            {this.state.ucsList !== null ? (
-              this.loadUCsCells()
-            ) : (
-              <h3>Fetching...</h3>
-            )}
+          <MainPanel searchOnChange={this.loadUCsCells}>
+            {this.state.teachersState !== null ? <div>{this.state.teachersState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
-          <MainPanel>
-            {this.state.profsList !== null ? (
-              this.loadProfsCells()
-            ) : (
-              <h3>Fetching...</h3>
-            )}
+          <MainPanel searchOnChange={this.loadProfsCells}>
+          {this.state.profsState !== null ? <div>{this.state.profsState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
           <SidePanel>
             {this.state.teacherInfo !== null &&

@@ -9,6 +9,7 @@
 
 .search-bar::placeholder {
     color: #000;
+    opacity: 0.5;
 }
 
 .search-bar:focus {

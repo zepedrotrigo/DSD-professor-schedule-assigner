@@ -13,6 +13,12 @@ function MainPanel(props) {
         //console.log(data);
     }, [props.children]);
 
+    function searchBarOnChange(event){
+        var str = event.target.value;
+        var res = str.toUpperCase();
+        props.searchOnChange(res);
+    }
+
     /*
     const [data, setData] = useState(props.data);
 
@@ -25,7 +31,7 @@ function MainPanel(props) {
         <div className="main-panel">
             <SearchAndFilters>
                             <Filters />
-                            <SearchBar />
+                            <SearchBar onChange={searchBarOnChange}/>
             </SearchAndFilters>
             {data}
         </div>
