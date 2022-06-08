@@ -3,11 +3,15 @@ import './ExportContent.css';
 
 const ExportContent = (props) => {
 
+    function handleCLick(event){
+        props.onClick(event.target.value);
+    }
+
     return (
         <div className='export-content'>
-            <Button class="edit-button" text="JSON" onClick={props.onJSONClick} />
-            <Button class="edit-button" text="CSV" onClick={props.onCSVClick} />
-            <Button class="edit-button" text="XLS" onClick={props.onXLSClick} />
+            <Button class="edit-button" text="JSON" value="json" onClick={handleCLick} />
+            <Button class="edit-button" text="CSV" value="csv" onClick={handleCLick} />
+            <Button class="edit-button" text="XLS" value="xls" onClick={handleCLick} />
         </div>
     );
 }

@@ -52,18 +52,18 @@ function UniversalBar() {
     return (
         <div className="universal-bar">
             <div className="social-links">
-                <span>News</span>
-                <span>Events</span>
+                <span>Notícias</span>
+                <span>Agenda</span>
                 <span><FontAwesomeIcon className="social-icon"  icon={faTwitter} /> </span>
                 <span><FontAwesomeIcon className="social-icon" icon={faInstagram} /> </span>
             </div>
             <div className="universal-bar-items">
-                <a href="">Prospective Students</a>
-                <a href="">UA Students</a>
-                <a href="">International Students</a>
-                <a href="">Alumni</a>
-                <a href="">UA People</a>
-                <a href="">Society</a>
+                <a href="https://www.ua.pt/en/public-prospective-students" target="_blank">Futuros estudantes</a>
+                <a href="https://www.ua.pt/en/public-students" target="_blank">Estudantes UA</a>
+                <a href="https://www.ua.pt/pt/publico-estudantes-internacionais" target="_blank">Estudantes internacionais</a>
+                <a href="https://www.ua.pt/pt/publico-alumni" target="_blank">Alumni</a>
+                <a href="https://www.ua.pt/pt/publico-pessoas" target="_blank">Pessoas UA</a>
+                <a href="https://www.ua.pt/pt/publico-sociedade" target="_blank">Sociedade</a>
             </div>
             <div className="login">
                 <a onClick={wso2Login}>login <FontAwesomeIcon className="icon-user" icon={faUser}/></a>
