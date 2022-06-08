@@ -37,7 +37,7 @@ class Home extends React.Component {
   };
 
   componentDidMount() {
-    this.mainPanelsFetch();
+    this.ucsPanelsFetch("unassigned_classes desc", "total_hours asc");
   }
 
   shortenUcName(name, desiredLength) {
@@ -64,21 +64,24 @@ class Home extends React.Component {
     return names[0] + " " + names[names.length - 1];
   }
 
-  mainPanelsFetch() {
-    fetch("http://localhost:8000/v1/classes_main_panel_info")
+  ucsPanelsFetch(ucFilter, profFilter) {
+    fetch("http://localhost:8000/v1/classes_main_panel_info/?params=" + ucFilter)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucsList: data }, () => {
           this.loadUCsCells("");
+          this.teachersPanelsFetch(profFilter);
         });
+      });
+  }
 
-        fetch("http://localhost:8000/v1/professors_main_panel_info")
-          .then((response) => response.json())
-          .then((data) => {
-            this.setState({ profsList: data }, () => {
-              this.setState(this.loadProfsCells(""));
-            });
-          });
+  teachersPanelsFetch(profFilter) {
+    fetch("http://localhost:8000/v1/professors_main_panel_info/?params=" + profFilter)
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ profsList: data }, () => {
+          this.loadProfsCells("");
+        });
       });
   }
 
@@ -213,9 +216,9 @@ class Home extends React.Component {
         ucsArray.push(v);
       }
     });
-
+    var v = null;
     for (let index in ucsArray) {
-      var v = ucsArray[index];
+      v = ucsArray[index];
       if (last_uc !== v.uc_acronym) {
         classes = [];
         cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
@@ -261,7 +264,9 @@ class Home extends React.Component {
     window.ucsIds = ucsIds;
     window.profsPerUc = profsPerUc;
 
-    this.setState({ teachersState: cellRows });
+    this.setState({ teachersState: null }, () => {
+      this.setState({teachersState: cellRows});
+    });
 
     //return <div>{cellRows}</div>;
   };
@@ -332,7 +337,9 @@ class Home extends React.Component {
     window.profsIds = profsIds;
     window.profsIdsAndNames = profsIdsAndNames;
 
-    this.setState({ profsState: cellRows });
+    this.setState({ profsState: null }, () => {
+      this.setState({profsState: cellRows});
+    });
   }
 
   handleChildClick = (acronym, type) => {
@@ -383,6 +390,12 @@ class Home extends React.Component {
     //this.loadUCsCells();
   };
 
+  handleSelectChange = (param1, param2) => {
+    this.setState({ucsList: null, profsList: null}, () => {
+      this.ucsPanelsFetch(param1, param2); 
+    });
+  }
+
   render() {
     return (
       <div className="content">
@@ -398,7 +411,7 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <MainPanel searchOnChange={this.loadUCsCells}>
+          <MainPanel searchOnChange={this.loadUCsCells} onSelectChange={this.handleSelectChange}>
             {this.state.teachersState !== null ? <div>{this.state.teachersState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
           <MainPanel searchOnChange={this.loadProfsCells}>

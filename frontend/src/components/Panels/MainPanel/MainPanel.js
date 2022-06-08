@@ -19,6 +19,10 @@ function MainPanel(props) {
         props.searchOnChange(res);
     }
 
+    function selectChange(value){
+        props.onSelectChange(value, "total_hours asc");
+    }
+
     /*
     const [data, setData] = useState(props.data);
 
@@ -30,7 +34,7 @@ function MainPanel(props) {
     return (
         <div className="main-panel">
             <SearchAndFilters>
-                            <Filters />
+                            <Filters onChange={selectChange}/>
                             <SearchBar onChange={searchBarOnChange}/>
             </SearchAndFilters>
             {data}
