@@ -1,20 +1,32 @@
-import { useState } from "react";
 import "./Filters.css";
 
 function Filters(props) {
 
-    const[value, setValue] = useState(null);
-
     function handleChange(event){
-        setValue(event.target.value);
         props.onChange(event.target.value);
+    }
+
+    function loadOptions(){
+        let result = [];
+        var n = 1;
+        var hold = "";
+        {props.filter.map(tuple => {
+            if (n){
+                hold = tuple;
+                n=0;
+            }
+            else{
+                result.push(<option value={hold}>{tuple}</option>);
+                n=1;
+            }
+        })}
+        
+        return(<>{result}</>);
     }
 
     return (
         <select className={`filters ${props.class}`} onChange={handleChange}>
-            <option value="sigla">Sigla</option>
-            <option value="unassigned_classes asc">Aulas não atribuídas por ordem crescente</option>
-            <option value="menos horas">Menos Horas</option>
+            {loadOptions()}
         </select>
     )
 }

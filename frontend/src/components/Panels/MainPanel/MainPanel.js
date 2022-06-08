@@ -20,7 +20,7 @@ function MainPanel(props) {
     }
 
     function selectChange(value){
-        props.onSelectChange(value, "total_hours asc");
+        props.onSelectChange(value);
     }
 
     /*
@@ -34,7 +34,7 @@ function MainPanel(props) {
     return (
         <div className="main-panel">
             <SearchAndFilters>
-                            <Filters onChange={selectChange}/>
+                            <Filters onChange={selectChange} filter={props.filtersValues}/>
                             <SearchBar onChange={searchBarOnChange}/>
             </SearchAndFilters>
             {data}
