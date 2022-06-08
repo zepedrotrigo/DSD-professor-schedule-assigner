@@ -8,7 +8,7 @@ services:
     volumes:
       - '../frontend:/frontend'
     ports:
-      - 3000:3000
+      - 80:3000
     networks:
       my-net:
         ipv4_address: 172.18.0.2
