@@ -1,0 +1,28 @@
+.filters-and-search-wrapper {
+    background-color: #F2F2F2;
+    width: 100%;
+    height: 3rem;
+    padding: 0.5rem 0;
+}
+
+.white {
+    background-color: #fff;
+}
+
+.filters-and-search-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.minor-width-content {
+    width: 30%;
+}
+
+.minor-width-wrapper {
+    display: flex;
+    justify-content: center;
+    max-height: none;
+    padding: 2rem 1rem 2rem 0;
+}

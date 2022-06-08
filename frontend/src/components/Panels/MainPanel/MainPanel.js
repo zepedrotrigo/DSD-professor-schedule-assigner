@@ -1,5 +1,8 @@
 import "./MainPanel.css";
 import React, { useState, useEffect} from "react";
+import Filters from "../../Filters/Filters";
+import SearchAndFilters from "../../SearchAndFilters/SearchAndFilters";
+import SearchBar from "../../SearchBar/SearchBar";
 
 function MainPanel(props) {
 
@@ -9,6 +12,16 @@ function MainPanel(props) {
         setData(props.children);
         //console.log(data);
     }, [props.children]);
+
+    function searchBarOnChange(event){
+        var str = event.target.value;
+        var res = str.toUpperCase();
+        props.searchOnChange(res);
+    }
+
+    function selectChange(value){
+        props.onSelectChange(value);
+    }
 
     /*
     const [data, setData] = useState(props.data);
@@ -20,6 +33,10 @@ function MainPanel(props) {
 
     return (
         <div className="main-panel">
+            <SearchAndFilters>
+                            <Filters onChange={selectChange} filter={props.filtersValues}/>
+                            <SearchBar onChange={searchBarOnChange}/>
+            </SearchAndFilters>
             {data}
         </div>
     )

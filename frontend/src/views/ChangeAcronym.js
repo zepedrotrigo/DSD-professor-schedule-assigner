@@ -1,11 +1,13 @@
 import "../App.css";
 import React, { useState } from "react";
 import Card from "../components/Card/Card";
-import "./ChangeAcronym.css";
+import Navbar from '../components/Navbar';
+import SearchAndFilters from "../components/SearchAndFilters/SearchAndFilters";
+import SearchBar from "../components/SearchBar/SearchBar";
+import UniversalBar from '../components/UniversalBar';
 import Modal from "../components/Modal/Modal";
-import Navbar from "../components/Navbar";
-import UniversalBar from "../components/UniversalBar";
 import ChangeAcronymContent from "../components/Modal/components/ChangeAcronymContent";
+import "./ChangeAcronym.css";
 
 function ChangeAcronym(props) {
   const [results, setResults] = useState(null);
@@ -35,6 +37,28 @@ function ChangeAcronym(props) {
     sleep(150).then((r) => {
       setResults(null);
     });
+  }
+
+  function searchBarOnChange(event){
+    let arr = [];
+    var str = event.target.value;
+    var res = str.toUpperCase();
+    if (res.length===0)
+      loadProfs();
+    else{
+      profs.forEach((val, key) => {
+          if ((key.toUpperCase().startsWith(res) && res.length!==0) || (val[0].startsWith(res) && res.length!==0)){
+              arr.push(<Card
+                name={key}
+                acronym={val[0]}
+                onClick={() => changeModalVisibility(key, val[0], val[1])}
+              />);
+          }
+      });
+      if(arr.length===0)
+          arr.push(<h2>No results...</h2>);
+      setResults(arr);
+    }
   }
 
   function loadProfs() {
@@ -68,6 +92,9 @@ function ChangeAcronym(props) {
     <div className="content">
       <UniversalBar></UniversalBar>
       <Navbar></Navbar>
+      <SearchAndFilters class="minor-width-wrapper white" classContent="minor-width-content">
+                    <SearchBar class="big" onChange={searchBarOnChange}/>
+            </SearchAndFilters>
       <div className="change-acronym">
         {show && (
           <Modal changeModal={changeModalVisibility}>

@@ -1,0 +1,21 @@
+.search-bar {
+    border-radius: 12px;
+    height: 2rem;
+    width: 60%;
+    padding: 0.5rem;
+    color: 000;
+    border: solid 1px #ccc;
+}
+
+.search-bar::placeholder {
+    color: #000;
+    opacity: 0.5;
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.big {
+    width: 100%;
+}
