@@ -12,6 +12,9 @@ import CourseHeader from "../components/Panels/Content/CourseHeader";
 import MainCell from "../components/Cells/MainCell";
 import TeacherCell from "../components/Cells/TeacherCell";
 import "./Home.css";
+import HelpButton from "../components/HelpButton/HelpButton";
+import HelpPanel from "../components/HelpPanel/HelpPanel";
+import HelpPanelItem from "../components/HelpPanel/HelpPanelItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -439,6 +442,14 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
+          <HelpButton />
+          <HelpPanel>
+            <HelpPanelItem class="p" text="Aula Prática" />
+            <HelpPanelItem class="t" text="Aula Teórica" />
+            <HelpPanelItem class="tp" text="Aula Teórico Prática" />
+            <HelpPanelItem class="lab" text="Aula Laboratorial" />
+            <HelpPanelItem class="outside-activity" text="Saída de Campo" />
+          </HelpPanel>
         </div>
       </div>
     );
