@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse, FileResponse
 app = FastAPI()
 
 ### add CORS headers ###
-origins = ["http://172.18.0.2:80", "http://localhost:80"] # "*" -> all origins
+origins = ["*"] # "*" -> all origins
 
 app.add_middleware(CORSMiddleware,
     allow_origins=origins,
