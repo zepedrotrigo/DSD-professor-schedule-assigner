@@ -10,4 +10,14 @@
     flex-direction: column;
     justify-content: flex-start;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation: fromBottom 0.25s;
 }
+
+@keyframes fromBottom{
+    from {
+        bottom: 4rem;
+    }
+    to {
+        bottom: 6rem;
+    }
+  }
