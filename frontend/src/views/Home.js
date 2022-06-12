@@ -33,7 +33,8 @@ class Home extends React.Component {
       ucsState:null,
       profsState: null,
       ucsFilter: null,
-      profsFilter: null
+      profsFilter: null,
+      helpPanel: false
     };
   }
 
@@ -411,6 +412,14 @@ class Home extends React.Component {
     }
   }
 
+  showHelpPanel = () => {
+    if (this.state.helpPanel === false) {
+      this.setState({ helpPanel: true });
+    } else {
+      this.setState({ helpPanel: false });
+    }
+  }
+
   render() {
     return (
       <div className="content">
@@ -442,7 +451,9 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <HelpButton />
+          <HelpButton onClick={this.showHelpPanel} />
+          {
+            this.state.helpPanel &&
           <HelpPanel>
             <HelpPanelItem class="p" text="Aula Prática" />
             <HelpPanelItem class="t" text="Aula Teórica" />
@@ -450,6 +461,7 @@ class Home extends React.Component {
             <HelpPanelItem class="lab" text="Aula Laboratorial" />
             <HelpPanelItem class="outside-activity" text="Saída de Campo" />
           </HelpPanel>
+          }
         </div>
       </div>
     );
