@@ -1,0 +1,23 @@
+.help-panel {
+    width: 20%;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #fff;
+    position: absolute;
+    right: 2rem;
+    bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation: fromBottom 0.25s;
+}
+
+@keyframes fromBottom{
+    from {
+        bottom: 4rem;
+    }
+    to {
+        bottom: 6rem;
+    }
+  }

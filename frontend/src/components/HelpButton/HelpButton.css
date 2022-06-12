@@ -1,0 +1,22 @@
+.help-button {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 100%;
+    background-color: #fff;
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.help-button:hover {
+    cursor: pointer;
+    background-color: #f3dbdb;
+}
+
+.help-button-item {
+    font-weight: bold;
+}

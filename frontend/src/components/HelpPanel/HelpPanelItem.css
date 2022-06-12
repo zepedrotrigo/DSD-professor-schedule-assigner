@@ -1,0 +1,38 @@
+.help-panel-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.help-panel-item-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    background-color: blue;
+}
+
+.help-panel-item-color-legend {
+    width: 90%;
+}
+
+.p {
+    background-color: #8bd06d;
+}
+
+.t {
+    background-color: #e9a6e3;
+}
+
+.tp {
+    background-color: #ff987c;
+}
+
+.lab {
+    background-color: #eed12e;
+}
+
+.outside-activity {
+    background-color: #5f7eda;
+}
