@@ -25,17 +25,21 @@
     width: 15%;
 }
 
-.course-wishlist span {
-    margin-left: 0.5rem;
-}
-
 .course-wishlist {
     margin-top: 1rem;
 }
 
-.course-history span {
+.course-wishlist-header, .course-history-header {
     margin-left: 0.5rem;
-} 
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.course-wishlist-header p, .course-history-header p {
+    margin: 0;
+}
 
 .course-wishlist ul, .course-history ul {
     list-style-type: none;

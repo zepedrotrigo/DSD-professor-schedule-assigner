@@ -1,3 +1,4 @@
+import Button from "../../Button/Button";
 import "./CourseContent.css";
 
 function CourseContent(props) {
@@ -36,14 +37,20 @@ function CourseContent(props) {
             </div>
 
             <div className='course-wishlist'>
-                <span>Wishlist:</span>
+            <div className="course-wishlist-header">
+                    <p>Wishlist</p>
+                    <Button class="filter-button" text="Filtrar" />
+                </div>
                 <ul>
                     {loadWishlist()}
                 </ul>
             </div>
 
             <div className='course-history'>
-                <span>History:</span>
+            <div className="course-history-header">
+                    <p>Wishlist</p>
+                    <Button class="filter-button" text="Filtrar" />
+                </div>
                 <ul>
                     <li>TOS</li>
                     <li>TOS</li>
