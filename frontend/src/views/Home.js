@@ -15,6 +15,7 @@ import "./Home.css";
 import HelpButton from "../components/HelpButton/HelpButton";
 import HelpPanel from "../components/HelpPanel/HelpPanel";
 import HelpPanelItem from "../components/HelpPanel/HelpPanelItem";
+import HelpPanelImageItem from "../components/HelpPanel/HelpPanelImageItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -30,11 +31,11 @@ class Home extends React.Component {
       UCPanelState: null,
       UCWishlist: null,
       profWishlist: null,
-      ucsState:null,
+      ucsState: null,
       profsState: null,
       ucsFilter: null,
       profsFilter: null,
-      helpPanel: false
+      helpPanel: false,
     };
   }
 
@@ -43,10 +44,13 @@ class Home extends React.Component {
   };
 
   componentDidMount = () => {
-    this.setState({ucsFilter: "unassigned_classes desc", profsFilter: "total_hours asc"}, () => {
-      this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
-    })
-  }
+    this.setState(
+      { ucsFilter: "unassigned_classes desc", profsFilter: "total_hours asc" },
+      () => {
+        this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
+      }
+    );
+  };
 
   shortenUcName(name, desiredLength) {
     let abbreviation = "";
@@ -73,19 +77,23 @@ class Home extends React.Component {
   }
 
   ucsPanelsFetch(ucFilter, profFilter, load) {
-    fetch("http://localhost:8000/v1/classes_main_panel_info/?params=" + ucFilter)
+    fetch(
+      "http://localhost:8000/v1/classes_main_panel_info/?params=" + ucFilter
+    )
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucsList: data }, () => {
           this.loadUCsCells("");
-          if (load)
-            this.teachersPanelsFetch(profFilter);
+          if (load) this.teachersPanelsFetch(profFilter);
         });
       });
   }
 
   teachersPanelsFetch(profFilter) {
-    fetch("http://localhost:8000/v1/professors_main_panel_info/?params=" + profFilter)
+    fetch(
+      "http://localhost:8000/v1/professors_main_panel_info/?params=" +
+        profFilter
+    )
       .then((response) => response.json())
       .then((data) => {
         this.setState({ profsList: data }, () => {
@@ -217,11 +225,13 @@ class Home extends React.Component {
       if (!ucsIds.has(v.uc_acronym)) {
         ucsIds.set(v.uc_acronym, v.uc_id);
       }
-      
-      if (searchInput===""){
+
+      if (searchInput === "") {
         ucsArray.push(v);
-      }
-      else if ((v.uc_acronym.toUpperCase().startsWith(searchInput)) || (v.uc_name.toUpperCase().startsWith(searchInput))){
+      } else if (
+        v.uc_acronym.toUpperCase().startsWith(searchInput) ||
+        v.uc_name.toUpperCase().startsWith(searchInput)
+      ) {
         ucsArray.push(v);
       }
     });
@@ -274,7 +284,7 @@ class Home extends React.Component {
     window.profsPerUc = profsPerUc;
 
     this.setState({ ucsState: null }, () => {
-      this.setState({ucsState: cellRows});
+      this.setState({ ucsState: cellRows });
     });
 
     //return <div>{cellRows}</div>;
@@ -296,10 +306,12 @@ class Home extends React.Component {
         profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
       }
 
-      if (searchInput===""){
+      if (searchInput === "") {
         profsArray.push(v);
-      }
-      else if ((v.prof_acronym.toUpperCase().startsWith(searchInput)) || (v.prof_name.toUpperCase().startsWith(searchInput))){
+      } else if (
+        v.prof_acronym.toUpperCase().startsWith(searchInput) ||
+        v.prof_name.toUpperCase().startsWith(searchInput)
+      ) {
         profsArray.push(v);
       }
     });
@@ -311,7 +323,11 @@ class Home extends React.Component {
         cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes.push(
           <TeacherCell
-            class={v.total_hours > 8 ? "main-teacher-cell-warning" : "main-teacher-cell"}
+            class={
+              v.total_hours > 8
+                ? "main-teacher-cell-warning"
+                : "main-teacher-cell"
+            }
             f1={v.prof_acronym}
             f2={this.shortenTeacherName(v.prof_name)}
             f3={v.total_hours + "H"}
@@ -347,9 +363,9 @@ class Home extends React.Component {
     window.profsIdsAndNames = profsIdsAndNames;
 
     this.setState({ profsState: null }, () => {
-      this.setState({profsState: cellRows});
+      this.setState({ profsState: cellRows });
     });
-  }
+  };
 
   handleChildClick = (acronym, type) => {
     if (type == "teacher") {
@@ -400,17 +416,16 @@ class Home extends React.Component {
   };
 
   handleSelectChange = (value) => {
-    if (value.includes("uc") || value.includes("classes")){
-      this.setState({ucsList: null}, () => {
-        this.ucsPanelsFetch(value, this.state.profsFilter, false); 
+    if (value.includes("uc") || value.includes("classes")) {
+      this.setState({ ucsList: null }, () => {
+        this.ucsPanelsFetch(value, this.state.profsFilter, false);
       });
-    }
-    else{
-      this.setState({profsList: null}, () => {
+    } else {
+      this.setState({ profsList: null }, () => {
         this.teachersPanelsFetch(value);
       });
     }
-  }
+  };
 
   showHelpPanel = () => {
     if (this.state.helpPanel === false) {
@@ -418,7 +433,7 @@ class Home extends React.Component {
     } else {
       this.setState({ helpPanel: false });
     }
-  }
+  };
 
   render() {
     return (
@@ -435,11 +450,45 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <MainPanel searchOnChange={this.loadUCsCells} onSelectChange={this.handleSelectChange} filtersValues={["unassigned_classes desc", "Aulas não atribuídas por ordem decrescente", "unassigned_classes asc", "Aulas não atribuídas por ordem crescente", "uc_acronym desc", "Ordem alfabética decrescente", "uc_acronym asc", "Ordem alfabética crescente"]}>
-            {this.state.ucsState !== null ? <div>{this.state.ucsState}</div> : <h3>Fetching...</h3>}
+          <MainPanel
+            searchOnChange={this.loadUCsCells}
+            onSelectChange={this.handleSelectChange}
+            filtersValues={[
+              "unassigned_classes desc",
+              "Aulas não atribuídas por ordem decrescente",
+              "unassigned_classes asc",
+              "Aulas não atribuídas por ordem crescente",
+              "uc_acronym desc",
+              "Ordem alfabética decrescente",
+              "uc_acronym asc",
+              "Ordem alfabética crescente",
+            ]}
+          >
+            {this.state.ucsState !== null ? (
+              <div>{this.state.ucsState}</div>
+            ) : (
+              <h3>Fetching...</h3>
+            )}
           </MainPanel>
-          <MainPanel searchOnChange={this.loadProfsCells} onSelectChange={this.handleSelectChange} filtersValues={["total_hours asc", "Professores ordenados pelo número de aulas crescente", "total_hours desc", "Professores ordenados pelo número de aulas decrescente", "prof_acronym desc", "Ordem alfabética decrescente", "prof_acronym asc", "Ordem alfabética crescente"]}>
-          {this.state.profsState !== null ? <div>{this.state.profsState}</div> : <h3>Fetching...</h3>}
+          <MainPanel
+            searchOnChange={this.loadProfsCells}
+            onSelectChange={this.handleSelectChange}
+            filtersValues={[
+              "total_hours asc",
+              "Professores ordenados pelo número de aulas crescente",
+              "total_hours desc",
+              "Professores ordenados pelo número de aulas decrescente",
+              "prof_acronym desc",
+              "Ordem alfabética decrescente",
+              "prof_acronym asc",
+              "Ordem alfabética crescente",
+            ]}
+          >
+            {this.state.profsState !== null ? (
+              <div>{this.state.profsState}</div>
+            ) : (
+              <h3>Fetching...</h3>
+            )}
           </MainPanel>
           <SidePanel>
             {this.state.teacherInfo !== null &&
@@ -452,16 +501,35 @@ class Home extends React.Component {
             )}
           </SidePanel>
           <HelpButton onClick={this.showHelpPanel} />
-          {
-            this.state.helpPanel &&
-          <HelpPanel>
-            <HelpPanelItem class="p" text="Aula Prática" />
-            <HelpPanelItem class="t" text="Aula Teórica" />
-            <HelpPanelItem class="tp" text="Aula Teórico Prática" />
-            <HelpPanelItem class="lab" text="Aula Laboratorial" />
-            <HelpPanelItem class="outside-activity" text="Saída de Campo" />
-          </HelpPanel>
-          }
+          {this.state.helpPanel && (
+            <HelpPanel>
+              <HelpPanelItem class="p" text="Aula Prática" />
+              <HelpPanelItem class="t" text="Aula Teórica" />
+              <HelpPanelItem class="tp" text="Aula Teórico Prática" />
+              <HelpPanelItem class="lab" text="Aula Laboratorial" />
+              <HelpPanelItem
+                marginBottom="with-margin-bottom"
+                class="outside-activity"
+                text="Saída de Campo"
+              />
+              <HelpPanelImageItem
+                image="imgs/cell.png"
+                text="Célula"
+                optionalText="% - participação total do professor na turma"
+                optionalTextDesc= "H - duração da aula (em horas)"
+              />
+              <HelpPanelImageItem
+                imageClass="bigger"
+                image="imgs/uc-cell.png"
+                text="Célula Unidade Curricular"
+              />
+              <HelpPanelImageItem
+                imageClass="big"
+                image="imgs/teacher-cell.png"
+                text="Célula Professor"
+              />
+            </HelpPanel>
+          )}
         </div>
       </div>
     );

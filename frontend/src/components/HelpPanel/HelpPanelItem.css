@@ -36,3 +36,7 @@
 .outside-activity {
     background-color: #5f7eda;
 }
+
+.with-margin-bottom {
+    margin-bottom: 1.5rem;
+}
