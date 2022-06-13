@@ -12,6 +12,10 @@ function CourseContent(props) {
         return (<>{result}</>)
     }
 
+    const handleButtonClick = () => {
+       props.filter(props.wishlist);
+    }
+
     return (
         <>
             <div className='course-info'>
@@ -31,7 +35,7 @@ function CourseContent(props) {
 
             <div className='regent-info'>
                 <ul>
-                    <li>Director: {"Reg: " + props.director}</li>
+                    <li>Director: {props.director}</li>
                     <li>Sab. Reg: 2024</li>
                 </ul>
             </div>
@@ -39,7 +43,7 @@ function CourseContent(props) {
             <div className='course-wishlist'>
             <div className="course-wishlist-header">
                     <p>Wishlist</p>
-                    <Button class="filter-button" text="Filtrar" />
+                    <Button class="filter-button" text="Filtrar" onClick={() => handleButtonClick()} />
                 </div>
                 <ul>
                     {loadWishlist()}

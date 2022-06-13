@@ -73,7 +73,7 @@ class Home extends React.Component {
   }
 
   ucsPanelsFetch(ucFilter, profFilter, load) {
-    fetch("http://localhost:8000/v1/classes_main_panel_info/?params=" + ucFilter)
+    fetch(process.env.REACT_APP_API_URL + "/classes_main_panel_info/?params=" + ucFilter)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucsList: data }, () => {
@@ -85,7 +85,7 @@ class Home extends React.Component {
   }
 
   teachersPanelsFetch(profFilter) {
-    fetch("http://localhost:8000/v1/professors_main_panel_info/?params=" + profFilter)
+    fetch(process.env.REACT_APP_API_URL + "/professors_main_panel_info/?params=" + profFilter)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ profsList: data }, () => {
@@ -95,7 +95,7 @@ class Home extends React.Component {
   }
 
   fetchTeacher(acronym) {
-    fetch(`http://localhost:8000/v1/professors?acronym="${acronym}"`)
+    fetch(process.env.REACT_APP_API_URL + `/professors?acronym="${acronym}"`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ teacherInfo: data });
@@ -107,7 +107,7 @@ class Home extends React.Component {
           }
         });
 
-        fetch(`http://localhost:8000/v1/wishlists/?prof_id=${id}`)
+        fetch(process.env.REACT_APP_API_URL + `/wishlists/?prof_id=${id}`)
           .then((response) => response.json())
           .then((data) => {
             this.setState({ profWishlist: data });
@@ -116,7 +116,7 @@ class Home extends React.Component {
   }
 
   fetchUc(acronym) {
-    fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
+    fetch(process.env.REACT_APP_API_URL + `/ucs?acronym="${acronym}"`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucInfo: data });
@@ -127,7 +127,7 @@ class Home extends React.Component {
           id = v.uc_id;
         });
 
-        fetch(`http://localhost:8000/v1/wishlists/?class_id=${id}`)
+        fetch(process.env.REACT_APP_API_URL + `/wishlists/?class_id=${id}`)
           .then((response) => response.json())
           .then((data) => {
             this.setState({ UCWishlist: data });
@@ -142,9 +142,8 @@ class Home extends React.Component {
 
     Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
       const [k, v] = entry;
-
       if (this.state.profCellClicked == v.acronym) {
-        result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />);
+        result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name}/>);
         Array.from(this.state.profWishlist.wishlists.entries()).map((entry) => {
           const [k, v] = entry;
           window.ucsIds.forEach((val, key) => {
@@ -158,6 +157,8 @@ class Home extends React.Component {
           <TeacherContent
             email={v.email}
             phone={v.phone}
+            rank={v.prof_rank} 
+            situation={v.situation}
             wishLikes={wishLikes}
             wishDislikes={wishDislikes}
           />
@@ -171,6 +172,7 @@ class Home extends React.Component {
   displayUcInSidePanel() {
     let result = [];
     let wishlist = [];
+    var direct = "";
 
     Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
       const [k, v] = entry;
@@ -186,11 +188,17 @@ class Home extends React.Component {
             });
           }
         });
+        window.profsIds.forEach((val, key) => {
+          if (val == v.director) {
+            direct = key;
+          }
+        });
         result.push(
           <CourseContent
             studentsEstimate={v.students_estimate}
-            director={v.director}
+            director={direct}
             wishlist={wishlist}
+            filter={this.loadProfsCells}
           />
         );
       }
@@ -299,6 +307,9 @@ class Home extends React.Component {
       if (searchInput===""){
         profsArray.push(v);
       }
+      else if(searchInput.includes(v.prof_acronym)){
+        profsArray.push(v);
+      }
       else if ((v.prof_acronym.toUpperCase().startsWith(searchInput)) || (v.prof_name.toUpperCase().startsWith(searchInput))){
         profsArray.push(v);
       }
@@ -373,7 +384,7 @@ class Home extends React.Component {
 
       const info = { class_id: class_id, prof_id: prof_id1 };
       fetch(
-        "http://localhost:8000/v1/classes/?class_id=" +
+        process.env.REACT_APP_API_URL + "/classes/?class_id=" +
           class_id +
           "&prof_id=" +
           prof_id1,
@@ -394,7 +405,7 @@ class Home extends React.Component {
   handleReload = () => {
     this.setState({ ucsList: null });
     this.setState({ profsList: null });
-    this.mainPanelsFetch();
+    this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
     //this.sleep(1000);
     //this.loadUCsCells();
   };
@@ -402,12 +413,16 @@ class Home extends React.Component {
   handleSelectChange = (value) => {
     if (value.includes("uc") || value.includes("classes")){
       this.setState({ucsList: null}, () => {
-        this.ucsPanelsFetch(value, this.state.profsFilter, false); 
+        this.setState({ucsFilter: value}, () => {
+          this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, false); 
+        });
       });
     }
     else{
       this.setState({profsList: null}, () => {
-        this.teachersPanelsFetch(value);
+        this.setState({profsFilter: value}, () => {
+          this.teachersPanelsFetch(this.state.profsFilter);
+        });
       });
     }
   }
