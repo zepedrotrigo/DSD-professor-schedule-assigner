@@ -8,10 +8,14 @@ const ExportContent = (props) => {
     }
 
     return (
-        <div className='export-content'>
-            <Button class="edit-button" text="JSON" value="json" onClick={handleCLick} />
-            <Button class="edit-button" text="CSV" value="csv" onClick={handleCLick} />
-            <Button class="edit-button" text="XLS" value="xls" onClick={handleCLick} />
+        <div className='export'>
+            <h2 className='export-title'>Exportar DSD</h2>
+            <hr className='export-break'></hr>
+            <div className='export-content'>
+                <Button class="edit-button" text="JSON" value="json" onClick={handleCLick} />
+                <Button class="edit-button" text="CSV" value="csv" onClick={handleCLick} />
+                <Button class="edit-button" text="XLS" value="xls" onClick={handleCLick} />
+            </div>
         </div>
     );
 }

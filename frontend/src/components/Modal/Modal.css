@@ -5,7 +5,8 @@
     padding: 1rem;
     margin: 1rem 35%;
     border-radius: 12px;
-    z-index: 3;
+    z-index: 32;
+    animation: fromTop 0.25s;
 }
 
 .backdrop {
@@ -16,4 +17,15 @@
     height: 100vh;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.6);
+    z-index: 31;
+}
+
+
+@keyframes fromTop{
+    from {
+        top: 0;
+    }
+    top {
+        top: 1rem;
+    }
 }

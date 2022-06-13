@@ -467,16 +467,35 @@ class Home extends React.Component {
             )}
           </SidePanel>
           <HelpButton onClick={this.showHelpPanel} />
-          {
-            this.state.helpPanel &&
-          <HelpPanel>
-            <HelpPanelItem class="p" text="Aula Prática" />
-            <HelpPanelItem class="t" text="Aula Teórica" />
-            <HelpPanelItem class="tp" text="Aula Teórico Prática" />
-            <HelpPanelItem class="lab" text="Aula Laboratorial" />
-            <HelpPanelItem class="outside-activity" text="Saída de Campo" />
-          </HelpPanel>
-          }
+          {this.state.helpPanel && (
+            <HelpPanel>
+              <HelpPanelItem class="p" text="Aula Prática" />
+              <HelpPanelItem class="t" text="Aula Teórica" />
+              <HelpPanelItem class="tp" text="Aula Teórico Prática" />
+              <HelpPanelItem class="lab" text="Aula Laboratorial" />
+              <HelpPanelItem
+                marginBottom="with-margin-bottom"
+                class="outside-activity"
+                text="Saída de Campo"
+              />
+              <HelpPanelImageItem
+                image="imgs/cell.png"
+                text="Célula"
+                optionalText="% - participação total do professor na turma"
+                optionalTextDesc= "H - duração da aula (em horas)"
+              />
+              <HelpPanelImageItem
+                imageClass="bigger"
+                image="imgs/uc-cell.png"
+                text="Célula Unidade Curricular"
+              />
+              <HelpPanelImageItem
+                imageClass="big"
+                image="imgs/teacher-cell.png"
+                text="Célula Professor"
+              />
+            </HelpPanel>
+          )}
         </div>
       </div>
     );
