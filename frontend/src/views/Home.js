@@ -15,7 +15,6 @@ import "./Home.css";
 import HelpButton from "../components/HelpButton/HelpButton";
 import HelpPanel from "../components/HelpPanel/HelpPanel";
 import HelpPanelItem from "../components/HelpPanel/HelpPanelItem";
-import HelpPanelImageItem from "../components/HelpPanel/HelpPanelImageItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -31,11 +30,11 @@ class Home extends React.Component {
       UCPanelState: null,
       UCWishlist: null,
       profWishlist: null,
-      ucsState: null,
+      ucsState:null,
       profsState: null,
       ucsFilter: null,
       profsFilter: null,
-      helpPanel: false,
+      helpPanel: false
     };
   }
 
@@ -44,13 +43,10 @@ class Home extends React.Component {
   };
 
   componentDidMount = () => {
-    this.setState(
-      { ucsFilter: "unassigned_classes desc", profsFilter: "total_hours asc" },
-      () => {
-        this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
-      }
-    );
-  };
+    this.setState({ucsFilter: "unassigned_classes desc", profsFilter: "total_hours asc"}, () => {
+      this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
+    })
+  }
 
   shortenUcName(name, desiredLength) {
     let abbreviation = "";
@@ -77,23 +73,19 @@ class Home extends React.Component {
   }
 
   ucsPanelsFetch(ucFilter, profFilter, load) {
-    fetch(
-      "http://localhost:8000/v1/classes_main_panel_info/?params=" + ucFilter
-    )
+    fetch(process.env.REACT_APP_API_URL + "/classes_main_panel_info/?params=" + ucFilter)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucsList: data }, () => {
           this.loadUCsCells("");
-          if (load) this.teachersPanelsFetch(profFilter);
+          if (load)
+            this.teachersPanelsFetch(profFilter);
         });
       });
   }
 
   teachersPanelsFetch(profFilter) {
-    fetch(
-      "http://localhost:8000/v1/professors_main_panel_info/?params=" +
-        profFilter
-    )
+    fetch(process.env.REACT_APP_API_URL + "/professors_main_panel_info/?params=" + profFilter)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ profsList: data }, () => {
@@ -103,7 +95,7 @@ class Home extends React.Component {
   }
 
   fetchTeacher(acronym) {
-    fetch(`http://localhost:8000/v1/professors?acronym="${acronym}"`)
+    fetch(process.env.REACT_APP_API_URL + `/professors?acronym="${acronym}"`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ teacherInfo: data });
@@ -115,7 +107,7 @@ class Home extends React.Component {
           }
         });
 
-        fetch(`http://localhost:8000/v1/wishlists/?prof_id=${id}`)
+        fetch(process.env.REACT_APP_API_URL + `/wishlists/?prof_id=${id}`)
           .then((response) => response.json())
           .then((data) => {
             this.setState({ profWishlist: data });
@@ -124,7 +116,7 @@ class Home extends React.Component {
   }
 
   fetchUc(acronym) {
-    fetch(`http://localhost:8000/v1/ucs?acronym="${acronym}"`)
+    fetch(process.env.REACT_APP_API_URL + `/ucs?acronym="${acronym}"`)
       .then((response) => response.json())
       .then((data) => {
         this.setState({ ucInfo: data });
@@ -135,7 +127,7 @@ class Home extends React.Component {
           id = v.uc_id;
         });
 
-        fetch(`http://localhost:8000/v1/wishlists/?class_id=${id}`)
+        fetch(process.env.REACT_APP_API_URL + `/wishlists/?class_id=${id}`)
           .then((response) => response.json())
           .then((data) => {
             this.setState({ UCWishlist: data });
@@ -150,9 +142,8 @@ class Home extends React.Component {
 
     Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
       const [k, v] = entry;
-
       if (this.state.profCellClicked == v.acronym) {
-        result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name} />);
+        result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name}/>);
         Array.from(this.state.profWishlist.wishlists.entries()).map((entry) => {
           const [k, v] = entry;
           window.ucsIds.forEach((val, key) => {
@@ -166,6 +157,8 @@ class Home extends React.Component {
           <TeacherContent
             email={v.email}
             phone={v.phone}
+            rank={v.prof_rank} 
+            situation={v.situation}
             wishLikes={wishLikes}
             wishDislikes={wishDislikes}
           />
@@ -179,6 +172,7 @@ class Home extends React.Component {
   displayUcInSidePanel() {
     let result = [];
     let wishlist = [];
+    var direct = "";
 
     Array.from(this.state.ucInfo.ucs.entries()).map((entry) => {
       const [k, v] = entry;
@@ -194,11 +188,17 @@ class Home extends React.Component {
             });
           }
         });
+        window.profsIds.forEach((val, key) => {
+          if (val == v.director) {
+            direct = key;
+          }
+        });
         result.push(
           <CourseContent
             studentsEstimate={v.students_estimate}
-            director={v.director}
+            director={direct}
             wishlist={wishlist}
+            filter={this.loadProfsCells}
           />
         );
       }
@@ -225,13 +225,11 @@ class Home extends React.Component {
       if (!ucsIds.has(v.uc_acronym)) {
         ucsIds.set(v.uc_acronym, v.uc_id);
       }
-
-      if (searchInput === "") {
+      
+      if (searchInput===""){
         ucsArray.push(v);
-      } else if (
-        v.uc_acronym.toUpperCase().startsWith(searchInput) ||
-        v.uc_name.toUpperCase().startsWith(searchInput)
-      ) {
+      }
+      else if ((v.uc_acronym.toUpperCase().startsWith(searchInput)) || (v.uc_name.toUpperCase().startsWith(searchInput))){
         ucsArray.push(v);
       }
     });
@@ -284,7 +282,7 @@ class Home extends React.Component {
     window.profsPerUc = profsPerUc;
 
     this.setState({ ucsState: null }, () => {
-      this.setState({ ucsState: cellRows });
+      this.setState({ucsState: cellRows});
     });
 
     //return <div>{cellRows}</div>;
@@ -306,12 +304,13 @@ class Home extends React.Component {
         profsIdsAndNames.set(v.prof_acronym, [v.prof_id, v.prof_name]);
       }
 
-      if (searchInput === "") {
+      if (searchInput===""){
         profsArray.push(v);
-      } else if (
-        v.prof_acronym.toUpperCase().startsWith(searchInput) ||
-        v.prof_name.toUpperCase().startsWith(searchInput)
-      ) {
+      }
+      else if(searchInput.includes(v.prof_acronym)){
+        profsArray.push(v);
+      }
+      else if ((v.prof_acronym.toUpperCase().startsWith(searchInput)) || (v.prof_name.toUpperCase().startsWith(searchInput))){
         profsArray.push(v);
       }
     });
@@ -323,11 +322,7 @@ class Home extends React.Component {
         cellRows.push(<div className="align-cell">{classes}</div>); // if new uc, put all classes inside div and clear classes array
         classes.push(
           <TeacherCell
-            class={
-              v.total_hours > 8
-                ? "main-teacher-cell-warning"
-                : "main-teacher-cell"
-            }
+            class={v.total_hours > 8 ? "main-teacher-cell-warning" : "main-teacher-cell"}
             f1={v.prof_acronym}
             f2={this.shortenTeacherName(v.prof_name)}
             f3={v.total_hours + "H"}
@@ -363,9 +358,9 @@ class Home extends React.Component {
     window.profsIdsAndNames = profsIdsAndNames;
 
     this.setState({ profsState: null }, () => {
-      this.setState({ profsState: cellRows });
+      this.setState({profsState: cellRows});
     });
-  };
+  }
 
   handleChildClick = (acronym, type) => {
     if (type == "teacher") {
@@ -389,7 +384,7 @@ class Home extends React.Component {
 
       const info = { class_id: class_id, prof_id: prof_id1 };
       fetch(
-        "http://localhost:8000/v1/classes/?class_id=" +
+        process.env.REACT_APP_API_URL + "/classes/?class_id=" +
           class_id +
           "&prof_id=" +
           prof_id1,
@@ -410,22 +405,27 @@ class Home extends React.Component {
   handleReload = () => {
     this.setState({ ucsList: null });
     this.setState({ profsList: null });
-    this.mainPanelsFetch();
+    this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, true);
     //this.sleep(1000);
     //this.loadUCsCells();
   };
 
   handleSelectChange = (value) => {
-    if (value.includes("uc") || value.includes("classes")) {
-      this.setState({ ucsList: null }, () => {
-        this.ucsPanelsFetch(value, this.state.profsFilter, false);
-      });
-    } else {
-      this.setState({ profsList: null }, () => {
-        this.teachersPanelsFetch(value);
+    if (value.includes("uc") || value.includes("classes")){
+      this.setState({ucsList: null}, () => {
+        this.setState({ucsFilter: value}, () => {
+          this.ucsPanelsFetch(this.state.ucsFilter, this.state.profsFilter, false); 
+        });
       });
     }
-  };
+    else{
+      this.setState({profsList: null}, () => {
+        this.setState({profsFilter: value}, () => {
+          this.teachersPanelsFetch(this.state.profsFilter);
+        });
+      });
+    }
+  }
 
   showHelpPanel = () => {
     if (this.state.helpPanel === false) {
@@ -433,7 +433,7 @@ class Home extends React.Component {
     } else {
       this.setState({ helpPanel: false });
     }
-  };
+  }
 
   render() {
     return (
@@ -450,45 +450,11 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <MainPanel
-            searchOnChange={this.loadUCsCells}
-            onSelectChange={this.handleSelectChange}
-            filtersValues={[
-              "unassigned_classes desc",
-              "Aulas não atribuídas por ordem decrescente",
-              "unassigned_classes asc",
-              "Aulas não atribuídas por ordem crescente",
-              "uc_acronym desc",
-              "Ordem alfabética decrescente",
-              "uc_acronym asc",
-              "Ordem alfabética crescente",
-            ]}
-          >
-            {this.state.ucsState !== null ? (
-              <div>{this.state.ucsState}</div>
-            ) : (
-              <h3>Fetching...</h3>
-            )}
+          <MainPanel searchOnChange={this.loadUCsCells} onSelectChange={this.handleSelectChange} filtersValues={["unassigned_classes desc", "Aulas não atribuídas por ordem decrescente", "unassigned_classes asc", "Aulas não atribuídas por ordem crescente", "uc_acronym desc", "Ordem alfabética decrescente", "uc_acronym asc", "Ordem alfabética crescente"]}>
+            {this.state.ucsState !== null ? <div>{this.state.ucsState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
-          <MainPanel
-            searchOnChange={this.loadProfsCells}
-            onSelectChange={this.handleSelectChange}
-            filtersValues={[
-              "total_hours asc",
-              "Professores ordenados pelo número de aulas crescente",
-              "total_hours desc",
-              "Professores ordenados pelo número de aulas decrescente",
-              "prof_acronym desc",
-              "Ordem alfabética decrescente",
-              "prof_acronym asc",
-              "Ordem alfabética crescente",
-            ]}
-          >
-            {this.state.profsState !== null ? (
-              <div>{this.state.profsState}</div>
-            ) : (
-              <h3>Fetching...</h3>
-            )}
+          <MainPanel searchOnChange={this.loadProfsCells} onSelectChange={this.handleSelectChange} filtersValues={["total_hours asc", "Professores ordenados pelo número de aulas crescente", "total_hours desc", "Professores ordenados pelo número de aulas decrescente", "prof_acronym desc", "Ordem alfabética decrescente", "prof_acronym asc", "Ordem alfabética crescente"]}>
+          {this.state.profsState !== null ? <div>{this.state.profsState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
           <SidePanel>
             {this.state.teacherInfo !== null &&

@@ -26,8 +26,8 @@ function TeacherContent(props) {
                 <ul>
                     <li className='teacher-email'>{props.email}</li>
                     <li className='teacher-phone'>{props.phone}</li>
-                    <li className='teacher-rank'>Prof. Associado</li>
-                    <li className='teacher-situation'>Ativo</li>
+                    <li className='teacher-rank'>Prof. {props.rank}</li>
+                    <li className='teacher-situation'>{props.situation}</li>
                     <li className='teacher-sab'>Sab. 2026</li>
                 </ul>
             </div>  
