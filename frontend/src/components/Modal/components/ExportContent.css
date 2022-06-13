@@ -1,6 +1,15 @@
 .export-content {
     width: 80%;
-    margin: 0 10%;
+    margin: 0 10% 1rem 10%;
     display: flex;
     justify-content: space-around;
+}
+
+.export-break {
+    color: #ccc;
+    opacity: 0.3;
+}
+
+.export-desc {
+    margin: 1rem 0 2rem 0;
 }
