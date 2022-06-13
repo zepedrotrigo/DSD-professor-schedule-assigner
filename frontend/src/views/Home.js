@@ -73,7 +73,6 @@ class Home extends React.Component {
   }
 
   ucsPanelsFetch(ucFilter, profFilter, load) {
-    console.log(process.env.REACT_APP_API_URL);
     fetch(process.env.REACT_APP_API_URL + "/classes_main_panel_info/?params=" + ucFilter)
       .then((response) => response.json())
       .then((data) => {
@@ -143,7 +142,6 @@ class Home extends React.Component {
 
     Array.from(this.state.teacherInfo.professors.entries()).map((entry) => {
       const [k, v] = entry;
-      console.log(v);
       if (this.state.profCellClicked == v.acronym) {
         result.push(<TeacherHeader acronym={v.acronym} name={v.prof_name}/>);
         Array.from(this.state.profWishlist.wishlists.entries()).map((entry) => {
@@ -190,7 +188,6 @@ class Home extends React.Component {
             });
           }
         });
-        console.log(v);
         window.profsIds.forEach((val, key) => {
           if (val == v.director) {
             direct = key;
