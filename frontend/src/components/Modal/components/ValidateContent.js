@@ -13,7 +13,7 @@ const ValidateContent = (props) => {
             const [k, v] = entry
             console.log(v);
             if (isNaN(v.total_hours)){
-                result.push(<li>Aula não atribuída: {v.prof_acronym} - {v.total_hours}</li>)
+                result.push(<li>Turma não atribuída: {v.prof_acronym} - {v.total_hours}</li>)
             }
             else if(v.total_hours==null){
                 result.push(<li>Professor a não ser utilizado: {v.prof_acronym} - {v.total_hours} hours</li>);

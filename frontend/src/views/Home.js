@@ -15,6 +15,7 @@ import "./Home.css";
 import HelpButton from "../components/HelpButton/HelpButton";
 import HelpPanel from "../components/HelpPanel/HelpPanel";
 import HelpPanelItem from "../components/HelpPanel/HelpPanelItem";
+import HelpPanelImageItem from "../components/HelpPanel/HelpPanelImageItem";
 
 class Home extends React.Component {
   constructor(props) {
@@ -450,10 +451,10 @@ class Home extends React.Component {
               </p>
             )}
           </SidePanel>
-          <MainPanel searchOnChange={this.loadUCsCells} onSelectChange={this.handleSelectChange} filtersValues={["unassigned_classes desc", "Aulas não atribuídas por ordem decrescente", "unassigned_classes asc", "Aulas não atribuídas por ordem crescente", "uc_acronym desc", "Ordem alfabética decrescente", "uc_acronym asc", "Ordem alfabética crescente"]}>
+          <MainPanel searchOnChange={this.loadUCsCells} onSelectChange={this.handleSelectChange} filtersValues={["unassigned_classes desc", "Turmas não atribuídas por ordem decrescente", "unassigned_classes asc", "Turmas não atribuídas por ordem crescente", "uc_acronym desc", "Ordem alfabética decrescente", "uc_acronym asc", "Ordem alfabética crescente"]}>
             {this.state.ucsState !== null ? <div>{this.state.ucsState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
-          <MainPanel searchOnChange={this.loadProfsCells} onSelectChange={this.handleSelectChange} filtersValues={["total_hours asc", "Professores ordenados pelo número de aulas crescente", "total_hours desc", "Professores ordenados pelo número de aulas decrescente", "prof_acronym desc", "Ordem alfabética decrescente", "prof_acronym asc", "Ordem alfabética crescente"]}>
+          <MainPanel searchOnChange={this.loadProfsCells} onSelectChange={this.handleSelectChange} filtersValues={["total_hours asc", "Professores ordenados pelo número de turmas crescente", "total_hours desc", "Professores ordenados pelo número de turmas decrescente", "prof_acronym desc", "Ordem alfabética decrescente", "prof_acronym asc", "Ordem alfabética crescente"]}>
           {this.state.profsState !== null ? <div>{this.state.profsState}</div> : <h3>Fetching...</h3>}
           </MainPanel>
           <SidePanel>

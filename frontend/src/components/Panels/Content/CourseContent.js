@@ -52,7 +52,7 @@ function CourseContent(props) {
 
             <div className='course-history'>
             <div className="course-history-header">
-                    <p>Wishlist</p>
+                    <p>History</p>
                     <Button class="filter-button" text="Filtrar" />
                 </div>
                 <ul>
