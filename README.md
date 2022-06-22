@@ -28,7 +28,9 @@ Sometimes docker entrypoint doesn't import all .sql files so the sql-db folder m
 ### `Changes needed for deployment`
 ```
 cd work_schedule_assigner/project/frontend/
-nano .env # substitute 'http//:localhost:8080/v1' with the ip:port where your API is running
+
+# substitute 'http//:localhost:8080/v1' with the ip:port where your API is running
+nano .env
 ```
 ```
 cd work_schedule_assigner/project/frontend/
@@ -37,10 +39,8 @@ nano docker-compose.yml
 # Change these lines in the react service container like so:
 services:
   react:
-    (...) # comment the two lines below
-    #volumes:
-    #  - '../frontend:/frontend'
+    (...)
     ports:
-      - 80:3000 # change 3000:3000 to 80:3000
+      - 3000:3000 # change to 80:3000
     (...)
 ```
