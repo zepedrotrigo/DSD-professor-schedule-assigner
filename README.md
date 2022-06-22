@@ -14,7 +14,7 @@ http://51.124.231.220:8080/docs
 ### `How to run`
 
 ```
-cd work_schedule_assigner/project/backend/
+cd DSD_professor_schedule_assigner/project/backend/
 sudo docker-compose up
 
 Notes: 
@@ -29,13 +29,13 @@ Sometimes docker entrypoint doesn't import all .sql files so the sql-db folder m
 
 ### `Changes needed for deployment`
 ```
-cd work_schedule_assigner/project/frontend/
+cd DSD_professor_schedule_assigner/project/frontend/
 
 # substitute 'http//:localhost:8080/v1' with the ip:port where your API is running
 nano .env
 ```
 ```
-cd work_schedule_assigner/project/frontend/
+cd DSD_professor_schedule_assigner/project/backend/
 nano docker-compose.yml
 
 # Change these lines in the react service container like so:
