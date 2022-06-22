@@ -8,7 +8,7 @@ services:
     volumes:
       - '../frontend:/frontend'
     ports:
-      - 80:3000
+      - 3000:3000
     networks:
       my-net:
         ipv4_address: 172.18.0.2
@@ -39,6 +39,8 @@ services:
       - 8080:8080
     depends_on:
       - db
+    ports:
+      - 8000:8080
     networks:
       my-net:
         ipv4_address: 172.18.0.5
@@ -50,7 +52,7 @@ services:
     depends_on:
         - db
     ports:
-      - 8000:8000
+      - 8080:8080
     networks:
       my-net:
         ipv4_address: 172.18.0.3
