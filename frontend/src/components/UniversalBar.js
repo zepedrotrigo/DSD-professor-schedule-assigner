@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faTwitter,
     faInstagram,
-  } from "@fortawesome/free-brands-svg-icons";
+} from "@fortawesome/free-brands-svg-icons";
+import jwt_decode from "jwt-decode";
 
   function wso2Login() {
     // WSO2 APPLICATION, CALLs AND ENDPOINT DETAILS
@@ -16,7 +17,7 @@ import {
     // Base64 encoded string: <Consumer Key>:<Consumer Secret>
     const authorizationBase64Credentials = "YWdoNDRSYWpNSmNZdkNJcTNsU01ydXRmUEowYTpUR2piaVp2eXlRa0ZsaER3dEJ5WGx5TUExam9h";
 
-    location = `${authorizeEndpoint}?response_type=code&state=1234567890&scope=openid&client_id=${consumerKey}&redirect_uri=${redirectURI}`
+    var location = `${authorizeEndpoint}?response_type=code&state=1234567890&scope=openid&client_id=${consumerKey}&redirect_uri=${redirectURI}`
 
     // should wait for response
 
