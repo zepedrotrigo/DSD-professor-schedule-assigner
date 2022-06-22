@@ -1,5 +1,7 @@
 import json, csv, datetime
 
+### Aux functions ###
+
 def write_dict_to_file(dic, filetype):
     fpath = f"./export/dsd_{datetime.datetime.now().strftime('%d_%m_%Y_%hh_%mm_%ss')}.{filetype}"
     
@@ -13,6 +15,8 @@ def write_dict_to_file(dic, filetype):
             writer.writerows(dic["data"])
     
     return fpath
+
+### Controller called functions ###
 
 def get_classes(cursor, id, year, uc_id, component, hours, prof_id):
     '''Returns all classes (allows combined filters: id, year, uc_id, component, hours, prof_id)'''
@@ -76,6 +80,60 @@ def get_wishlists(cursor, id, year, prof_id, class_id):
     keys = [i[0] for i in cursor.description]
 
     return {"wishlists": [dict(zip(keys, vals)) for vals in result]}
+
+### --- ###
+
+def create_department(db, cursor, dept):
+    cursor.execute(f"INSERT INTO dsd.departments(dept_id, acronym, dept_name, dept_address, phone)\
+        VALUES({dept.dept_id}, '{dept.acronym}', '{dept.dept_name}', '{dept.dept_address}', '{dept.phone}');")
+    db.commit()
+
+    return dept
+
+
+def create_classe(db, cursor, classe):
+    cursor.execute(f"INSERT INTO dsd.classes(prof_id, availability_percent, year_int, uc_num, component, class_hours)\
+        VALUES({classe.prof_id}, {classe.availability_percent}, {classe.year}, {classe.uc_num}, '{classe.component}', {classe.class_hours});")
+    db.commit()
+
+    return classe
+
+def create_professor(db, cursor, prof):
+    cursor.execute(f"INSERT INTO dsd.professors(nmec, email, phone, acronym, prof_name, prof_rank, situation, department_num)\
+        VALUES({prof.nmec}, '{prof.email}', '{prof.phone}', '{prof.acronym}', '{prof.prof_name}', '{prof.prof_rank}', '{prof.situation}', {prof.department_num});")
+    db.commit()
+
+    return prof
+
+def create_dsder(db, cursor, dsder):
+    cursor.execute(f"INSERT INTO dsd.dsders(dsder_id)\
+        VALUES({dsder.prof_id});")
+    db.commit()
+
+    return dsder
+
+def create_course(db, cursor, course):
+    cursor.execute(f"INSERT INTO dsd.courses(course_id, acronym, course_name, department, director)\
+        VALUES({course.course_id}, '{course.acronym}', '{course.course_name}', {course.department_id}, {course.director_id});")
+    db.commit()
+
+    return course
+
+def create_uc(db, cursor, uc):
+    cursor.execute(f"INSERT INTO dsd.ucs(uc_id, acronym, uc_name, students_estimate, director)\
+        VALUES({uc.uc_id}, '{uc.acronym}', '{uc.uc_name}', {uc.students_estimate}, {uc.director});")
+    db.commit()
+
+    return uc
+
+def create_wishlist(db, cursor, wishlist):
+    cursor.execute(f"INSERT INTO dsd.wishlists(year_int, professor, preference, uc_id)\
+        VALUES({wishlist.year}, {wishlist.prof_id}, '{wishlist.preference}', {wishlist.uc_id});")
+    db.commit()
+
+    return wishlist
+
+### --- ###
 
 def classes_main_panel_info(cursor, params):
     '''Returns data used in UCs main panel'''
