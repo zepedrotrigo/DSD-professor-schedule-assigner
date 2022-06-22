@@ -5,6 +5,7 @@ This process is a very complex task and there is no standardized way to perform 
 We aim to offer a better way to solve this complex task by building a practical and powerful platform that lets DSDers assign Professors to classes whilst being able to easily view all necessary information required to elaborate the work distribution.
 
 http://pi-dsd.westeurope.cloudapp.azure.com/
+http://51.124.231.220:8080/docs
 
 ![Image](/deliveries/dsd.png)
 
