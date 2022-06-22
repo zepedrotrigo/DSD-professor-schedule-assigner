@@ -28,7 +28,7 @@ while not connected:
     except mysql.connector.Error as e:
         print(e)
         traceback.print_exc()
-        time.sleep(30) # wait 30sec to try again
+        time.sleep(10) # wait 30sec to try again
     else:
         connected = True
 
