@@ -4,7 +4,7 @@ The DSD is a platform that provides DSDers with a better way to plan and execute
 This process is a very complex task and there is no standardized way to perform it, with many departments relying on excel spreadsheets to perform the job at hand.<br>
 We aim to offer a better way to solve this complex task by building a practical and powerful platform that lets DSDers assign Professors to classes whilst being able to easily view all necessary information required to elaborate the work distribution.
 
-http://pi-dsd.westeurope.cloudapp.azure.com/
+http://pi-dsd.westeurope.cloudapp.azure.com/<br>
 http://51.124.231.220:8080/docs
 
 ![Image](/deliveries/dsd.png)
