@@ -21,6 +21,7 @@ website is hosted at http://localhost:3000
 api is hosted at http://localhost:8080
 
 Platform deployed at: http://pi-dsd.westeurope.cloudapp.azure.com/
+API documentation: http://51.124.231.220:8080/docs
 
 Sometimes docker entrypoint doesn't import all .sql files so the sql-db folder must be deleted and re-imported
 ```
