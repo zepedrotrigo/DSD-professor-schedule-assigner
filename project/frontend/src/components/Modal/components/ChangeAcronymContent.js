@@ -9,7 +9,7 @@ const ChangeAcronymContent = (props) => {
 
     function submitAcronym(){
         let prof_acronym = document.getElementById("new-acronym").value;
-        fetch('http://localhost:8000/v1/professors/?prof_id='+ props.id +'&acronym="'+ prof_acronym +'"', {
+        fetch(process.env.REACT_APP_API_URL + '/professors/?prof_id='+ props.id +'&acronym="'+ prof_acronym +'"', {
             method: 'PUT',
         })
             .then(response => response.json())

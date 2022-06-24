@@ -51,7 +51,7 @@ function Navbar(props) {
 
   function validateDSD() {
     var max_hours = 8;
-    fetch(`http://localhost:8000/v1/validate_dsd/?max_hours=${max_hours}`)
+    fetch(process.env.REACT_APP_API_URL + `/validate_dsd/?max_hours=${max_hours}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -61,7 +61,7 @@ function Navbar(props) {
   }
 
   function exportDSD(type){
-    window.location.href = "http://localhost:8000/v1/export_dsd/?file_type=" + type;
+    window.location.href = process.env.REACT_APP_API_URL + "/export_dsd/?file_type=" + type;
     setShowExportModal(!showExportModal);
   }
 

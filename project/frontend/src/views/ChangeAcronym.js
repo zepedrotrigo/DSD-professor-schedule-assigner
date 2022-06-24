@@ -64,7 +64,7 @@ function ChangeAcronym(props) {
   function loadProfs() {
     let result = [];
     let profMap = new Map();
-    fetch(`http://localhost:8000/v1/professors`)
+    fetch(process.env.REACT_APP_API_URL + `/professors`)
       .then((response) => response.json())
       .then((data) => {
         Array.from(data.professors.entries()).map((entry) => {
